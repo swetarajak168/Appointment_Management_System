@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->sting('Level');
-            $table->sting('Institution');
-            $table->int(' Completion Date');
+            $table->string('Level');
+            $table->string('Institution');
+            $table->integer(' Completion Date');
             $table->string('Board');
-            $table->sting('Marks');
+            $table->string('Marks');
+            $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
             ->references('id')->on('doctors')->onDelete('cascade');
             $table->timestamps();

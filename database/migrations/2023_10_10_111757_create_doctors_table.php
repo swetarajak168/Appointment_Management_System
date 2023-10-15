@@ -19,15 +19,16 @@ return new class extends Migration
             $table->string('Last Name');            
             $table->bigInteger('Contact');
             $table->string('Province');
-            $table->string('Province');
+            $table->string('District');
             $table->string('Municipality');
-            $table->int('Ward');
+            $table->integer('Ward');
             $table->string('tole');
             $table->string('Department');
             $table->enum('gender',['male','female']);
             $table->string('specialization');
             $table->binary('photo')->nullable();
             $table->date('Date Of Birth');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
               ->references('id')->on('users')->onDelete('cascade');
         });

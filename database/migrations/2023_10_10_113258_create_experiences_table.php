@@ -19,6 +19,7 @@ return new class extends Migration
             $table->year('Start Date');
             $table->year('End Date');
             $table->string('Job Description');
+            $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
               ->references('id')->on('doctors')->onDelete('cascade');
         });

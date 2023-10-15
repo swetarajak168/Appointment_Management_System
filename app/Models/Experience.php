@@ -13,6 +13,7 @@ class Experience extends Model
         'Position',
         'Start Date',
         'End Date',
-        'Job Description'
+        'Job Description',
+        'doctor_id'
     ];
 }
