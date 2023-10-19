@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 class UserController extends Controller
@@ -10,7 +12,7 @@ class UserController extends Controller
     use ValidatesRequests;
     public function index()
     {
-        $users = User::get();
+        $users = User::latest()->get();
        
         return view('users.index')->with('users', $users);
     }
@@ -18,51 +20,45 @@ class UserController extends Controller
     {
         return view('users.create');
     }
-    public function store(Request $request)
-    {
-        //dd($request->all());
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-            'role'=> 'required',
-            'status'=>'required',
-         ]);
-        //$request->validate($rules);
+    public function store(UserRequest $request)
+    {    
+        $validated = $request->validated();
         User::create($validated);
         
-        return redirect('/dashboard/user')->withSuccess( 'User was successfully updated.');
+        return redirect()->route('user.index')->withSuccess( 'User was successfully added.');
+    }
+    public function show($id){
+        $user = User::findOrFail($id);
+        return view('users.show',['user'=>$user]);
     }
 
     public function edit($id)
-    {
-        $user = User::find($id);
+    {     
+        $user = User::findOrFail($id);
         return view('users.edit',[
             'user'=>$user,
         ]);
     }
-    public function update(Request $request, $id){
-        //dd($request->all());
+    public function update(UserRequest $request, $id){
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|unique|email',
-            'password' => 'required|min:8',
-            'role'=> 'required',
-            'status'=>'required',
-         ]);
-        $user = User::where('id',$id)->first();
-        $user->update($validated);
-        
-       // $user->save();
-        return redirect('/dashboard/user')->withSuccess( 'User was successfully updated.');
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' =>$request->name,
+            'email' =>$request->email,
+            'role' =>$request->role,
+            'status' =>$request->status,         
+        ]);      
+        return redirect()->route('user.index')->withSuccess( 'User was successfully updated.');
     }
-
-
     public function destroy($id){
-        $user = User::where('id',$id)->first();
+      
+
+        $doctor = Doctor::where('user_id',$id);
+        if($doctor->exists()){
+            $doctor->delete();
+        }       
+        $user = User::findOrFail($id);
         $user->delete();
-        return redirect('/dashboard/user')->withSuccess( 'User was successfully deleted.');
+        return redirect()->route('user.index')->withSuccess( 'User was successfully deleted.');
     }
 }

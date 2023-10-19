@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -31,16 +31,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
-    Route::get('/dashboard/user',[UserController::class,'index'])->name('user');
-    Route::get('/dashboard/user/create',[UserController::class,'create'])->name('user.create');
-    Route::post('/dashboard/user/store',[UserController::class,'store'])->name('user.store');
-    Route::get('/dashboard/user/{id}/edit',[UserController::class,'edit'])->name('user.edit');
-    Route::put('/dashboard/user/{id}/update',[UserController::class,'update'])->name('user.update');
-    Route::delete('/dashboard/user/{id}/delete',[UserController::class,'destroy'])->name('user.delete');
-    Route::get('/dashboard/appointment',[AppointmentController::class,'index'])->name('appointment');
+    Route::get('/user/index',[UserController::class,'index'])->name('user.index');
+    Route::get('/user/create',[UserController::class,'create'])->name('user.create');
+    Route::post('/user/store',[UserController::class,'store'])->name('user.store');
+    Route::get('/user/{id}/show',[UserController::class,'show'])->name('user.show');
+    Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit');
+    Route::put('/user/{id}/update',[UserController::class,'update'])->name('user.update');
+    Route::delete('/user/{id}/delete',[UserController::class,'destroy'])->name('user.delete');
+   
+    Route::get('/doctor',[DoctorController::class,'index'])->name('doctor.index');
+    Route::get('/doctor/create',[DoctorController::class,'create'])->name('doctor.create');
+    Route::post('/doctor/store',[DoctorController::class,'store'])->name('doctor.store');
+    Route::get('/doctor/{id}/show',[DoctorController::class,'show'])->name('doctor.show');
+    Route::get('/doctor/{doctor}/edit',[DoctorController::class,'edit'])->name('doctor.edit');
+    Route::put('/doctor/{doctor}/update',[DoctorController::class,'update'])->name('doctor.update');
+    Route::delete('/doctor/{doctor}/delete',[DoctorController::class,'destroy'])->name('doctor.delete');
 
-    Route::get('/dashboard/doctor',[DoctorController::class,'index'])->name('doctor');
-    Route::get('/dashboard/doctor/create',[DoctorController::class,'create'])->name('doctor.create');
+
+
+    Route::get('/appointment',[AppointmentController::class,'index'])->name('appointment.index');
+
 });
 Route::get('/dashboard/educationdetail',[AdminController::class,'addeducation']);
 

@@ -15,22 +15,28 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->bigInteger('license_no');
-            $table->string('First Name');
-            $table->string('Last Name');            
+            $table->string('fname');
+            $table->string('lname');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();                    
             $table->bigInteger('Contact');
             $table->string('Province');
             $table->string('District');
             $table->string('Municipality');
             $table->integer('Ward');
-            $table->string('tole');
-            $table->string('Department');
-            $table->enum('gender',['male','female']);
+            $table->string('tole');            
+            $table->enum('gender',['male','female','others']);
+            $table->string('dob');
+            $table->string('english_dob');
             $table->string('specialization');
-            $table->binary('photo')->nullable();
-            $table->date('Date Of Birth');
+            $table->string('Department');
+            $table->binary('image')->nullable();                      
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
-              ->references('id')->on('users')->onDelete('cascade');
+              ->references('id')
+              ->on('users');
+              
         });
     }
 
@@ -41,4 +47,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('doctors');
     }
+
+   
 };

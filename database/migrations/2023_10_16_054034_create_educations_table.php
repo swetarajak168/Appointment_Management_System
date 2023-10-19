@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('experiences', function (Blueprint $table) {
+        Schema::create('education', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('Organization Name');
-            $table->string('Position');
-            $table->year('Start Date');
-            $table->year('End Date');
-            $table->string('Job Description');
+            $table->string('Level');
+            $table->string('Institution');
+            $table->year(' Completion Date');
+            $table->string('Board');
+            $table->double('Marks');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
-              ->references('id')->on('doctors')->onDelete('cascade');
+            ->references('id')->on('doctors');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('experiences');
+        Schema::dropIfExists('education');
     }
 };

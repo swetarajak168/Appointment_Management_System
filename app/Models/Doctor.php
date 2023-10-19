@@ -10,25 +10,27 @@ class Doctor extends Model
     use HasFactory;
     protected $fillable = [
         'license_no',
-        'First Name',
-        'Last Name',
+        'fname',  
+        'lname',
+        'email',
+        'password',      
         'Contact',
         'Province',
         'District',
         'Municipality',
         'Ward',
         'tole',
-        'Department',
+        'dob',
+        'english_dob',
         'gender',
         'specialization',
-        'photo',
-        'Date Of Birth',
+        'Department',
+        'image',        
         'user_id'
     ];
-
-    public function user(): BelongsTo
+    public function user():HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
     public function educations(): HasMany
     {

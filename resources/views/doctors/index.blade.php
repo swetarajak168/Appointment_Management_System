@@ -11,10 +11,10 @@
 
                       <div class="card">
                         <div class="card-header">
-                          <h1 class="card-title w-30">Doctor Detail</h1>                           
+                          <h1 class="card-title w-30">List of Doctor </h1>                           
                           <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">                           
-                                <a href={{route('doctor.create')}} class="btn btn-primary btn-md mr-2">Add New Doctor</a>
+                                <a href={{route('doctor.create')}} class="btn btn-primary btn-md mr-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Doctor</a>
                               </div>
                           </div>
                         </div>
@@ -31,10 +31,11 @@
                             <thead>
                               <tr>
                                 <th>S.N</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
+                                <th>License No.</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>                             
+                                
+                                <th>Department</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -42,18 +43,21 @@
                                 @foreach($doctors as $doctor)
                               <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $doctor->name }}</td>
-                                <td>{{ $doctor->email }}</td>
-                                <td>{{ $doctor->role }}</td>                                
-                                <td>{{ $doctor->status }}</td>
+                                <td>{{ $doctor->license_no }}</td>
+                                <td>{{ $doctor->fname }}</td>
+                                <td>{{ $doctor->lname }}</td>                                
+                                                              
+                                <td>{{ $doctor->Department }}</td>
                                 <td class="d-flex mr-2">
-                                  <a href="doctor/{{ $doctor->id }}/edit" class="btn btn-primary btn-md mr-2">
-                                    Edit
+                                 {{-- {{ $id = $doctor->user->id ; }} --}}
+                                 <a href="{{ route('doctor.show',['id'=>$doctor->id]) }}" class = "btn btn-success btn-sm mr-2"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                                  <a href="{{route('doctor.edit',['doctor'=>$doctor])}}" class="btn btn-primary btn-sm mr-2">
+                                    <i class="fa fa-list" aria-hidden="true"></i>  Edit
                                   </a>                               
-                                  <form method="POST" action="doctor/{{ $doctor->id }}/delete">
+                                  <form method="POST" action="{{route('doctor.delete',['doctor'=>$doctor])}}" id="delete-form" >
                                     @csrf
                                     @method('DELETE')                                    
-                                    <button type="submit" class="btn btn-danger btn-md mr-2">Delete </button>
+                                    <button  class="btn btn-danger btn-sm mr-2" id="delete-form" onclick="deleteConfirm()"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button>
                                   </form>                                  
                                 </td>
                               </tr>                              
