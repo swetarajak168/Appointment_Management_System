@@ -23,8 +23,15 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {    
         $validated = $request->validated();
-        User::create($validated);
-        
+        // User::create($validated);
+        User::create(  [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password'=>bcrypt($validated['password']),
+            'status' => $validated['status'],
+            'role' => $validated['role'],
+        ]);
+     
         return redirect()->route('user.index')->withSuccess( 'User was successfully added.');
     }
     public function show($id){
@@ -47,12 +54,18 @@ class UserController extends Controller
             'email' =>$request->email,
             'role' =>$request->role,
             'status' =>$request->status,         
-        ]);      
+        ]);    
+        $doctor = Doctor::where('user_id',$id);
+        if($doctor->exists()){
+            $doctor->update([
+                'fname' =>$request->name,
+                'email' =>$request->email,
+                       
+            ]);
+        } 
         return redirect()->route('user.index')->withSuccess( 'User was successfully updated.');
     }
-    public function destroy($id){
-      
-
+    public function destroy($id){   
         $doctor = Doctor::where('user_id',$id);
         if($doctor->exists()){
             $doctor->delete();

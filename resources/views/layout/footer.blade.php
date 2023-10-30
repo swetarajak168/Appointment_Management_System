@@ -12,63 +12,16 @@
         bsCustomFileInput.init();
     });
 </script>
-
-{{-- pop up when deleting --}}
-<script type="text/javascript">
-    function deleteConfirm() {
-        if (confirm("Are you sure you want to delete this user?")) {
-            document.getElementById("delete-form").submit();
-        }
-    }
-</script>
+{{-- js for confirm box on delete --}}
+<script src ="{{ asset('js/confirmpopup.js') }}"></script>
 <!--Nepali Date Picker-->
 <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js"
     type="text/javascript"></script>
-<script type="text/javascript">
-    window.onload = function() {
+<script src="{{ asset('js/nepalidate.js') }}"></script> 
+<!--previewing image-->
+<script src="{{ asset('js/previewfile.js') }}"></script>
+   
 
-        var elm = document.getElementById("nepali-datepicker");
-
-        elm.nepaliDatePicker({
-            ndpYear: true,
-            ndpMonth: true,
-            ndpYearCount: 10,
-            language: "english"
-        });
-    };
-</script>
-<script type="text/javascript">
-    function bsToAd() {
-        var bsDate = document.getElementById("nepali-datepicker").value;
-        var englishdate = document.getElementById("englishdate");
-
-        var adDate = NepaliFunctions.BS2AD(bsDate)
-
-        englishdate.value = adDate
-    }
-    setInterval(() => {
-        bsToAd()
-    }, 30);
-</script>
-<script type="text/javascript">
-    function previewFile() {
-        console.log("object")
-        const preview = document.getElementById("preview");
-        preview.style.height = '100px';
-        const file = document.querySelector("input[type=file]").files[0];
-        const reader = new FileReader();
-        //  console.log(preview)
-        console.log(reader)
-        reader.onload = function() {
-            preview.src = reader.result;
-        };
-
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
 </body>
 
 </html>

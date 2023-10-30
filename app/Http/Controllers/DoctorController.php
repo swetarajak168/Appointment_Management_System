@@ -26,16 +26,19 @@ class DoctorController extends Controller
     {
         return DB::transaction(function () use ($request) {
         $doctorvalidated = $request->validated();
-        $uservalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
+        //  dd( $doctorvalidated);
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('image', 'public');
-            $doctorvalidated['image'] = $imagePath;
+            
+            $imagePath = $request->file('image');           
+            $filename = $imagePath->getClientOriginalName(); 
+            $doctorvalidated['image'] = 'storage/image/' . $filename;
+            $imagePath->storeAs('public/image', $filename);
         }
 
        
         $user = User::create(
             [
-                'name' => $uservalidated['name'],
+                'name' => $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'],
                 'email' => $doctorvalidated['email'],
                 'status' => $doctorvalidated['status'],
                 'role' => $doctorvalidated['role'],
@@ -44,7 +47,8 @@ class DoctorController extends Controller
         );
         $doctorvalidated['user_id'] = $user->id;
         Doctor::create($doctorvalidated);
-        return redirect()->route('doctor.index')->withSuccess('Doctor was successfully inserted.');
+        // return redirect()->route('doctor.index')->withSuccess('Doctor was successfully inserted.');
+        return redirect()->route('education.create');
     });
     }
 
@@ -62,7 +66,7 @@ class DoctorController extends Controller
 
     public function update(DoctorRequest $request, Doctor $doctor)
     {
-       
+       dd($doctor);
         return DB::transaction(function () use ($request, $doctor) {
         $doctorvalidated = $request->validated();
         $doctorvalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
@@ -77,8 +81,7 @@ class DoctorController extends Controller
                 'email' => $doctorvalidated['email'],
                 'status' => $doctorvalidated['status'],
                 'role' => $doctorvalidated['role'],
-                 ]);
-           
+                 ]);        
     
         
         $doctor->update($doctorvalidated);

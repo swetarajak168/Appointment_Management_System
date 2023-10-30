@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('english_dob');
             $table->string('specialization');
             $table->string('Department');
-            $table->binary('image')->nullable();                      
+            $table->string('image')->nullable();                      
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
               ->references('id')

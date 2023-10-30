@@ -33,8 +33,7 @@
                                 <th>S.N</th>
                                 <th>License No.</th>
                                 <th>First Name</th>
-                                <th>Last Name</th>                             
-                                
+                                <th>Last Name</th>                                                         
                                 <th>Department</th>
                                 <th>Action</th>
                               </tr>
@@ -52,12 +51,13 @@
                                  {{-- {{ $id = $doctor->user->id ; }} --}}
                                  <a href="{{ route('doctor.show',['id'=>$doctor->id]) }}" class = "btn btn-success btn-sm mr-2"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
                                   <a href="{{route('doctor.edit',['doctor'=>$doctor])}}" class="btn btn-primary btn-sm mr-2">
-                                    <i class="fa fa-list" aria-hidden="true"></i>  Edit
+                                    <i class="fa fa-edit" aria-hidden="true"></i>  Edit
                                   </a>                               
-                                  <form method="POST" action="{{route('doctor.delete',['doctor'=>$doctor])}}" id="delete-form" >
+                                  <form  method="POST" action="{{route('doctor.delete',['doctor'=>$doctor])}}" id="delete-form" >
                                     @csrf
                                     @method('DELETE')                                    
-                                    <button  class="btn btn-danger btn-sm mr-2" id="delete-form" onclick="deleteConfirm()"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button>
+                                    {{-- <button  class="btn btn-danger btn-sm mr-2" id="delete-form" onclick="return confirm('Are u sure to delete')"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button> --}}
+                                    <button type="submit"  class="btn btn-danger btn-sm mr-2" id="delete-form" onclick="return deleteConfirm('Delete this doctor')"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button>
                                   </form>                                  
                                 </td>
                               </tr>                              

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\EducationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,8 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/doctor/{doctor}/update',[DoctorController::class,'update'])->name('doctor.update');
     Route::delete('/doctor/{doctor}/delete',[DoctorController::class,'destroy'])->name('doctor.delete');
 
-
-
+    Route::get('/education',[EducationController::class,'index'])->name('education.index');
+    Route::get('/education/create',[EducationController::class,'create'])->name('education.create');
+    Route::post('/education/store',[EducationController::class,'store'])->name('education.store');
+    
     Route::get('/appointment',[AppointmentController::class,'index'])->name('appointment.index');
 
 });

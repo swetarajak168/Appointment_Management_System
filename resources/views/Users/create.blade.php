@@ -25,55 +25,55 @@
                                     {{-- {{$errors}} --}}
                                     <div class="card-body">
 
-                                        <div class="form-group row">
+                                        <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                                Name</label>
+                                                Name</label><span class="danger">*</span><br>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" name="name" id="name"
-                                                    placeholder="Enter Your Name">
+                                                    placeholder="Enter Your Name" value={{ old('name') }}>
                                             </div>
 
                                         </div>
                                         @error('name')
                                             <span class="text-danger " style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
-                                        <div class="form-group row">
+                                        <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">
                                                 Email</label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" name="email" id="email"
-                                                    placeholder="Email">
+                                                    placeholder="Email" value={{ old('email') }}>
                                             </div>
 
                                         </div>
                                         @error('email')
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
-                                        <div class="form-group row">
+                                        <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">Password</label>
                                             <div class="col-sm-4">
                                                 <input type="password" class="form-control" name="password" id="password"
-                                                    placeholder="Password">
+                                                    placeholder="Password" value={{ old('password') }}>
                                             </div>
 
                                         </div>
                                         @error('password')
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
-                                        <div class="form-group row">
+                                        <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">Confirm
                                                 Password</label>
                                             <div class="col-sm-4">
                                                 <input type="password" class="form-control" name="password_confirmation"
-                                                    id="password" placeholder="Confirm Password">
+                                                    id="password" placeholder="Confirm Password" value={{ old('password_confirmation')}}>
                                             </div>
 
                                         </div>
                                         @error('password')
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-3 col-form-label">Role</label>
+                                        <div class="form-group ">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Role</label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input mt-1 ml-2" type="radio" name="role"
                                                     id="inlineRadio1" value="1">
@@ -94,13 +94,13 @@
                                         @error('role')
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
-                                        <div class="form-group row">
+                                        <div class="form-group ">
                                             <!-- radio -->
-                                            <div class="form-group flex mb-0 ">
-                                                <label class="col-sm-7 col-form-label"
-                                                    for="exampleInputEmail1">Status</label>
+                                            <div class="form-group  mb-0 ">
+                                                <label class="col-sm-2 col-form-label"
+                                                    for="exampleInputEmail1">Status</label><br>
                                                 <div class="form-check form-check-inline">
-                                                    <div class="ml-4 flex">
+                                                    <div class=" flex">
                                                         <input class="form-check-input mt-1 " type="radio" name="status"
                                                             id="inlineRadio1" value="1" @checked(true)>
                                                         <label class="form-check-label " for="inlineRadio1" >Active</label>

@@ -31,8 +31,8 @@
                                                 License No.</label>
 
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" name="license_no" id="license_no"
-                                                    placeholder="License No.">
+                                                <input type="number" class="form-control" name="license_no" id="license_no"
+                                                    placeholder="License No." value={{ old('license_no') }}>
                                                 @error('license_no')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -47,7 +47,7 @@
                                                             First Name</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control mr-2 pr-2"
-                                                                name="fname" id="name" placeholder="First Name">
+                                                                name="fname" id="name" placeholder="First Name" value={{ old('fname') }}>
                                                             @error('fname')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -62,7 +62,7 @@
                                                             Last Name</label>
                                                         <div class="col-sm-8 ">
                                                             <input type="text" class="form-control " name="lname"
-                                                                id="name" placeholder="Last Name">
+                                                                id="name" placeholder="Last Name" value={{ old('lname') }}>
                                                             @error('lname')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -80,7 +80,7 @@
                                                             Email</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control" name="email"
-                                                                id="email" placeholder="Email">
+                                                                id="email" placeholder="Email" value={{ old('email') }}>
                                                             @error('email')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -92,8 +92,8 @@
                                                         <label for="inputEmail3"
                                                             class="col-sm-4 col-form-label">Contact</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control" name="Contact"
-                                                                id="Contact" placeholder=" Enter your Contact Number">
+                                                            <input type="number" class="form-control" name="Contact"
+                                                                id="Contact" placeholder="Your Contact Number" value={{ old('Contact') }}>
                                                             @error('Contact')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -111,7 +111,7 @@
                                                             class="col-sm-4 col-form-label">Province</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control" name="Province"
-                                                                id="province" placeholder=" Enter  province name">
+                                                                id="province" placeholder=" Enter  province name" value={{ old('Province') }}>
                                                             @error('Province')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
@@ -124,7 +124,7 @@
                                                             class="col-sm-4 col-form-label">District</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control" name="District"
-                                                                id="district" placeholder=" Enter your district ">
+                                                                id="district" placeholder=" Enter your district " value={{ old('District') }}>
                                                             @error('District')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -143,7 +143,7 @@
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control"
                                                                 name="Municipality" id="municipality"
-                                                                placeholder=" Enter your municipality ">
+                                                                placeholder=" Enter your municipality " value={{ old('Municipality') }}>
                                                             @error('Municipality')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -156,7 +156,7 @@
                                                             class="col-sm-4 col-form-label">Ward</label>
                                                         <div class="col-sm-6">
                                                             <input type="number" class="form-control w-50"
-                                                                name="Ward" id="ward">
+                                                                name="Ward" id="ward" value={{ old('Ward') }}>
                                                             @error('Ward')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -174,7 +174,7 @@
                                                             Tole</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control" name="tole"
-                                                                id="Tole" placeholder="Tole">
+                                                                id="Tole" placeholder="Tole" value={{ old('tole') }}>
                                                             @error('tole')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -189,8 +189,7 @@
                                                         <div class="col-sm-4">
                                                             <input type="text" id="nepali-datepicker"
                                                                 placeholder="Select Nepali 
-                                                        Date"
-                                                                name='dob' />
+                                                        Date"  name='dob'  value={{ old('dob') }}/>
                                                         </div>
                                                     </div>
                                                 </div>

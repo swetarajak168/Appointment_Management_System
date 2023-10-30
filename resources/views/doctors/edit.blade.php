@@ -231,7 +231,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="ml-5 flex">
                                                         <input class="form-check-input mt-1" type="radio"
-                                                            name="gender" id="inlineRadio2" value="other"
+                                                            name="gender" id="inlineRadio2" value="others"
                                                             {{ $doctor->gender == 'others' ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="inlineRadio2">Others</label>
                                                     </div>

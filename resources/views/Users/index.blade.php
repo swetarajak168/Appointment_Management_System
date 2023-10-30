@@ -63,15 +63,15 @@
 
                                                             <a href="{{ route('user.edit', ['id' => $user->id]) }}"
                                                                 class="btn btn-primary btn-sm mr-2">
-                                                                <i class="fa fa-list" aria-hidden="true"></i> Edit
+                                                                <i class="fa fa-edit" aria-hidden="true"></i> Edit
                                                             </a>
 
                                                             <form method="POST"
                                                                 action="{{ route('user.delete', ['id' => $user->id]) }}" id="delete-form">
                                                                 @csrf
                                                                 @method('DELETE')                                                                
-                                                                <button type="submit"                                                                     
-                                                                    class="btn btn-danger btn-sm mr-2"  onclick="deleteConfirm()"><i
+                                                                <button                                                                     
+                                                                    class="btn btn-danger btn-sm mr-2" onclick="return deleteConfirm('Delete this user')"><i
                                                                         class="fa fa-trash" aria-hidden="true"></i> Delete
                                                                 </button>
                                                             </form>
