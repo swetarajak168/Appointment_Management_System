@@ -5,6 +5,7 @@
 <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <script type="text/javascript">
@@ -21,7 +22,7 @@
 <!--previewing image-->
 <script src="{{ asset('js/previewfile.js') }}"></script>
    
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
-
+<script src ="{{ asset('js/clientvalidate.js') }}"></script>
 </html>

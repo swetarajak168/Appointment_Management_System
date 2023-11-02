@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('Organization Name');
             $table->string('Position');
-            $table->year('Start Date');
-            $table->year('End Date');
-            $table->longText('Job Description');
+            $table->string('StartDate');
+            $table->string('EndDate')->nullable();
+            $table->longText('JobDescription');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
               ->references('id')

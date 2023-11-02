@@ -13,9 +13,7 @@ window.onload = function() {
 function bsToAd() {
     var bsDate = document.getElementById("nepali-datepicker").value;
     var englishdate = document.getElementById("englishdate");
-
     var adDate = NepaliFunctions.BS2AD(bsDate)
-
     englishdate.value = adDate
 }
 setInterval(() => {

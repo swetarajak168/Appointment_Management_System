@@ -13,7 +13,7 @@
                             <!-- /.card-header -->
                             <!-- form start -->
 
-                            <form role="form" method="post" action="{{ route('user.store') }}">
+                            <form role="form" method="post" action="{{ route('user.store') }} " id="userform">
                                 @csrf
                                 <!-- Horizontal Form -->
                                 <div class="card card-info">
@@ -24,10 +24,10 @@
                                     <!-- form start -->
                                     {{-- {{$errors}} --}}
                                     <div class="card-body">
-
+                                        <span class="text-danger">*Indicates required field</span></label>
                                         <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                                Name</label><span class="danger">*</span><br>
+                                                Name<span class="text-danger">*</span></label><br>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" name="name" id="name"
                                                     placeholder="Enter Your Name" value={{ old('name') }}>
@@ -39,7 +39,7 @@
                                         @enderror
                                         <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                                Email</label>
+                                                Email<span class="text-danger">*</span></label></label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" name="email" id="email"
                                                     placeholder="Email" value={{ old('email') }}>
@@ -50,7 +50,7 @@
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
                                         <div class="form-group ">
-                                            <label for="inputEmail3" class="col-sm-3 col-form-label">Password</label>
+                                            <label for="inputEmail3" class="col-sm-3 col-form-label">Password<span class="text-danger">*</span></label></label>
                                             <div class="col-sm-4">
                                                 <input type="password" class="form-control" name="password" id="password"
                                                     placeholder="Password" value={{ old('password') }}>
@@ -62,7 +62,7 @@
                                         @enderror
                                         <div class="form-group ">
                                             <label for="inputEmail3" class="col-sm-3 col-form-label">Confirm
-                                                Password</label>
+                                                Password<span class="text-danger">*</span></label></label>
                                             <div class="col-sm-4">
                                                 <input type="password" class="form-control" name="password_confirmation"
                                                     id="password" placeholder="Confirm Password" value={{ old('password_confirmation')}}>
@@ -73,7 +73,7 @@
                                             <span class="text-danger"  style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                         @enderror
                                         <div class="form-group ">
-                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Role</label><br>
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Role<span class="text-danger">*</span></label></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input mt-1 ml-2" type="radio" name="role"
                                                     id="inlineRadio1" value="1">
@@ -84,11 +84,7 @@
                                                     id="inlineRadio2" value="2"  @checked(true)>
                                                 <label class="form-check-label" for="inlineRadio2">Doctor</label>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input mt-1 ml-1" type="radio" name="role"
-                                                    id="inlineRadio2" value="3">
-                                                <label class="form-check-label" for="inlineRadio2">User</label>
-                                            </div>
+                                           
 
                                         </div>
                                         @error('role')
@@ -98,7 +94,7 @@
                                             <!-- radio -->
                                             <div class="form-group  mb-0 ">
                                                 <label class="col-sm-2 col-form-label"
-                                                    for="exampleInputEmail1">Status</label><br>
+                                                    for="exampleInputEmail1">Status<span class="text-danger">*</span></label></label><br>
                                                 <div class="form-check form-check-inline">
                                                     <div class=" flex">
                                                         <input class="form-check-input mt-1 " type="radio" name="status"

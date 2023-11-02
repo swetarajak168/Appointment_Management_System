@@ -56,7 +56,6 @@ class DoctorRequest extends FormRequest
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'license_no' => 'required|string|max:255',
-            'email' =>'required|unique:doctors,email',                      
             'Contact' => 'required|string|max:255',
             'Province' => 'required|string|max:255',
             'District' => 'required|string|max:255',
@@ -71,7 +70,20 @@ class DoctorRequest extends FormRequest
             'image' => 'file|nullable|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'nullable|numeric',
             'status' => 'required',
-            'role' => 'nullable'        
+            'role' => 'nullable' ,
+            'level' =>'required' ,
+            'Institution' => 'required',
+            'CompletionDate'=>    'required',
+            'Board' => 'required',
+            'Scores'=> 'required',
+            'organization_name'=>'required',
+            'position'=> 'required',
+            'startDate'=> 'required',
+            'endDate' => 'nullable',
+            'jobDescription'=>'required',
+            'email' => 'required',
+            'password'=>'required|min:8|confirmed'
+
     ];      
         
     }

@@ -11,9 +11,9 @@ class Experience extends Model
     protected $fillable = [
         'Organization Name',
         'Position',
-        'Start Date',
-        'End Date',
-        'Job Description',
+        'StartDate',
+        'EndDate',
+        'JobDescription',
         'doctor_id'
     ];
 }

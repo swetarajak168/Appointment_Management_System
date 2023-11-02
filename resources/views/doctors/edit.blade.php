@@ -26,7 +26,7 @@
                                     <!-- form start -->
 
                                     <div class="card-body">
-                                        <div class="form-group row ml-2">
+                                        <div class="form-group  ml-2">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
                                                 License No.</label>
 
@@ -43,7 +43,7 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label ">
                                                             First Name</label>
                                                         <div class="col-sm-8">
@@ -51,14 +51,14 @@
                                                                 name="fname" id="name" placeholder="First Name"
                                                                 value={{ old('fname', $doctor->fname) }}>
                                                         </div>
-                                                    </div>
+                                                    
                                                     @error('fname')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
 
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label ">
                                                             Last Name</label>
                                                         <div class="col-sm-8 ">
@@ -69,7 +69,7 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -77,7 +77,7 @@
                                         <div class="container mt-3">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Email</label>
                                                         <div class="col-sm-8">
@@ -88,10 +88,10 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                    
                                                         <label for="inputEmail3"
                                                             class="col-sm-4 col-form-label">Contact</label>
                                                         <div class="col-sm-8">
@@ -102,7 +102,7 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +110,7 @@
                                         <div class="container mt-3">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3"
                                                             class="col-sm-4 col-form-label">Province</label>
                                                         <div class="col-sm-8">
@@ -121,10 +121,10 @@
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3"
                                                             class="col-sm-4 col-form-label">District</label>
                                                         <div class="col-sm-8">
@@ -135,7 +135,7 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@
                                         <div class="container mt-3">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3"
                                                             class="col-sm-4 col-form-label">Municipality</label>
                                                         <div class="col-sm-8">
@@ -155,10 +155,10 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="d-flex">
+                                                   
                                                         <label for="inputEmail3" class="col-sm-2 col-form-label">Ward</label>
                                                         <div class="col-sm-6">
                                                             <input type="number" class="form-control w-50" name="Ward"
@@ -167,7 +167,7 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@
                                         <div class="container mt-3">
                                             <div class="row">
                                               <div class="col-md-6">
-                                                <div class="d-flex">
+                                               
                                                     <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                         Tole</label>
                                                     <div class="col-sm-8">
@@ -185,11 +185,11 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                
         
                                               </div>
                                               <div class="col-md-6">
-                                                <div class="d-flex">
+                                               
                                                     <label for="inputEmail3" class="col-sm-2 col-form-label">
                                                         DOB</label>
                                                     <div class="col-sm-4">
@@ -198,22 +198,20 @@
                                                         Date"
                                                             name='dob' value={{ old('dob', $doctor->dob) }} />
                                                     </div>
-                                                </div>
+                                               
                                               </div>
                                             </div>
                                           </div>
 
-                                        <div class="form-group row">
-                                            
-                                        </div>
+                                       
 
                                         <div class="form-group row">
                                             <!-- radio -->
-                                            <div class="form-group flex ml-3">
+                                            <div class="form-group  ml-3">
                                                 <label class="col-sm-4 col-form-label"
-                                                    for="exampleInputEmail1">Gender</label>
+                                                    for="exampleInputEmail1">Gender</label><br>
                                                 <div class="form-check form-check-inline">
-                                                    <div class="ml-4 flex">
+                                                    <div class=" flex">
                                                         <input class="form-check-input mt-1 " type="radio"
                                                             name="gender" id="inlineRadio1" value="male"
                                                             {{ $doctor->gender == 'male' ? 'checked' : '' }}>
@@ -247,7 +245,7 @@
                                         <div class="container mb-3">
                                             <div class="row">
                                               <div class="col-md-6">
-                                                <div class="d-flex">
+                                              
                                                     <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                         Specialization</label>
                                                     <div class="col-sm-8">
@@ -258,11 +256,11 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                
                                               
                                               </div>
                                               <div class="col-md-6">
-                                                <div class="d-flex">
+                                                
                                                     <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                         Department</label>
                                                     <div class="col-sm-8">
@@ -273,17 +271,12 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                               
                                               </div>
                                             </div>
-                                          </div>
+                                          </div>                                                                 
 
-                                        <input type="hidden" id="englishdate" name='english_dob' />
-
-
-                                        
-
-                                        <div class="form-group row ml-2">
+                                        <div class="form-group  ml-2">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
                                                 Image</label>
                                             <div class="col-sm-4">
@@ -297,6 +290,7 @@
                                         </div>
                                         <input type="hidden" name="role" value="2">
                                         <input type="hidden" name="status" value="1">
+                                        <input type="hidden" id="englishdate" name='english_dob' />       
                                     </div>
                                 </div>
 

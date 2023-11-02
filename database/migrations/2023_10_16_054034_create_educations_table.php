@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Level');
             $table->string('Institution');
-            $table->year(' Completion Date');
+            $table->string('CompletionDate');
             $table->string('Board');
             $table->double('Marks');
             $table->unsignedBigInteger('doctor_id');

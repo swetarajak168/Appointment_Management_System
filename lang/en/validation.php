@@ -165,10 +165,13 @@ return [
 
     'custom' => [
         'fname' => [
-            'required' => ' first name is required',
+            'required' => ' First name is required',
         ],
         'lname'=>[
-            'required'=>'last name is required'
+            'required'=>'Last name is required'
+        ],
+        'dob'=>[
+            'required'=> 'Your date of birth is required'
         ]
     ],
 

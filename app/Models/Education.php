@@ -12,7 +12,7 @@ class Education extends Model
     protected $fillable = [
         'Level',
         'Institution',
-        'Completion Date',
+        'CompletionDate',
         'Board',
         'Marks',
         'doctor_id'

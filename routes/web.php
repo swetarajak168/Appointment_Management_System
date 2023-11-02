@@ -42,6 +42,14 @@ Route::middleware('auth')->group(function () {
    
     Route::get('/doctor',[DoctorController::class,'index'])->name('doctor.index');
     Route::get('/doctor/create',[DoctorController::class,'create'])->name('doctor.create');
+    // Route::post('/doctor/create',[DoctorController::class,'postcreate'])->name('doctor.create.post');
+
+    // Route::get('/doctor/createeducation',[DoctorController::class,'createEducation'])->name('doctor.create.education');
+    // Route::post('/doctor/createeducation',[DoctorController::class,'postcreateeducation'])->name('doctor.create.education.post');
+
+    // Route::get('/doctor/createexperience',[DoctorController::class,'createExperience'])->name('doctor.create.experience');
+    // Route::post('/doctor/createexperience',[DoctorController::class,'postcreateexperience'])->name('doctor.create.experience.post');
+    
     Route::post('/doctor/store',[DoctorController::class,'store'])->name('doctor.store');
     Route::get('/doctor/{id}/show',[DoctorController::class,'show'])->name('doctor.show');
     Route::get('/doctor/{doctor}/edit',[DoctorController::class,'edit'])->name('doctor.edit');
