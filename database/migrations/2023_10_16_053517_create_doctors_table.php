@@ -21,17 +21,17 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();                    
-            $table->bigInteger('Contact');
-            $table->string('Province');
-            $table->string('District');
-            $table->string('Municipality');
-            $table->integer('Ward');
+            $table->bigInteger('contact');
+            $table->string('province');
+            $table->string('district');
+            $table->string('municipality');
+            $table->integer('ward');
             $table->string('tole');            
             $table->enum('gender',['male','female','others']);
             $table->string('dob');
             $table->string('english_dob');
             $table->string('specialization');
-            $table->string('Department');
+            $table->string('department');
             $table->string('image')->nullable();                      
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

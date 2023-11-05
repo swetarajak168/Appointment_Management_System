@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorRequest;
-use App\Http\Requests\EducationRequest;
-use App\Http\Requests\ExperienceRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Doctor;
 use App\Models\Experience;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Education;
 use Illuminate\Support\Facades\DB;
@@ -30,48 +28,61 @@ class DoctorController extends Controller
     public function store(DoctorRequest $request)
     {
         // dd( $request->all());
+        // dd($request->Institution);
         return DB::transaction(function () use ($request) {
             $validateddata = $request->validated();
-            // dd($validateddata['level']);
+            // dd($validateddata['Level']);
             $validateddata['name'] = $validateddata['fname'] . ' ' . $validateddata['lname'];
+            $validateddata['password'] = Hash::make( $validateddata['password']);
             $user_store = User::create($validateddata);
-            
+
             $validateddata['user_id'] = $user_store->id;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image');
+                $fileName = $imagePath->getClientOriginalName();
+                $validateddata['image'] = 'storage/img/' . $fileName;
+                $imagePath->storeAs('public/img', $fileName);
+            }
+
             $doctor_store = Doctor::create($validateddata);
-         
-            $validateddata['doctor_id'] = $doctor_store->id;
-            Education::create([
-                'Level' => $validateddata['level'],
-                'Institution' => $validateddata['Institution'],
-                'CompletionDate' => $validateddata['CompletionDate'],
-                'Board' => $validateddata['Board'],
-                'Marks' => $validateddata['Scores'],
-                'doctor_id' => $validateddata['doctor_id']
-            ]);
-                
-            Experience::create([
-                'Organization Name' =>$validateddata['organization_name'],
-                'Position'=>$validateddata['position'],
-                'StartDate'=>$validateddata['startDate'],
-                'EndDate'=>$validateddata['endDate'],
-                'JobDescription'=>$validateddata['jobDescription'],
-                'doctor_id' => $validateddata['doctor_id']
-            ]);
-                
+
+
+            $educationData = [];
+            for ($i = 0; $i < count($validateddata['institution']); $i++) {               
+                $educationData = [
+                    'doctor_id' => $doctor_store->id,
+                    'institution' => $validateddata['institution'][$i],
+                    'board' => $validateddata['board'][$i],
+                    'level' => $validateddata['level'][$i],
+                    'completionDate' => $validateddata['completionDate'][$i],
+                    'marks' => $validateddata['marks'][$i],
+                ];
+                Education::create($educationData);
+            }
+
+            $experiencedata = [];
+            for ($i = 0; $i < count($validateddata['organization_name']); $i++) {      
+                $experiencedata = [
+                    'doctor_id' => $doctor_store->id,
+                    'organization_name' =>  $validateddata['organization_name'][$i],
+                    'position' =>  $validateddata['position'][$i],
+                    'startDate' =>  $validateddata['startDate'][$i],
+                    'endDate' =>  $validateddata['endDate'][$i],
+                    'jobDescription' =>  $validateddata['jobDescription'][$i],
+
+                ];
+                Experience::create($experiencedata);
+            }
+           
             return redirect()->route('doctor.index');
         });
-       
+
     }
-
-
-
-
-
     public function edit($id)
     {
-        $doctor = Doctor::findOrFail($id);
+        $doctor = Doctor::findOrFail($id);      
         return view('doctors.edit', [
-            'doctor' => $doctor,
+            'doctor' => $doctor,         
         ]);
     }
     public function show($id)
@@ -82,7 +93,7 @@ class DoctorController extends Controller
 
     public function update(DoctorRequest $request, Doctor $doctor)
     {
-        // dd($doctor);
+  
         return DB::transaction(function () use ($request, $doctor) {
             $doctorvalidated = $request->validated();
             $doctorvalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
@@ -91,8 +102,43 @@ class DoctorController extends Controller
                 $doctorvalidated['image'] = $imagePath;
             }
             $user = User::findOrFail($doctor->user_id);
-            $user->update($doctorvalidated);
+            $user->update([
+                'name'=> $doctorvalidated['name'],
+                'email'=> $doctorvalidated['email'],
+                'role'=> $doctorvalidated['role'],
+                'status'=> $doctorvalidated['status'],
+            ]);
             $doctor->update($doctorvalidated);
+
+
+            $educationData = [];
+            $education = Education::where('doctor_id',$doctor->id);
+            for ($i = 0; $i < count($doctorvalidated['institution']); $i++) {               
+                $educationData = [                   
+                    'institution' => $doctorvalidated['institution'][$i],
+                    'board' => $doctorvalidated['board'][$i],
+                    'level' => $doctorvalidated['level'][$i],
+                    'completionDate' => $doctorvalidated['completionDate'][$i],
+                    'marks' => $doctorvalidated['marks'][$i],
+                ];
+               $education->update($educationData);
+            }
+
+
+            $experiencedata = [];
+            $experience = Experience::where('doctor_id',$doctor->id);
+            for ($i = 0; $i < count($doctorvalidated['organization_name']); $i++) {      
+                $experiencedata = [
+                   
+                    'organization_name' =>  $doctorvalidated['organization_name'][$i],
+                    'position' =>  $doctorvalidated['position'][$i],
+                    'startDate' =>  $doctorvalidated['startDate'][$i],
+                    'endDate' =>  $doctorvalidated['endDate'][$i],
+                    'jobDescription' =>  $doctorvalidated['jobDescription'][$i],
+
+                ];
+                $experience->update($experiencedata);
+            }
             return redirect()->route('doctor.index')->withSuccess('Doctor was successfully updated.');
         });
     }
@@ -100,8 +146,18 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
         return DB::transaction(function () use ($doctor) {
-            $doctor->user->delete();
+          
+            $education = Education::where('doctor_id',$doctor->id);
+            $education->delete();
+
+            $experience = Experience::where('doctor_id',$doctor->id);
+            $experience->delete();
+          
             $doctor->delete();
+
+            $user = User::findOrFail($doctor->user_id);
+            $user->delete();
+
             return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }

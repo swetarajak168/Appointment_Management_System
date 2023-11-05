@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('Organization Name');
-            $table->string('Position');
-            $table->string('StartDate');
-            $table->string('EndDate')->nullable();
-            $table->longText('JobDescription');
+            $table->string('organization_name');
+            $table->string('position');
+            $table->string('startDate');
+            $table->string('endDate')->nullable();
+            $table->longText('jobDescription');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
               ->references('id')

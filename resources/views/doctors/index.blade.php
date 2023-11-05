@@ -46,7 +46,7 @@
                                 <td>{{ $doctor->fname }}</td>
                                 <td>{{ $doctor->lname }}</td>                                
                                                               
-                                <td>{{ $doctor->Department }}</td>
+                                <td>{{ $doctor->department }}</td>
                                 <td class="d-flex mr-2">
                                  {{-- {{ $id = $doctor->user->id ; }} --}}
                                  <a href="{{ route('doctor.show',['id'=>$doctor->id]) }}" class = "btn btn-success btn-sm mr-2"><i class="fa fa-eye" aria-hidden="true"></i> View</a>

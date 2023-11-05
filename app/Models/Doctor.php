@@ -14,30 +14,29 @@ class Doctor extends Model
         'lname',
         'email',
         'password',      
-        'Contact',
-        'Province',
-        'District',
-        'Municipality',
-        'Ward',
+        'contact',
+        'province',
+        'district',
+        'municipality',
+        'ward',
         'tole',
         'dob',
         'english_dob',
         'gender',
         'specialization',
-        'Department',
+        'department',
         'image',        
         'user_id'
     ];
-    public function user():HasOne
+    public function user()
     {
         return $this->hasOne(User::class);
     }
-    public function educations(): HasMany
+    public function education()
     {
         return $this->hasMany(Education::class);
     }
-    public function experiences(): HasMany
-    {
+    public function experience(){
         return $this->hasMany(Experience::class);
     }
 }

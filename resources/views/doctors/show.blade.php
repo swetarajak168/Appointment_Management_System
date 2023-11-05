@@ -9,84 +9,135 @@
                 </div>
                 <div class="card-body">
                     {{-- {{ dd($doctor)  }}; --}}
-                    <table class="table  table-hover table-bordered">
-                        <tr>
-                            <td><label for="">Image</label></td>
-                            <td>
-                                <img src="{{ asset($doctor->image) }}" alt="" width="100px" height="10">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="">License No</label></td>
-                            <td>{{ $doctor->license_no }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="">First Name</label></td>
-                            <td>{{ $doctor->fname }}</td>
-                        </tr>
+                    <div class="col-md-9">
+                      {{-- {{ dd($doctor->education) }} --}}
+                        
+                          <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity"  id = "detail" data-toggle="tab">Basic Information</a></li>
+                            
+                          </ul>
+                         <div id="doctor-detail" style="display:block">
+                        <div class="text-center mt-3" >
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="{{ asset($doctor->image) }}"
+                                 alt="User profile picture">
+                          </div>
+                          
+                          <h3 class="profile-username text-center mb-4">{{ $doctor->fname  }}</h3>
+                          <ul class="list-group list-group-bordered m-3 " style="margin-left:150px;">
+                            <li class="list-group-item">
+                              <b>License No</b> <a class="float-right">{{ $doctor->license_no }}</a>
+                            </li>
+                           
+                            <li class="list-group-item">
+                              <b> Name</b> <a class="float-right">{{ $doctor->fname . ''. $doctor->lname }}</a>
+                            </li>
+                            
+                           
+                            <li class="list-group-item">
+                                <b>Contact</b> <a class="float-right">{{ $doctor->contact }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Province</b> <a class="float-right">{{ $doctor->province }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>District</b> <a class="float-right">{{ $doctor->district }}</a>
+                              </li>
+                             
+                              <li class="list-group-item">
+                                <b>Municipality</b> <a class="float-right">{{ $doctor->municipality }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Ward</b> <a class="float-right">{{ $doctor->ward }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Tole</b> <a class="float-right">{{ $doctor->tole }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Gender</b> <a class="float-right">{{ $doctor->gender }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Date Of Birth</b> <a class="float-right">{{ $doctor->dob }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Specialzation</b> <a class="float-right">{{ $doctor->specialization  }}</a>
+                              </li>
+                              <li class="list-group-item">
+                                <b>Department</b> <a class="float-right">{{ $doctor->department }}</a>
+                              </li>
+        
+                          </ul>
+                        </div>
+                         
+                     {{-- {{ dd($doctor->education) }} --}}
+                      <!-- /.nav-tabs-custom -->
+                    {{-- {{ dd(count($doctor->education)) }} --}}
+                    <ul class="nav nav-pills">
+                     
+                      <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Education</a></li>
+                      
+                    </ul>
+                      <div id="education-detail" >
+                        @foreach($doctor->education as $education)
+                        <ul class="list-group list-group-bordered m-3 " style="margin-left:150px;">
+                          <li class="list-group-item">
+                            <b>Level</b> <a class="float-right">{{ $education->level}}</a>
+                          </li>
+                         
+                          <li class="list-group-item">
+                            <b>Institution</b> <a class="float-right">{{ $education->institution }}</a>
+                          </li>
+                          
+                          <li class="list-group-item">
+                            <b>Completion Date</b> <a class="float-right">{{ $education->completionDate }}</a>
+                          </li>
+                          <li class="list-group-item">
+                              <b>Board</b> <a class="float-right">{{ $education->board }}</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Scores</b> <a class="float-right">{{ $education->marks }}</a>
+                            </li>                          
+                        </ul>
+                        @endforeach
+                      </div>
+                    
 
-                        <tr>
-                            <td><label for="Last Name">Last Name</label></td>
-                            <td>{{ $doctor->lname }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Email">Email</label></td>
-                            <td>{{ $doctor->email }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Contact">Contact</label></td>
-                            <td>{{ $doctor->Contact }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Province">Province</label></td>
-                            <td>{{ $doctor->Province }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="District">District</label></td>
-                            <td>{{ $doctor->District }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Municipality">Municipality</label></td>
-                            <td>{{ $doctor->Municipality }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Ward">Ward</label></td>
-                            <td>{{ $doctor->Ward }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="Contact">Contact</label></td>
-                            <td>{{ $doctor->Contact }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="tole">tole</label></td>
-                            <td>{{ $doctor->tole }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="gender">Gender</label></td>
-                            <td>{{ $doctor->gender }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="dob">dob</label></td>
-                            <td>{{ $doctor->dob }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="english_dob">english_dob</label></td>
-                            <td>{{ $doctor->english_dob }}</td>
-                        </tr>
-                        <tr>
-                            <td><label for="specialization">specialization</label></td>
-                            <td>{{ $doctor->specialization }}</td>
-                        </tr>
-
-                        <tr>
-                            <td><label for="Department">Department</label></td>
-                            <td>{{ $doctor->Department }}</td>
-                        </tr>
-                    </table>
+                      <ul class="nav nav-pills">
+                     
+                        <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Experience</a></li>
+                        
+                      </ul>
+                      <div id="experience-detail" >
+                        @foreach($doctor->experience as $experience)
+                        <ul class="list-group list-group-bordered m-3 " style="margin-left:150px;">
+                          <li class="list-group-item">
+                            <b>Organization Name</b> <a class="float-right">{{ $experience->organization_name }}</a>
+                          </li>
+                         
+                          <li class="list-group-item">
+                            <b>Position</b> <a class="float-right">{{ $experience->position }}</a>
+                          </li>
+                          
+                          <li class="list-group-item">
+                            <b>Start Date</b> <a class="float-right">{{ $experience->startDate }}</a>
+                          </li>
+                          <li class="list-group-item">
+                              <b>End Date</b> <a class="float-right">{{ $experience->endDate }}</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Job Description</b> <a class="float-right">{{ $experience->jobDescription }}</a>
+                            </li>                          
+                        </ul>
+                        @endforeach
+                      </div>
+                      
+                    </div>
                 </div>
 
             </div>
         </div>
         </section>
-    </div>
+        <!-- Main content -->
+      </div>
+    
 @endsection

@@ -9,11 +9,15 @@ class Experience extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Organization Name',
-        'Position',
-        'StartDate',
-        'EndDate',
-        'JobDescription',
+        'organization_name',
+        'position',
+        'startDate',
+        'endDate',
+        'jobDescription',
         'doctor_id'
     ];
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class, 'doctors->id');
+    }
 }
