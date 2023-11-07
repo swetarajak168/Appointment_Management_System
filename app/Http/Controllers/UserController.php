@@ -65,12 +65,13 @@ class UserController extends Controller
         } 
         return redirect()->route('user.index')->withSuccess( 'User was successfully updated.');
     }
-    public function destroy($id){   
-        $doctor = Doctor::where('user_id',$id);
+    public function destroy($user){   
+        // dd($user);
+        $doctor = Doctor::where('user_id',$user);
         if($doctor->exists()){
             $doctor->delete();
         }       
-        $user = User::findOrFail($id);
+       
         $user->delete();
         return redirect()->route('user.index')->withSuccess( 'User was successfully deleted.');
     }

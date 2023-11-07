@@ -25,13 +25,13 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('id');
+        $user = $this->route('user');
         if ($this->isMethod('PUT')) {
             return [
                 'name' => 'required|string|max:255',
                 'email' =>[
                     'required',
-                    Rule::unique('users')->ignore($id),
+                    Rule::unique('users')->ignore($user),
                 ],                               
                 'role'=> 'required',
                 'status'=>'required',

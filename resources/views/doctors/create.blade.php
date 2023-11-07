@@ -273,7 +273,7 @@
                                                                 onchange='formvalidation()' class="form-control"
                                                                 name="department" id="department"
                                                                 placeholder="Your Department"
-                                                                value={{ old('epartment') }}>
+                                                                value={{ old('department') }}>
                                                             @error('department')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -319,8 +319,8 @@
                                         <!-- /.card-header -->
                                         <!-- form start -->
                                        
-                                        <div class="card-body">
-                                            <div class="row education-form">
+                                        <div class="card-body" id ="form-container">
+                                            <div class="row education-form ">
                                                 <div class="col form-group ">
                                                     <div class="form-group">
                                                         <label for="inputEmail3">
@@ -346,7 +346,7 @@
                                                         <label for="institution">Institution</label>
                                                         <input type="text" class="form-control" id="Institution"
                                                             onchange='eduvalidation()' name="institution[]"
-                                                            placeholder=" institution Name">
+                                                            placeholder=" Institution">
                                                         @error('institution')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
@@ -385,8 +385,9 @@
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
                                                     </div>
+                                                    
                                                 </div>
-
+                                                <i class="fa fa-minus-circle fa-lg remove-education"  aria-hidden="true" style="color: red"></i>
                                             </div>
 
                                         </div>
@@ -418,7 +419,9 @@
                                         </div>
                                         
                                         <div class="card-body">
-                                            <div class="row experience-form ">
+                                           
+                                            <div class="row experience-form">
+                                               
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">
@@ -454,6 +457,7 @@
                                                             class="form-control" name="endDate[]" id="endDate">
                                                     </div>
                                                 </div>
+                                                <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
 
                                                 <div class="form-group ">
                                                     <label for="inputEmail3" class="col-sm-6 col-form-label">Job
@@ -465,6 +469,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        
                                         </div>
                                         <div>
                                             <a href="#" class="bg-success rounded-sm float-right p-2 m-3"

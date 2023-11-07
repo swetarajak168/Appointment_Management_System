@@ -33,7 +33,7 @@ class DoctorController extends Controller
             $validateddata = $request->validated();
             // dd($validateddata['Level']);
             $validateddata['name'] = $validateddata['fname'] . ' ' . $validateddata['lname'];
-            $validateddata['password'] = Hash::make( $validateddata['password']);
+            $validateddata['password'] = Hash::make($validateddata['password']);
             $user_store = User::create($validateddata);
 
             $validateddata['user_id'] = $user_store->id;
@@ -48,41 +48,42 @@ class DoctorController extends Controller
 
 
             $educationData = [];
-            for ($i = 0; $i < count($validateddata['institution']); $i++) {               
+            foreach ($validateddata['institution'] as $key => $item) {
                 $educationData = [
                     'doctor_id' => $doctor_store->id,
-                    'institution' => $validateddata['institution'][$i],
-                    'board' => $validateddata['board'][$i],
-                    'level' => $validateddata['level'][$i],
-                    'completionDate' => $validateddata['completionDate'][$i],
-                    'marks' => $validateddata['marks'][$i],
+                    'institution' => $validateddata['institution'][$key],
+                    'board' => $validateddata['board'][$key],
+                    'level' => $validateddata['level'][$key],
+                    'completionDate' => $validateddata['completionDate'][$key],
+                    'marks' => $validateddata['marks'][$key],
                 ];
                 Education::create($educationData);
             }
 
+
             $experiencedata = [];
-            for ($i = 0; $i < count($validateddata['organization_name']); $i++) {      
+            foreach ($validateddata['organization_name'] as $key => $item) {
                 $experiencedata = [
                     'doctor_id' => $doctor_store->id,
-                    'organization_name' =>  $validateddata['organization_name'][$i],
-                    'position' =>  $validateddata['position'][$i],
-                    'startDate' =>  $validateddata['startDate'][$i],
-                    'endDate' =>  $validateddata['endDate'][$i],
-                    'jobDescription' =>  $validateddata['jobDescription'][$i],
+                    'organization_name' => $validateddata['organization_name'][$key],
+                    'position' => $validateddata['position'][$key],
+                    'startDate' => $validateddata['startDate'][$key],
+                    'endDate' => $validateddata['endDate'][$key],
+                    'jobDescription' => $validateddata['jobDescription'][$key],
 
                 ];
                 Experience::create($experiencedata);
             }
-           
+
             return redirect()->route('doctor.index');
         });
 
     }
     public function edit($id)
     {
-        $doctor = Doctor::findOrFail($id);      
+        $doctor = Doctor::findOrFail($id);
         return view('doctors.edit', [
-            'doctor' => $doctor,         
+            'doctor' => $doctor,
         ]);
     }
     public function show($id)
@@ -93,9 +94,10 @@ class DoctorController extends Controller
 
     public function update(DoctorRequest $request, Doctor $doctor)
     {
-  
+
         return DB::transaction(function () use ($request, $doctor) {
             $doctorvalidated = $request->validated();
+
             $doctorvalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('image', 'public');
@@ -103,41 +105,44 @@ class DoctorController extends Controller
             }
             $user = User::findOrFail($doctor->user_id);
             $user->update([
-                'name'=> $doctorvalidated['name'],
-                'email'=> $doctorvalidated['email'],
-                'role'=> $doctorvalidated['role'],
-                'status'=> $doctorvalidated['status'],
+                'name' => $doctorvalidated['name'],
+                'email' => $doctorvalidated['email'],
+                'role' => $doctorvalidated['role'],
+                'status' => $doctorvalidated['status'],
             ]);
             $doctor->update($doctorvalidated);
-
-
-            $educationData = [];
-            $education = Education::where('doctor_id',$doctor->id);
-            for ($i = 0; $i < count($doctorvalidated['institution']); $i++) {               
-                $educationData = [                   
-                    'institution' => $doctorvalidated['institution'][$i],
-                    'board' => $doctorvalidated['board'][$i],
-                    'level' => $doctorvalidated['level'][$i],
-                    'completionDate' => $doctorvalidated['completionDate'][$i],
-                    'marks' => $doctorvalidated['marks'][$i],
-                ];
-               $education->update($educationData);
+            
+            $del_education = Doctor::find($doctor->id);  
+            if ($del_education) {
+                 Education::where('doctor_id', $doctor->id)->delete();              
+                         
             }
-
-
-            $experiencedata = [];
-            $experience = Experience::where('doctor_id',$doctor->id);
-            for ($i = 0; $i < count($doctorvalidated['organization_name']); $i++) {      
-                $experiencedata = [
-                   
-                    'organization_name' =>  $doctorvalidated['organization_name'][$i],
-                    'position' =>  $doctorvalidated['position'][$i],
-                    'startDate' =>  $doctorvalidated['startDate'][$i],
-                    'endDate' =>  $doctorvalidated['endDate'][$i],
-                    'jobDescription' =>  $doctorvalidated['jobDescription'][$i],
-
-                ];
-                $experience->update($experiencedata);
+        //   dd($doctorvalidated['institution']);
+                     
+            foreach ($doctorvalidated['institution'] as $key => $item) {
+                $education = new Education();
+                $education->doctor_id = $doctor->id;
+                $education->level = $doctorvalidated['level'][$key];
+                $education->institution = $doctorvalidated['institution'][$key];
+                $education->board = $doctorvalidated['board'][$key];
+                $education->completionDate = $doctorvalidated['completionDate'][$key];
+                $education->marks = $doctorvalidated['marks'][$key];
+                $education->save();
+            }
+            if ($del_education) {
+                Experience::where('doctor_id', $doctor->id)->delete();
+            } 
+            
+            foreach ($doctorvalidated['organization_name'] as $key => $item) {
+                $experience = new Experience();
+                $experience->doctor_id = $doctor->id;
+                $experience->organization_name = $doctorvalidated['organization_name'][$key];
+                $experience->position = $doctorvalidated['position'][$key];
+                $experience->startDate = $doctorvalidated['startDate'][$key];
+                $experience->endDate = $doctorvalidated['endDate'][$key];
+                $experience->jobDescription = $doctorvalidated['jobDescription'][$key];
+                $experience->save();
+                    
             }
             return redirect()->route('doctor.index')->withSuccess('Doctor was successfully updated.');
         });
@@ -146,19 +151,17 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
         return DB::transaction(function () use ($doctor) {
-          
-            $education = Education::where('doctor_id',$doctor->id);
-            $education->delete();
 
-            $experience = Experience::where('doctor_id',$doctor->id);
-            $experience->delete();
-          
-            $doctor->delete();
+        $education = Education::where('doctor_id', $doctor->id);
+        $education->delete();
 
-            $user = User::findOrFail($doctor->user_id);
-            $user->delete();
+        $experience = Experience::where('doctor_id', $doctor->id);
+        $experience->delete();
 
-            return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
+        $doctor->delete();
+
+       
+        return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }
 }

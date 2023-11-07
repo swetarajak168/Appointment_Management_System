@@ -12,9 +12,8 @@
                         <div class="card card-primary">
                             <!-- /.card-header -->
                             <!-- form start -->
-                            {{-- {{ dd($doctor->education) }} --}}
-                            {{ $errors }}
-                            <form role="form" method="post" action="{{ route('doctor.update',$doctor->id) }}"
+                            
+                            <form role="form" method="post" action="{{ route('doctor.update',$doctor) }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -209,7 +208,7 @@
                                                             <input class="form-check-input " onchange='formvalidation()'
                                                                 type="radio" name="gender" id="inlineRadio1"
                                                                 value="male"
-                                                                {{ old($doctor->gender) == 'male' ? 'checked' : '' }}>
+                                                                {{ $doctor->gender == 'male' ? 'checked' : '' }}>
                                                             <label class="form-check-label "
                                                                 for="inlineRadio1">Male</label>
                                                         </div>
@@ -221,7 +220,7 @@
                                                             <input class="form-check-input mt-1"
                                                                 onchange='formvalidation()' type="radio" name="gender"
                                                                 id="inlineRadio2" value="female"
-                                                                {{ old($doctor->gender) == 'female' ? 'checked' : '' }}>
+                                                                {{ $doctor->gender == 'female' ? 'checked' : '' }}>
                                                             <label class="form-check-label"
                                                                 for="inlineRadio2">Female</label>
                                                         </div>
@@ -230,7 +229,7 @@
                                                         <div class="ml-5 flex">
                                                             <input class="form-check-input mt-1" type="radio"
                                                                 name="gender" id="inlineRadio2" value="others"
-                                                                {{ old($doctor->gender) == 'others' ? 'checked' : '' }}>
+                                                                {{ $doctor->gender == 'others' ? 'checked' : '' }}>
                                                             <label class="form-check-label"
                                                                 for="inlineRadio2">Others</label>
                                                         </div>
@@ -385,9 +384,9 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-
+                                                <i class="fa fa-minus-circle fa-lg remove-education" aria-hidden="true" style="color: red"></i>
                                             </div>
-
+                                          
                                         </div>
                                         @endforeach
                                         <div>
@@ -454,6 +453,7 @@
                                                             class="form-control" name="endDate[]" id="endDate"  value="{{ $experience->endDate }}">
                                                     </div>
                                                 </div>
+                                                <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
 
                                                 <div class="form-group ">
                                                     <label for="inputEmail3" class="col-sm-6 col-form-label">Job
@@ -466,6 +466,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                           
                                         </div>
                                         @endforeach
                                         <div>
@@ -504,7 +505,7 @@
                                                     Email</label>
                                                 <div class="col-sm-6">
                                                     <input type="text" class="form-control" name="email"
-                                                        id="email" placeholder="Email">
+                                                        id="email" value="{{ $doctor->email }}">
                                                 </div>
 
                                             </div>
@@ -517,8 +518,8 @@
                                                 style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-left">Previous </button>
                                             <button type="submit"  id="loginbtn"
-                                                style="background-color: #696969; color:white"
-                                                class="btn btn-default float-right">Add Doctor</button>
+                                                style="background-color: #17a2b8; color:white"
+                                                class="btn btn-default float-right">Update Doctor</button>
                                         </div>
                                         <!-- /.card -->
                                     </div>

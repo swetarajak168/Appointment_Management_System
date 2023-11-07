@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = [
         'license_no',
         'fname',  
@@ -30,7 +32,7 @@ class Doctor extends Model
     ];
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class,'user_id');
     }
     public function education()
     {

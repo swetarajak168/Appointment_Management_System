@@ -21,6 +21,9 @@
 <script src="{{ asset('js/nepalidate.js') }}"></script> 
 <!--previewing image-->
 <script src="{{ asset('js/previewfile.js') }}"></script>
+
+<!--form repeater-->
+<script src="{{ asset('js/formrepeater.js') }}"></script>
    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>

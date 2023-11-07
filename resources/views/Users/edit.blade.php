@@ -13,7 +13,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         {{$errors}}
-                        <form role="form" method="post" action="{{ route('user.update', ['id' => $user->id]) }}">
+                        <form role="form" method="post" action="{{ route('user.update', ['user' => $user]) }}">
                             @csrf
                             @method('PUT')
                             <!-- Horizontal Form -->

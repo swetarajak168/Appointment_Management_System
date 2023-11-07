@@ -45,8 +45,7 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $user->name }}</td>
-                                                        <td>{{ $user->email }}</td>
-                                                        
+                                                        <td>{{ $user->email }}</td>                                                        
                                                         @if ($user->role == 1)
                                                             <td>Admin</td>
                                                         @elseif($user->role == 2)
@@ -56,18 +55,18 @@
                                                         @endif
                                                         <td>{{ $user->status == 1 ? 'Active' : 'Inactive' }}</td>
                                                         <td class="d-flex mr-2">
-                                                            <a href="{{ route('user.show', ['id'=>$user->id]) }}" class = "btn btn-success btn-sm mr-2">
+                                                            <a href="{{ route('user.show', ['user'=>$user]) }}" class = "btn btn-success btn-sm mr-2">
                                                               <i class="fa fa-eye" aria-hidden="true"></i> 
                                                               View
                                                             </a>
 
-                                                            <a href="{{ route('user.edit', ['id' => $user->id]) }}"
+                                                            <a href="{{ route('user.edit', ['user'=>$user]) }}"
                                                                 class="btn btn-primary btn-sm mr-2">
                                                                 <i class="fa fa-edit" aria-hidden="true"></i> Edit
                                                             </a>
 
                                                             <form method="POST"
-                                                                action="{{ route('user.delete', ['id' => $user->id]) }}" id="delete-form">
+                                                                action="{{ route('user.destroy', ['user'=>$user]) }}" id="delete-form">
                                                                 @csrf
                                                                 @method('DELETE')                                                                
                                                                 <button                                                                     
