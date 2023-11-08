@@ -12,7 +12,7 @@
                     <div class="card card-primary">
                         <!-- /.card-header -->
                         <!-- form start -->
-                        {{$errors}}
+                       
                         <form role="form" method="post" action="{{ route('user.update', ['user' => $user]) }}">
                             @csrf
                             @method('PUT')

@@ -3,17 +3,13 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="container-fluid">
-                
-
-
-
-
                 <h3 class=>Doctor Profile</h3>
-                <div class="row">
-                    <div class="col-md-3">
+
+                {{-- <div class="col-md-3">
 
                         <!-- Profile Image -->
-                        <div class="card card-primary card-outline">
+                        <div class="card  card-outline">
+                            <h3 class="card-title text-center">Basic Details</h3>
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <img class="profile-user-img img-fluid img-circle" src="{{ asset($doctor->image) }}"
@@ -21,8 +17,6 @@
                                 </div>
                                 <h3 class="profile-username text-center">
                                     {{ $doctor->fname . '' . $doctor->lname }}</h3>
-
-
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
@@ -46,104 +40,167 @@
                         <!-- About Me Box -->
 
                         <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-9 ">
+                    </div> --}}
+                <!-- /.col -->
+
+                <div class="row">
+                    <div class="col-12">
                         <div class="card">
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">About Me</h3>
+                            <div class="card-header" style="background-color: #2F6B73">
+                                <h3 class="card-title text-white " >Basic Details</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($doctor->image) }}"
+                                        alt="profile">
                                 </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <strong><i class="fa fa-info-circle" aria-hidden="true"></i>Basic Information</strong>
-                                    <div class="basic text-muted d-flex justify-content-between ">
-                                        <div>
-                                            <b>Date of Birth: </b>{{ $doctor->dob }}
-                                        </div>
-                                        <div>
-                                            <b>Gender: </b> {{ $doctor->gender }}
-                                        </div>
-                                        <div>
-                                            <b>Specialization: </b> {{ $doctor->specialization }}
-                                        </div>
-
-                                    </div>
-                                    <strong><i class="fas fa-map-marker-alt mr-1 mt-1"></i> Location</strong>
-
-                                    <div class="location text-muted">
-                                        
-                                            <ul class="col ">
-                                                <div>
-                                                    <b>Province: </b>{{ $doctor->province }}
-                                                </div>
-                                                <div>
-                                                    <b>District: </b> {{ $doctor->district }}
-                                                </div>
-                                                <div>
-                                                    <b>Municipality: </b> {{ $doctor->municipality }}
-                                                </div>
-                                            
-                                        
-                                                <div>
-                                                    <b>Ward: </b>{{ $doctor->ward }}
-                                                </div>
-                                               
-                                                <div>
-                                                    <b>Tole: </b> {{ $doctor->tole }}
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    
-                                    <hr>
-
-                                    <strong><i class="fas fa-book mr-1"></i> Education</strong>
-                                    @foreach ($doctor->education as $list)
-                                        <ul>
-                                            <li class="text-muted"><b>Institution: </b> {{ $list->institution }}</li>
-                                            <li class="text-muted"><b>Board/University: </b> {{ $list->board }}</li>
-                                            <li class="text-muted"><b>Completion Date: </b> {{ $list->completionDate }}
+                                <h3 class="profile-username text-center">
+                                    {{ $doctor->fname . '' . $doctor->lname }}</h3>
+                                    <div class="d-flex justify-content-center ">
+                                        <ul class="list-group list-group-unbordered mb-3 mr-5">
+                                            <li class="list-group-item">
+                                                <b>License No:</b> {{ $doctor->license_no }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Email:</b> {{ $doctor->email }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Contact: </b> {{ $doctor->contact }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Department: </b> {{ $doctor->department }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Specialization: </b> {{ $doctor->specialization }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>gender: </b> {{ $doctor->gender }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Date Of Birth: </b> {{ $doctor->dob}}
                                             </li>
                                         </ul>
-                                    @endforeach
-                                    <hr>
 
-                                   
-
-                                    <strong><i class="fa fa-lightbulb mr-1"></i> Experience</strong>
-                                    @foreach ($doctor->experience as $item2)
-                                        <ul class="exp  text-muted">
-                                            <li>
-                                                <b>Organization Name: </b> {{ $item2->organization_name }}
+                                        <ul class="list-group list-group-unbordered mb-3 ml-5">
+                                            <li class="list-group-item">
+                                                <b>Province</b> {{ $doctor->province }}
                                             </li>
-                                            <li>
-                                                <b>Position: </b> {{ $item2->position }}
+                                            <li class="list-group-item">
+                                                <b>District:</b> {{ $doctor->district }}
                                             </li>
-                                            <li>
-                                                <b>Start Date: </b> {{ $item2->startDate }}
+                                            <li class="list-group-item">
+                                                <b>Municipality: </b> {{ $doctor->municipality }}
                                             </li>
-                                            <li>
-                                                <b>End Date: </b> {{ $item2->endDate }}
+                                            <li class="list-group-item">
+                                                <b>Ward: </b> {{ $doctor->ward }}
                                             </li>
-                                          </ul>
-                                    @endforeach
-
-                                    <hr>
-
-                                    
-                                    <hr>
-
-                                </div>
-                                </div>
-                                <!-- /.card-body -->
+                                            <li class="list-group-item">
+                                                <b>Tole: </b> {{ $doctor->tole }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                               
                             </div>
+                            <!-- /.card-body -->
+
+
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.nav-tabs-custom -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
+                </div>
+              
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #2F6B73">
+                                <h3 class="card-title text-white ">Education Details</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Level</th>
+                                            <th>Institutuion</th>
+                                            <th>Board</th>
+                                            <th>Maks</th>
+                                            <th>Completion Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($doctor->education as $education)
+                                            <tr>
+                                                <td>{{ $education->level }}</td>
+                                                <td>{{ $education->institution }}</td>
+                                                <td>{{ $education->board }}</td>
+                                                <td>{{ $education->marks }}</td>
+                                                <td>{{ $education->completionDate }}</td>
+
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #2F6B73">
+                                <h3 class="card-title text-white">Experience Details</h3>
+
+
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Organization Name</th>
+                                            <th>Position</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Job Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($doctor->experience as $experience)
+                                            <tr>
+                                                <td>{{ $experience->organization_name }}</td>
+                                                <td>{{ $experience->position }}</td>
+                                                <td>{{ $experience->startDate }}</td>
+                                                <td>{{ $experience->endDate }}</td>
+                                                <td style="width:200px; overflow-wrap:break-word">{{ $experience->jobDescription }}</td>
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- Main content -->
+            <!-- /.card-body -->
+
+
+            <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+
+    </div>
+    </section>
+    <!-- Main content -->
     </div>
 @endsection

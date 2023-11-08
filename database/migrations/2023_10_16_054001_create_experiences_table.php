@@ -21,8 +21,8 @@ return new class extends Migration
             $table->longText('jobDescription');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
-              ->references('id')
-              ->on('doctors');
+              ->references('id')->on('doctors')
+              ->onDelete('cascade');
         });
     }
 

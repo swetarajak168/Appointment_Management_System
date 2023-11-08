@@ -91,7 +91,7 @@ class DoctorRequest extends FormRequest
             'startDate' => 'required',
             'endDate' => 'nullable',
             'jobDescription' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => 'required|min:8|confirmed'
 
         ];

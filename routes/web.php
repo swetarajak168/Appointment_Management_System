@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointment',[AppointmentController::class,'index'])->name('appointment.index');
 
     Route::resource('trash',TrashController::class);
-
+    Route::post('/trash//{trash}restore', [TrashController::class, 'restore' ])->name('trash.restore');
 });
 
 

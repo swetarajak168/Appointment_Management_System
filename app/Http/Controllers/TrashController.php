@@ -14,7 +14,7 @@ class TrashController extends Controller
     public function index()
     {
         //
-        $softDeletedItems = Doctor::onlyTrashed()->get();       
+        $softDeletedItems = Doctor::onlyTrashed()->get();      
         return view('trash.index', compact('softDeletedItems'));
     }
 
@@ -68,5 +68,15 @@ class TrashController extends Controller
         $doctor->forceDelete();
 
         return redirect()->route('trash.index')->withSuccess('Doctor deleted permanently.');
+    }
+
+    public function restore($trash){
+        $doctor = Doctor::onlyTrashed()->find($trash);
+
+    if ($doctor) {
+        // Restore the soft-deleted doctor
+        $doctor->restore();
+        return redirect()->route('doctor.index')->with('success', 'Doctor has been restored.');
+    }
     }
 }

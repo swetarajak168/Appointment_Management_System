@@ -20,7 +20,8 @@ return new class extends Migration
             $table->double('marks');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')
-            ->references('id')->on('doctors');
+            ->references('id')->on('doctors')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

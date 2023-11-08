@@ -9,10 +9,9 @@
                     <!-- left column -->
                     <div class="col-lg-12 ">
                         <!-- general form elements -->
-                        <div class="card card-primary">
+                        <div class=" card-primary">
                             <!-- /.card-header -->
-                            <!-- form start -->
-                           
+                            <!-- form start -->                           
                             <form role="form" method="post" action="{{ route('doctor.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -187,7 +186,7 @@
                                                         <div class="col-sm-4">
                                                             <input type="text" style="width:300%"
                                                                 onchange='formvalidation()' id="nepali-datepicker"
-                                                                class="form-control" placeholder="Select Birth Date"
+                                                                class="form-control nepali-datepicker" placeholder="Select Birth Date"
                                                                 name='dob' />
                                                             @error('dob')
                                                                 <span class="text-danger">{{ $message }}</span>
@@ -197,8 +196,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
                                             <div class="form-group ">
                                                 <!-- radio -->
@@ -354,10 +351,10 @@
                                                 </div>
                                                 <div class="col group-form">
                                                     <div class="form-group">
-                                                        <label for="board">Board/University</label>
+                                                        <label for="board">Board</label>
                                                         <input type="text" class="form-control" id="Board"
                                                             onchange='eduvalidation()' name="board[]"
-                                                            placeholder=" Board/University">
+                                                            placeholder=" Board">
                                                         @error('board')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
@@ -378,7 +375,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="completion_date">Completion Date</label>
-                                                        <input type="text" class="form-control" id="CompletionDate"
+                                                        <input type="text" class="form-control nepali-datepicker" id="CompletionDate"
                                                             onchange='eduvalidation()' name="completionDate[]"
                                                             placeholder="Completion date">
                                                         @error('completionDate')
@@ -446,7 +443,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
                                                         <input type="date"onchange="expvalidation()"
-                                                            class="form-control" name="startDate[]" id="startDate">
+                                                            class="form-control nepali-datepicker" name="startDate[]" id="startDate">
                                                     </div>
                                                 </div>
 
@@ -454,7 +451,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
                                                         <input type="date" onchange="expvalidation()"
-                                                            class="form-control" name="endDate[]" id="endDate">
+                                                            class="form-control nepali-datepicker" name="endDate[]" id="endDate">
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
@@ -536,19 +533,19 @@
                                                 onclick="display('experienceform',event,'credentialsform')"
                                                 style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-left">Previous </button>
-                                            <button type="submit" disabled id="loginbtn"
+                                            <button type="submit" disabled id="loginbtn" onclick="return deleteConfirm('Are you sure to add this doctor?')"
                                                 style="background-color: #696969; color:white"
-                                                class="btn btn-default float-right">Add Doctor</button>
+                                                class="btn btn-default float-right">Submit</button>
                                         </div>
                                         <!-- /.card -->
                                     </div>
                                     <!--End Of Credentials Form-->
+                                </div>
                             </form>
                         </div>
-                    </div>
+                    
                     <!-- /.card-body -->
                 </div>
             </div>
-    </div>
-    <!-- /.card-body -->
+        </section>
 @endsection

@@ -9,7 +9,7 @@
                     <!-- left column -->
                     <div class="col-lg-12 ">
                         <!-- general form elements -->
-                        <div class="card card-primary">
+                        <div class=" card-primary">
                             <!-- /.card-header -->
                             <!-- form start -->
                             
@@ -523,6 +523,7 @@
                                         </div>
                                         <!-- /.card -->
                                     </div>
+                                </div>
                                     <!--End Of Credentials Form-->
                             </form>
                         </div>
@@ -530,6 +531,7 @@
                     <!-- /.card-body -->
                 </div>
             </div>
+        </section>
     </div>
     <!-- /.card-body -->
 @endsection

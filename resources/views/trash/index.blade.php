@@ -29,10 +29,15 @@
                                                         <td>{{ $doctor->contact }}</td>
                                                         <td>{{ $doctor->department }}</td>
                                                         <td class="d-flex mr-2">
-                                                            <form></form>
-                                                            <a href="" class = "btn btn-success btn-sm mr-2">
-                                                                Restore
-                                                            </a>
+                                                            <form action="{{ route('trash.restore', ['trash' => $doctor]) }}" method="post">
+                                                                @csrf                                                                
+                                                                <button type="submit" class="btn btn-success btn-sm mr-2"
+                                                                id="restore-form"
+                                                                onclick="return deleteConfirm('Restore this doctor?')"> <i
+                                                                    class="fa fa-trash" aria-hidden="true"></i> Restore
+                                                            </button>
+                                                            </form>
+                                                            
                                                             <form method="POST"
                                                             action="{{ route('trash.destroy', ['trash' => $doctor]) }}"
                                                            >

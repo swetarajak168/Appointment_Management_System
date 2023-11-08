@@ -100,8 +100,10 @@ class DoctorController extends Controller
 
             $doctorvalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('image', 'public');
-                $doctorvalidated['image'] = $imagePath;
+                $imagePath = $request->file('image');
+                $fileName = $imagePath->getClientOriginalName();
+                $doctorvalidated['image'] = 'storage/img/' . $fileName;
+                $imagePath->storeAs('public/img', $fileName);
             }
             $user = User::findOrFail($doctor->user_id);
             $user->update([
@@ -152,15 +154,14 @@ class DoctorController extends Controller
     {
         return DB::transaction(function () use ($doctor) {
 
-        $education = Education::where('doctor_id', $doctor->id);
-        $education->delete();
+        // $education = Education::where('doctor_id', $doctor->id);
+        // $education->delete();
 
-        $experience = Experience::where('doctor_id', $doctor->id);
-        $experience->delete();
+        // $experience = Experience::where('doctor_id', $doctor->id);
+        // $experience->delete();
 
         $doctor->delete();
-
-       
+        
         return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }

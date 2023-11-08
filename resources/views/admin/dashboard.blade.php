@@ -34,8 +34,8 @@
                             <div class="icon">
                                 <i class="fa fa-user-md" aria-hidden="true"></i>
                             </div>
-                            <a href="{{ route('doctor.create') }}" class="small-box-footer">
-                                More info <i class="fas fa-arrow-circle-right"></i>
+                            <a href="{{ route('doctor.index') }}" class="small-box-footer">
+                              View All <i class="fas fa-arrow-circle-right"></i>
                             </a>
                             </a>
                         </div>

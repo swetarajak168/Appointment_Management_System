@@ -1,15 +1,42 @@
-window.onload = function() {
+// window.onload = function() {   
+//     var elm = document.querySelectorAll(".nepali-datepicker");
+//     elm.nepaliDatePicker({
+//         ndpYear: true,
+//         ndpMonth: true,
+//         ndpYearCount: 10,
+//         language: "english"
+//     });
+// };
+function initializaNepaliDatePickers(){
+    var elm = document.querySelectorAll(".nepali-datepicker");
+    // var elm = document.querySelectorAll(className);
+    console.log(elm);
+        elm.nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 10,
+            language: "english"
+        });
+}
 
-    var elm = document.getElementById("nepali-datepicker");
+window.onload = initializaNepaliDatePickers;
 
-    elm.nepaliDatePicker({
-        ndpYear: true,
-        ndpMonth: true,
-        ndpYearCount: 10,
-        language: "english"
-    });
-};
 
+function initializaNepaliDatePicker(newRow){
+    
+    console.log(newRow);
+    var elm = newRow.querySelectorAll(".nepali-datepicker");
+    // var elm = document.querySelectorAll(className);
+    console.log(elm);
+        elm.nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 10,
+            language: "english"
+        });
+       
+}
+// window.onload = initializaNepaliDatePicker;
 function bsToAd() {
     var bsDate = document.getElementById("nepali-datepicker").value;
     var englishdate = document.getElementById("englishdate");
@@ -19,3 +46,4 @@ function bsToAd() {
 setInterval(() => {
     bsToAd()
 }, 30);
+
