@@ -6,6 +6,7 @@ use App\Http\Requests\DoctorRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Doctor;
 use App\Models\Experience;
+use App\Models\Department;
 use App\Models\User;
 use App\Models\Education;
 use Illuminate\Support\Facades\DB;
@@ -21,13 +22,15 @@ class DoctorController extends Controller
     }
     public function create()
     {
-        return view('doctors.create');
+        $departments = Department::all();
+        // dd($department);
+        return view('doctors.create',compact('departments'));
     }
 
 
     public function store(DoctorRequest $request)
     {
-        // dd( $request->all());
+        // dd( $request);
         // dd($request->Institution);
         return DB::transaction(function () use ($request) {
             $validateddata = $request->validated();
@@ -43,6 +46,7 @@ class DoctorController extends Controller
                 $validateddata['image'] = 'storage/img/' . $fileName;
                 $imagePath->storeAs('public/img', $fileName);
             }
+            // $validateddata['department_id'] = 
 
             $doctor_store = Doctor::create($validateddata);
 
@@ -81,10 +85,12 @@ class DoctorController extends Controller
     }
     public function edit($id)
     {
+        $departments = Department::all();
+        // dd($department);
+       
         $doctor = Doctor::findOrFail($id);
-        return view('doctors.edit', [
-            'doctor' => $doctor,
-        ]);
+        return view('doctors.edit', compact('departments','doctor')
+        );
     }
     public function show($id)
     {
@@ -161,7 +167,8 @@ class DoctorController extends Controller
         // $experience->delete();
 
         $doctor->delete();
-        
+       
+       
         return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }

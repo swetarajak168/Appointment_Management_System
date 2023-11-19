@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\EducationController;
+ 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route::get('/', function () {
+//     return view('index');
+// });
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -30,12 +34,12 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-   
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); 
     
 
     Route::resource('user',UserController::class);
+
+    Route::resource('department', DepartmentController::class);
    
     Route::get('/doctor',[DoctorController::class,'index'])->name('doctor.index');
     Route::get('/doctor/create',[DoctorController::class,'create'])->name('doctor.create');    
@@ -45,10 +49,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/doctor/{doctor}/update',[DoctorController::class,'update'])->name('doctor.update');
     Route::delete('/doctor/{doctor}/delete',[DoctorController::class,'destroy'])->name('doctor.delete');
 
-    Route::get('/appointment',[AppointmentController::class,'index'])->name('appointment.index');
+    Route::resource('appointment',AppointmentController::class);
+    
 
     Route::resource('trash',TrashController::class);
     Route::post('/trash//{trash}restore', [TrashController::class, 'restore' ])->name('trash.restore');
+
+    Route::resource('schedule',ScheduleController::class);
 });
 
 

@@ -71,8 +71,8 @@ class UserController extends Controller
         if($doctor->exists()){
             $doctor->delete();
         }       
-       
-        $user->delete();
+        $user_del = User::findOrFail($user);
+        $user_del->delete();
         return redirect()->route('user.index')->withSuccess( 'User was successfully deleted.');
     }
 }

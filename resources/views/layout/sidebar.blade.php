@@ -15,7 +15,8 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3  d-flex">
             <div class="image">
-                <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                {{-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> --}}
+                <img src="{{ Auth::user() }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href=" " class="d-block">{{ Auth::user()->name }}</a>
@@ -24,11 +25,12 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2 ">
+            {{-- {{ dd(auth()->user()->role) }} --}}
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                   with font-awesome or any other icon font library -->
-
+                  @if(auth()->user()->role == 1)
                   <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -55,6 +57,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('department.index')}}" class="nav-link">
+                        <i class="fa fa-building" aria-hidden="true"></i>
+                      <p>
+                        {{__('Department')}}                        
+                      </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('appointment.index')}}" class="nav-link">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                       <p>
@@ -63,6 +74,32 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{route('schedule.index')}}" class="nav-link">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                      <p>
+                        {{__('Schedule')}}                        
+                      </p>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a href="{{ route('dashboard') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            {{ __('Dashboard') }}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('schedule.index')}}" class="nav-link">
+                        <i class="fa fa-user-circle " aria-hidden="true"></i>
+                      <p>
+                          {{__('Appointment')}}                        
+                      </p>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

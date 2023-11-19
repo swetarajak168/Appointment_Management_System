@@ -4,6 +4,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                    @if(auth()->user()->role == 1)
                     <div class="col-lg-3 col-6">
                         <!-- small card -->
                         <div class="small-box bg-info">
@@ -75,6 +76,7 @@
                         </div>
                     </div>
                     <!-- ./col -->
+                    @endif
                 </div>
             </div>
         </section>

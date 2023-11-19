@@ -11,7 +11,9 @@
                         <!-- general form elements -->
                         <div class=" card-primary">
                             <!-- /.card-header -->
-                            <!-- form start -->                           
+                            <!-- form start -->   
+                           {{-- {{ dd($departments)       }}                  --}}
+                           {{ $errors }}
                             <form role="form" method="post" action="{{ route('doctor.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -266,11 +268,13 @@
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Department</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="department" id="department"
-                                                                placeholder="Your Department"
-                                                                value={{ old('department') }}>
+                                                            <select name="department_id" id="department" class="form-control">
+                                                                <option value="">Select Department</option>
+                                                                @foreach($departments as $dept)
+                                                                    <option value="{{ $dept->id }}">
+                                                                        {{ $dept->department_name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                             @error('department')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -375,7 +379,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="completion_date">Completion Date</label>
-                                                        <input type="text" class="form-control nepali-datepicker" id="CompletionDate"
+                                                        <input type="text" class="form-control nepali-datepicker" 
                                                             onchange='eduvalidation()' name="completionDate[]"
                                                             placeholder="Completion date">
                                                         @error('completionDate')
@@ -384,6 +388,7 @@
                                                     </div>
                                                     
                                                 </div>
+                                                {{-- <input type="hidden" id="englishdate_" name='english_dob'/> --}}
                                                 <i class="fa fa-minus-circle fa-lg remove-education"  aria-hidden="true" style="color: red"></i>
                                             </div>
 
@@ -442,16 +447,16 @@
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
-                                                        <input type="date"onchange="expvalidation()"
-                                                            class="form-control nepali-datepicker" name="startDate[]" id="startDate">
+                                                        <input type="text"onchange="expvalidation()" id="startDate"
+                                                            class="form-control nepali-datepicker" name="startDate[]" >
                                                     </div>
                                                 </div>
 
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
-                                                        <input type="date" onchange="expvalidation()"
-                                                            class="form-control nepali-datepicker" name="endDate[]" id="endDate">
+                                                        <input type="text" onchange="expvalidation()" id="endDate"
+                                                            class="form-control nepali-datepicker" name="endDate[]" >
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
@@ -533,7 +538,7 @@
                                                 onclick="display('experienceform',event,'credentialsform')"
                                                 style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-left">Previous </button>
-                                            <button type="submit" disabled id="loginbtn" onclick="return deleteConfirm('Are you sure to add this doctor?')"
+                                            <button type="submit" disabled id="loginbtn" onclick="return deleteConfirm('Are you sure to add this doctor')"
                                                 style="background-color: #696969; color:white"
                                                 class="btn btn-default float-right">Submit</button>
                                         </div>

@@ -11,14 +11,13 @@
 
                                     <div class="card">
                                         <div class="card-header">
-                                            <h1 class="card-title w-30">List of Doctor </h1>
+                                            <h1 class="card-title w-30">List of Department </h1>
                                             <div class="card-tools flex">
-                                                <a href={{ route('doctor.create') }} class="btn btn-primary btn-md mr-2">
-                                                    <i class="fa fa-plus-circle " aria-hidden="true"></i> Add Doctor
-                                                  </a>
-                                                <a href={{ route('trash.index') }} class="btn btn-danger btn-md pl-1 mr-2">
-                                                    <i class="fa fa-trash ml-1" aria-hidden="true" ></i> Trash
-                                              </a>
+                                                <a href={{ route('department.create') }}
+                                                    class="btn btn-primary btn-md mr-2">
+                                                    <i class="fa fa-plus-circle " aria-hidden="true"></i> Add Department
+                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -34,40 +33,30 @@
                                             <thead>
                                                 <tr>
                                                     <th>S.N</th>
-                                                    <th>License No.</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Department</th>
-                                                    <th>Action</th>
+                                                    <th>Department Name</th>
+                                                    <th>Members</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($doctors as $doctor)
+                                                {{-- {{ dd($department) }} --}}
+                                                @foreach ($department as $dep)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $doctor->license_no }}</td>
-                                                        <td>{{ $doctor->fname }}</td>
-                                                        <td>{{ $doctor->lname }}</td>
-                                                        <td>{{ $doctor->department->department_name }}</td>
-                                                        
+                                                        <td>{{ $dep->department_name }}</td>
+                                                        <td>{{ $dep->doctor->count() }}</td>
                                                         <td class="d-flex mr-2">
-                                                            {{-- {{ $id = $doctor->user->id ; }} --}}
-                                                            <a href="{{ route('doctor.show', ['id' => $doctor->id]) }}"
-                                                                class = "btn btn-success btn-sm mr-2"><i class="fa fa-eye"
-                                                                    aria-hidden="true"></i> View</a>
-                                                            <a href="{{ route('doctor.edit', ['doctor' => $doctor]) }}"
+                                                            <a href="{{ route('department.edit', ['department'=>$dep]) }}"
                                                                 class="btn btn-primary btn-sm mr-2">
                                                                 <i class="fa fa-edit" aria-hidden="true"></i> Edit
                                                             </a>
+
                                                             <form method="POST"
-                                                                action="{{ route('doctor.delete', ['doctor' => $doctor]) }}"
-                                                                id="delete-form">
+                                                                action="{{ route('department.destroy', ['department'=>$dep]) }}" id="delete-form">
                                                                 @csrf
-                                                                @method('DELETE')
-                                                                {{-- <button  class="btn btn-danger btn-sm mr-2" id="delete-form" onclick="return confirm('Are u sure to delete')"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button> --}}
-                                                                <button type="submit" class="btn btn-danger btn-sm mr-2"
-                                                                    id="delete-form"
-                                                                    onclick="return deleteConfirm('Delete this doctor')"> <i
+                                                                @method('DELETE')                                                                
+                                                                <button                                                                     
+                                                                    class="btn btn-danger btn-sm mr-2" onclick="return deleteConfirm('Delete this department')"><i
                                                                         class="fa fa-trash" aria-hidden="true"></i> Delete
                                                                 </button>
                                                             </form>

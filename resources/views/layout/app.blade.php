@@ -1,4 +1,5 @@
 <x-app-layout>    
+    @include('sweetalert::alert')
     @include('layout.header')   
     @include('layout.sidebar')      
     @yield('content')

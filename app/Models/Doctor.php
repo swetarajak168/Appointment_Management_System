@@ -28,7 +28,8 @@ class Doctor extends Model
         'specialization',
         'department',
         'image',        
-        'user_id'
+        'user_id',
+        'department_id'
     ];
     public function user()
     {
@@ -41,4 +42,15 @@ class Doctor extends Model
     public function experience(){
         return $this->hasMany(Experience::class);
     }
+
+    public function schedule(){
+        return $this->hasMany(Schedule::class);
+    }
+    public function booking(){
+        return $this->hasMany(Booking::class);
+    }
+
+   public function department(){
+    return  $this->belongsTo(Department::class);
+   }
 }

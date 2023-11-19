@@ -16,6 +16,8 @@
     <!--Nepali Date Picker CSS-->
     <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css"
         rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/dist/sweetalert2.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">

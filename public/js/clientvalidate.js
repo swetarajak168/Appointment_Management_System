@@ -45,11 +45,11 @@ function formvalidation() {
 function eduvalidation() {
   var institution = document.getElementById("Institution").value;
   console.log(institution)
-  var date = document.getElementById("CompletionDate").value;
+  // var date = document.getElementById("CompletionDate").value;
   var board = document.getElementById("Board").value;
   var scores = document.getElementById("Scores").value;
   var btn = document.getElementById("edunextbtn");
-  if (institution.length > 0 && date.length > 0 && board.length > 0 && scores.length > 0) {
+  if (institution.length > 0 && board.length > 0 && scores.length > 0) {
     btn.style.backgroundColor = "#17a2b8"
     btn.removeAttribute("disabled");
   } else {
@@ -60,13 +60,21 @@ function eduvalidation() {
 //client side validation for experience form
 function expvalidation() {
   var org = document.getElementById("organization_name").value;
+  
   var position = document.getElementById("position").value;
-  var startdate = document.getElementById("startDate").value;
+ 
+
+  // var startdate = document.getElementById("startDate").value;
+
+  // console.log(startdate);
+  // && startdate.length > 0
   var enddate = document.getElementById("endDate").value;
+
   var jobdescription = document.getElementById("jobDescription").value;
+ 
   var btn = document.getElementById("expNextbtn");
 
-  if (org.length > 0 && position.length > 0 && startdate.length > 0 && enddate.length > 0 && jobdescription.length > 0) {
+  if (org.length > 0 && position.length > 0  && enddate.length > 0 && jobdescription.length > 0) {
     btn.style.backgroundColor = "#17a2b8"
     btn.removeAttribute("disabled");
   } else {

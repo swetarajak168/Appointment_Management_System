@@ -45,7 +45,7 @@ class DoctorRequest extends FormRequest
                 'dob' => 'required|string|max:255',
                 'english_dob' => 'required',
                 'specialization' => 'required|string|max:255',
-                'department' => 'required|string|max:255',
+                'department_id' => 'required',
                 'image' => 'file|nullable|mimes:jpeg,png,jpg,gif|max:2048',
                 'user_id' => 'nullable|numeric',
                 'status' => 'required',
@@ -76,7 +76,7 @@ class DoctorRequest extends FormRequest
             'dob' => 'required|string|max:255',
             'english_dob' => 'required',
             'specialization' => 'required|string|max:255',
-            'department' => 'required|string|max:255',
+            'department_id' => 'required',
             'image' => 'file|nullable|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'nullable|numeric',
             'status' => 'required',
@@ -93,7 +93,7 @@ class DoctorRequest extends FormRequest
             'jobDescription' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:8|confirmed'
-
+            
         ];
 
     }

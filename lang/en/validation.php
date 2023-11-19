@@ -172,7 +172,8 @@ return [
         ],
         'dob'=>[
             'required'=> 'Your date of birth is required'
-        ]
+        ],
+        
     ],
 
     /*

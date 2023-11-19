@@ -5,43 +5,7 @@
             <div class="container-fluid">
                 <h3 class=>Doctor Profile</h3>
 
-                {{-- <div class="col-md-3">
-
-                        <!-- Profile Image -->
-                        <div class="card  card-outline">
-                            <h3 class="card-title text-center">Basic Details</h3>
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($doctor->image) }}"
-                                        alt="profile">
-                                </div>
-                                <h3 class="profile-username text-center">
-                                    {{ $doctor->fname . '' . $doctor->lname }}</h3>
-
-                                <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>License No:</b> {{ $doctor->license_no }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Email:</b> {{ $doctor->email }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Contact: </b> {{ $doctor->contact }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Department: </b> {{ $doctor->department }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-
-                        <!-- About Me Box -->
-
-                        <!-- /.card -->
-                    </div> --}}
-                <!-- /.col -->
+             
 
                 <div class="row">
                     <div class="col-12">
@@ -70,7 +34,7 @@
                                                 <b>Contact: </b> {{ $doctor->contact }}
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Department: </b> {{ $doctor->department }}
+                                                <b>Department: </b> {{ $doctor->department->department_name }}
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Specialization: </b> {{ $doctor->specialization }}

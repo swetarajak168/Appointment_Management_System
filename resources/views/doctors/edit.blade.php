@@ -7,6 +7,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- left column -->
+                    {{ $errors }}
                     <div class="col-lg-12 ">
                         <!-- general form elements -->
                         <div class=" card-primary">
@@ -21,7 +22,7 @@
                                 <div id="basicinfo">
                                     <div class="card card-info">
                                         <div class="card-header">
-                                            <h3 class="card-title">Add Doctor Form</h3>
+                                            <h3 class="card-title">Update Doctor </h3>
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
@@ -266,11 +267,13 @@
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Department</label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="department" id="department"
-                                                                placeholder="Your Department"
-                                                                value={{ old('department',$doctor->department) }}>
+                                                            <select name="department_id" id="department" class="form-control" >
+                                                                <option value="">Select Department</option>
+                                                                @foreach($departments as $dept)
+                                                                    <option value="{{ $dept->id }}">
+                                                                        {{ $dept->department_name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                             @error('department')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -376,14 +379,16 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="completion_date">Completion Date</label>
-                                                        <input type="text" class="form-control" id="CompletionDate"
+                                                        <input type="text" class="form-control nepali-datepicker" 
                                                             onchange='eduvalidation()' name="completionDate[]"
                                                             placeholder="Completion date" value={{ $education->completionDate }}>
                                                         @error('completionDate')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
                                                     </div>
+                                                    
                                                 </div>
+                                              
                                                 <i class="fa fa-minus-circle fa-lg remove-education" aria-hidden="true" style="color: red"></i>
                                             </div>
                                           
@@ -442,7 +447,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
                                                         <input type="date"onchange="expvalidation()"
-                                                            class="form-control" name="startDate[]" id="startDate"  value="{{ $experience->startDate }}">
+                                                            class="form-control nepali-datepicker" name="startDate[]" id="startDate"  value="{{ $experience->startDate }}">
                                                     </div>
                                                 </div>
 
@@ -450,7 +455,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
                                                         <input type="date" onchange="expvalidation()"
-                                                            class="form-control" name="endDate[]" id="endDate"  value="{{ $experience->endDate }}">
+                                                            class="form-control nepali-datepicker" name="endDate[]" id="endDate"  value="{{ $experience->endDate }}">
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>

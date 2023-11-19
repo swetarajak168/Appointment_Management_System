@@ -31,14 +31,14 @@ return new class extends Migration
             $table->string('dob');
             $table->string('english_dob');
             $table->string('specialization');
-            $table->string('department');
+          
             $table->softDeletes();
             $table->string('image')->nullable();                      
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
               ->references('id')
               ->on('users');
-              
+            $table->foreignId('department_id')->constrained('departments');
         });
     }
 
