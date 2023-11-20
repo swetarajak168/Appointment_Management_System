@@ -16,21 +16,22 @@ document.addEventListener('DOMContentLoaded', function () {
   var elem = originalelem.querySelector('.nepali-datepicker');
   elem.id = 'CompletionDate_' + 1;
   
-  document.getElementById('addEducation').addEventListener('click', function nm() {
+  document.getElementById('addEducation').addEventListener('click', function () {
     if (cloneCount < cloneLimit) {
       
       var newRow = document.querySelector('.education-form').cloneNode(true);
+      //setting id for every cloned nodes
       i++;
       var newId = 'CompletionDate_' + i;
       var a = newRow.querySelector('.nepali-datepicker')
       a.id = newId;
-      console.log(a.id);
+      // console.log(a.id);
         initializaNepaliDatePicker(newRow);
       setInterval(() => {
 
         nepToEng(newRow)
       }, 30);
-    
+    //end
       document.querySelector('.education-form').parentNode.appendChild(newRow);
       const inputFields = newRow.querySelectorAll("input");
       inputFields.forEach(function (input) {
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       });
      
-      console.log(newRow);
+      // console.log(newRow);
       cloneCount++;
 
     } else {
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   });
-  document.addEventListener('click', function (e) {
+  document.addEventListener('click', function (e) {s
     if (e.target && e.target.classList.contains('remove-experience')) {
       const experienceForm = document.querySelectorAll('.experience-form');
       if (experienceForm.length > 1) {
@@ -95,4 +96,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
+  document.getElementById('addSchedule').addEventListener('click', function () {
+    console.log("object")
+    var newRow = document.querySelector('.scheduleTime').cloneNode(true);
+    document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
+    });
 });
+function addSchedule(){
+  var newRow = document.querySelector('.scheduleTime').cloneNode(true);
+  document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
+}

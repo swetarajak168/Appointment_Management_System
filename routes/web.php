@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ProfileController;
@@ -20,16 +21,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Route::get('/', function () {
-//     return view('index');
-// });
 Route::get('/', function () {
-    return view('auth.login');
+    return view('index');
 });
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('booking',BookingController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

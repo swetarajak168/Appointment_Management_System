@@ -10,7 +10,7 @@
 function initializaNepaliDatePickers() {
     var elm = document.querySelectorAll(".nepali-datepicker");
 
-    console.log(elm);
+    // console.log(elm);
 
     elm.nepaliDatePicker({
         ndpYear: true,
@@ -44,7 +44,7 @@ function bsToAd() {
     var adDate = NepaliFunctions.BS2AD(bsDate)
 
     englishdate.value = adDate
-    console.log( englishdate.value);
+    // console.log( englishdate.value);
 
 
 }
@@ -66,7 +66,7 @@ function nepToEng(newRow) {
     if (i < 6) {
         const inputFields = newRow.querySelectorAll('.nepali-datepicker');
         // console.log(inputFields)
-      console.log(inputFields);
+    //   console.log(inputFields);
     //     inputFields.forEach(function (node, i) {
     //         const elm =  node.querySelector('.nepali-datepicker');
     //         // console.log(elm + i)

@@ -18,7 +18,13 @@ class ScheduleController extends Controller
         //
         $schedules = Schedule::get();
         $doctors = Doctor::get();
-        // return view('schedule.create',compact('doctors'));
+        if(auth()->user()->role ==2){
+
+            $doctor = auth()->user()->doctor()->first();
+            $schedule = Schedule::where('doctor_id',$doctor->id)->get();
+            return view('schedule.index',compact('schedule','doctor'));
+        
+        }
         return view('schedule.index',compact('schedules','doctors'));
         
     }
@@ -40,7 +46,7 @@ class ScheduleController extends Controller
     {
         
         $data=$request->all();
-    //    dd($request);
+    //    dd($data);
   
         $user = auth()->user()->id;
         // $doctor = auth()->user()->doctor->id;
@@ -51,15 +57,18 @@ class ScheduleController extends Controller
         else{
             $doctor_id =  auth()->user()->doctor->id;
         }
-        Schedule::create([
-            'nepali_date'=>$data['nepali_date'],
-            'english_date'=>$data['english_date'],
-            'limit'=>$data['limit'],
-            'start_time'=>$data['start_time'],
-            'end_time'=>$data['end_time'],
-            'doctor_id'=> $doctor_id ,
-            'user_id'=>$user
-        ]);
+        foreach($data['start_time']as $key => $item){
+            $schedule= new Schedule();
+            $schedule->nepali_date = $data['nepali_date'];
+            $schedule->english_date = $data['english_date'];
+            $schedule->limit = $data['limit'];
+            $schedule->start_time = $data['start_time'][$key];
+            $schedule->end_time = $data['end_time'][$key];
+            $schedule->doctor_id = $doctor_id ;
+            $schedule->user_id = $user ;
+            $schedule->save();
+
+        }       
         Alert::success('Success','Schedule added');
         return redirect()->route('schedule.index');
     }
@@ -94,5 +103,10 @@ class ScheduleController extends Controller
     public function destroy(string $id)
     {
         //
+        // dd($id);
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+        Alert::success('Success','Schedule deleted');
+        return redirect()->route('schedule.index');
     }
 }
