@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TrashController;
@@ -33,6 +34,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('booking',BookingController::class);
+Route::resource('patient',PatientController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('user',UserController::class);
 
     Route::resource('department', DepartmentController::class);
+
    
     Route::get('/doctor',[DoctorController::class,'index'])->name('doctor.index');
     Route::get('/doctor/create',[DoctorController::class,'create'])->name('doctor.create');    

@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var originalelem = document.querySelector('.experience-form');
   var elem = originalelem.querySelector('.nepali-datepicker');
   var elem1 = originalelem.querySelector('.nepali-datepicker:last-child');
+  console.log(elem1);
   elem.id = 'startDate_' + 1;
   elem1.id = 'endDate_' + 1;
   document.getElementById('addExperience').addEventListener('click', function () {
@@ -59,8 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
     j++;
       var newId = 'startDate_' + j;
       var newId1 = 'endDate_' + j;
-      var a = newRow.querySelector('.nepali-datepicker')
-      var b = newRow.querySelector('.nepali-datepicker:last-child')
+      var a = newRow.querySelector('.nepali-datepicker');
+      console.log(a);
+      var b = newRow.querySelector('.nepali-datepicker:last-child');
       console.log(b)
       a.id = newId;
       b.id = newId1;
@@ -86,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   });
-  document.addEventListener('click', function (e) {s
+  document.addEventListener('click', function (e) {
     if (e.target && e.target.classList.contains('remove-experience')) {
       const experienceForm = document.querySelectorAll('.experience-form');
       if (experienceForm.length > 1) {

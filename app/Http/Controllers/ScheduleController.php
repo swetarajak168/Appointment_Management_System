@@ -18,6 +18,7 @@ class ScheduleController extends Controller
         //
         $schedules = Schedule::get();
         $doctors = Doctor::get();
+
         if(auth()->user()->role ==2){
 
             $doctor = auth()->user()->doctor()->first();
@@ -34,9 +35,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
-        $doctors = Doctor::get();
-        return view('schedule.create',compact('doctors'));
+        
     }
 
     /**
@@ -46,11 +45,9 @@ class ScheduleController extends Controller
     {
         
         $data=$request->all();
-    //    dd($data);
-  
+ 
         $user = auth()->user()->id;
-        // $doctor = auth()->user()->doctor->id;
-    //    dd($doctor);
+       
         if(auth()->user()->role ==1){
             $doctor_id = $data['doctor_id'];
         }

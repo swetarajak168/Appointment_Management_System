@@ -260,17 +260,19 @@
                                                             @enderror
                                                         </div>
 
-
+                                                        {{-- {{ dd($doctor->department) }} --}}
                                                     </div>
                                                     <div class="col-md-6">
-
+                                                        
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Department</label>
                                                         <div class="col-sm-8">
                                                             <select name="department_id" id="department" class="form-control" >
-                                                                <option value="">Select Department</option>
+                                                                {{-- edit  --}}
+                                                               
                                                                 @foreach($departments as $dept)
-                                                                    <option value="{{ $dept->id }}">
+                                                                
+                                                                    <option value="{{ $dept->id }}"     {{ $doctor->department->deptartment_name === $dept->department_name ? 'selected' : '' }} >
                                                                         {{ $dept->department_name }}</option>
                                                                 @endforeach
                                                             </select>
@@ -294,7 +296,8 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <img src="" alt="Image preview" class=" pl-3" id="preview" />
+                                           
+                                            <img src="{{ asset($doctor->image) }}" alt="Image preview" class=" pl-3" id="preview" />
                                             <input type="hidden" name="role" value="2">
                                             <input type="hidden" name="status" value="1">
                                             <input type="hidden" id="englishdate" name='english_dob' />
@@ -422,7 +425,9 @@
                                         </div>
                                         @foreach($doctor->experience as $experience)
                                         <div class="card-body">
-                                            <div class="row experience-form ">
+                                           
+                                            <div class="row experience-form">
+                                               
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">
@@ -430,7 +435,7 @@
                                                         </label>
                                                         <input type="text" onchange="expvalidation()"
                                                             class="form-control" name="organization_name[]"
-                                                            id="organization_name" placeholder="Organization Name" value="{{ $experience->organization_name }}">
+                                                            id="organization_name" placeholder="Organization Name" value={{ $experience->organization_name }}>
                                                     </div>
                                                 </div>
 
@@ -439,23 +444,23 @@
                                                         <label for="inputEmail3">Position</label>
                                                         <input type="text" onchange="expvalidation()"
                                                             class="form-control" name="position[]" id="position"
-                                                            value="{{ $experience->position }}">
+                                                            placeholder="Position" value={{ $experience->position }}>
                                                     </div>
                                                 </div>
 
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
-                                                        <input type="date"onchange="expvalidation()"
-                                                            class="form-control nepali-datepicker" name="startDate[]" id="startDate"  value="{{ $experience->startDate }}">
+                                                        <input type="text"onchange="expvalidation()" id="startDate"
+                                                            class="form-control nepali-datepicker" name="startDate[]"  value={{ $experience->startDate }}  >
                                                     </div>
                                                 </div>
 
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
-                                                        <input type="date" onchange="expvalidation()"
-                                                            class="form-control nepali-datepicker" name="endDate[]" id="endDate"  value="{{ $experience->endDate }}">
+                                                        <input type="text" onchange="expvalidation()" id="endDate"
+                                                            class="form-control nepali-datepicker" name="endDate[]" value={{ $experience->endDate }}  >
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
@@ -465,13 +470,12 @@
                                                         Description</label>
                                                     <div class="col-sm-6">
                                                         <textarea onchange="expvalidation()" rows="4" cols="100" class="form-control" name="jobDescription[]"
-                                                            id="jobDescription" placeholder="Job Description"  >
-                                                            {{ $experience->jobDescription }}
-                                                        </textarea>
+                                                            id="jobDescription" placeholder="Job Description" value={{ $experience->jobDescription }}>
+                                                    </textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+                                        
                                         </div>
                                         @endforeach
                                         <div>
@@ -484,12 +488,13 @@
                                                 onclick="display('educationform',event,'experienceform')"
                                                 style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-left">Previous </button>
-                                            <button type="submit"  id ="expNextbtn"
+                                            <button type="submit" disabled id ="expNextbtn"
                                                 onclick="display('credentialsform',event,'experienceform')"
-                                                style="background-color: #17a2b8; color:white"
+                                                style="background-color: #696969; color:white"
                                                 class="btn btn-default float-right">Next </button>
                                         </div>
                                         <!-- /.card -->
+                                       
                                     </div>
                                     <!--Experience Form-->
                                 </div>

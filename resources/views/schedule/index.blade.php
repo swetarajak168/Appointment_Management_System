@@ -49,92 +49,101 @@
                                             </thead>
                                             <tbody>
                                                 @if (auth()->user()->role == 1)
-                                                    @foreach ($schedules->groupBy('nepali_date') as $date => $schedulesByDate)
-                                                        <div hidden>
+                                                @php
+                                                    $count = 1;
+                                                @endphp
+                                                    @foreach ($doctors as $item)
+                                                   {{-- {{ dd($item->schedule)}} --}}
+                                                        @foreach ($item->schedule->groupBy('nepali_date') as $date => $schedulesByDate)
+                                                        {{-- @foreach ($item->schedule->groupBy('nepali_date') as $date => $schedulesByDate) --}}
+                                                            <div hidden>
 
-                                                            {{ $rowspan = count($schedulesByDate) }}
-                                                        </div>
-                                                        {{-- {{ dd($schedules) }} --}}
-                                                        @foreach ($schedulesByDate as $index => $schedule)
-                                                            {{-- {{ dd($schedule) }} --}}
-                                                            <tr>
-                                                                @if ($index === 0)
-                                                                    <td rowspan="{{ $rowspan }}">
-                                                                        {{ $loop->parent->iteration }}</td>
-                                                                    <td rowspan="{{ $rowspan }}">
-                                                                        {{ $schedule->nepali_date }}</td>
-                                                                    @if (auth()->user()->role == 1)
+                                                                {{ $rowspan = count($schedulesByDate) }}
+                                                            </div>
+                                                            {{-- {{ dd($schedulesByDate) }} --}}
+                                                            @foreach ($schedulesByDate as $index => $schedule)
+                                                                {{-- {{ dd($schedule) }} --}}
+                                                                <tr>
+                                                                    @if ($index === 0)
                                                                         <td rowspan="{{ $rowspan }}">
-                                                                            {{ $schedule->doctor->fname }}</td>
+                                                                            {{ $count++}}</td>
+                                                                        <td rowspan="{{ $rowspan }}">
+                                                                            {{ $schedule->nepali_date }}</td>
+                                                                        @if (auth()->user()->role == 1)
+                                                                            <td rowspan="{{ $rowspan }}">
+                                                                                {{ $schedule->doctor->fname }}</td>
+                                                                        @endif
                                                                     @endif
-                                                                @endif
-                                                                <td>{{ $schedule->start_time . ' - ' . $schedule->end_time }}
-                                                                </td>
-                                                                <td class="d-flex mr-2">
+                                                                    <td>{{ $schedule->start_time . ' - ' . $schedule->end_time }}
+                                                                    </td>
+                                                                    <td class="d-flex mr-2">
 
 
-                                                                    <a href="{{ route('schedule.edit', ['schedule' => $schedule]) }}"
-                                                                        class="btn btn-primary btn-sm mr-2">
-                                                                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                                    </a>
+                                                                        <a href="{{ route('schedule.edit', ['schedule' => $schedule]) }}"
+                                                                            class="btn btn-primary btn-sm mr-2">
+                                                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                                                            Edit
+                                                                        </a>
 
-                                                                    <form method="POST"
-                                                                        action="{{ route('schedule.destroy', ['schedule' => $schedule]) }}"
-                                                                        id="delete-form">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button class="btn btn-danger btn-sm mr-2"
-                                                                            onclick="return deleteConfirm('Delete this user')"><i
-                                                                                class="fa fa-trash" aria-hidden="true"></i>
-                                                                            Delete
-                                                                        </button>
-                                                                    </form>
-                                                                </td>
-                                                            </tr>
+                                                                        <form method="POST"
+                                                                            action="{{ route('schedule.destroy', ['schedule' => $schedule]) }}"
+                                                                            id="delete-form">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button class="btn btn-danger btn-sm mr-2"
+                                                                                onclick="return deleteConfirm('Delete this user')"><i
+                                                                                    class="fa fa-trash"
+                                                                                    aria-hidden="true"></i>
+                                                                                Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
                                                         @endforeach
                                                     @endforeach
                                                 @endif
                                                 @foreach ($schedule->groupBy('nepali_date') as $date => $schedulesByDate)
-                                                <div hidden>
+                                                    <div hidden>
 
-                                                    {{ $rowspan = count($schedulesByDate) }}
-                                                </div>
-                                                {{-- {{ dd($schedules) }} --}}
-                                                @foreach ($schedulesByDate as $index => $key)
-                                                    {{-- {{ dd($key) }} --}}
-                                                    <tr>
-                                                        @if ($index === 0)
-                                                            <td rowspan="{{ $rowspan }}">
-                                                                {{ $loop->parent->iteration }}</td>
-                                                            <td rowspan="{{ $rowspan }}">
-                                                                {{ $key->nepali_date }}</td>
-                                                            @if (auth()->user()->role == 1)
+                                                        {{ $rowspan = count($schedulesByDate) }}
+                                                    </div>
+                                                    {{-- {{ dd($schedules) }} --}}
+                                                    @foreach ($schedulesByDate as $index => $key)
+                                                        {{-- {{ dd($key) }} --}}
+                                                        <tr>
+                                                            @if ($index === 0)
                                                                 <td rowspan="{{ $rowspan }}">
-                                                                    {{ $key->doctor->fname }}</td>
+                                                                    {{ $loop->parent->iteration }}</td>
+                                                                <td rowspan="{{ $rowspan }}">
+                                                                    {{ $key->nepali_date }}</td>
+                                                                @if (auth()->user()->role == 1)
+                                                                    <td rowspan="{{ $rowspan }}">
+                                                                        {{ $key->doctor->fname }}</td>
+                                                                @endif
                                                             @endif
-                                                        @endif
-                                                        <td>{{ $key->start_time . ' - ' . $key->end_time }}
-                                                        </td>
-                                                        <td class="d-flex mr-2">
-                                                            <a href="{{ route('schedule.edit', ['schedule' => $key]) }}"
-                                                                class="btn btn-primary btn-sm mr-2">
-                                                                <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                            </a>
-                                                            <form method="POST"
-                                                                action="{{ route('schedule.destroy', ['schedule' => $key]) }}"
-                                                                id="delete-form">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn btn-danger btn-sm mr-2"
-                                                                    onclick="return deleteConfirm('Delete this user')"><i
-                                                                        class="fa fa-trash" aria-hidden="true"></i>
-                                                                    Delete
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                            <td>{{ $key->start_time . ' - ' . $key->end_time }}
+                                                            </td>
+                                                            <td class="d-flex mr-2">
+                                                                <a href="{{ route('schedule.edit', ['schedule' => $key]) }}"
+                                                                    class="btn btn-primary btn-sm mr-2">
+                                                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                                                                </a>
+                                                                <form method="POST"
+                                                                    action="{{ route('schedule.destroy', ['schedule' => $key]) }}"
+                                                                    id="delete-form">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="btn btn-danger btn-sm mr-2"
+                                                                        onclick="return deleteConfirm('Delete this user')"><i
+                                                                            class="fa fa-trash" aria-hidden="true"></i>
+                                                                        Delete
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 @endforeach
-                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -194,7 +203,7 @@
                                     Date<span class="text-danger"></span></label><br>
                                 <div class="col-lg-6">
                                     <input type="text" class="form-control nepali-datepicker" name="nepali_date"
-                                        id="nepali-datepicker" placeholder="Schedule Date" >
+                                        id="nepali-datepicker" placeholder="Schedule Date">
                                 </div>
 
 
@@ -224,8 +233,7 @@
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">
                                         Start Time<span class="text-danger"></span></label><br>
                                     <div class="col-lg-6">
-                                        <input type="time" class="form-control " name="start_time[]" id="start_time"
-                                           >
+                                        <input type="time" class="form-control " name="start_time[]" id="start_time">
                                     </div>
                                     @error('start_time')
                                         <span class="text-danger"
@@ -236,8 +244,7 @@
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">
                                         End Time<span class="text-danger"></span></label><br>
                                     <div class="col-lg-6">
-                                        <input type="time" class="form-control " name="end_time[]" id="end_time"
-                                            >
+                                        <input type="time" class="form-control " name="end_time[]" id="end_time">
                                     </div>
                                     <br>
 
