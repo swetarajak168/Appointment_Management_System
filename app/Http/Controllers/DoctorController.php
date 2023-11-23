@@ -23,18 +23,16 @@ class DoctorController extends Controller
     public function create()
     {
         $departments = Department::all();
-        // dd($department);
+       
         return view('doctors.create',compact('departments'));
     }
 
 
     public function store(DoctorRequest $request)
     {
-        // dd( $request);
-        // dd($request->Institution);
+        
         return DB::transaction(function () use ($request) {
-            $validateddata = $request->validated();
-            // dd($validateddata['Level']);
+            $validateddata = $request->validated();           
             $validateddata['name'] = $validateddata['fname'] . ' ' . $validateddata['lname'];
             $validateddata['password'] = Hash::make($validateddata['password']);
             $user_store = User::create($validateddata);
@@ -46,7 +44,7 @@ class DoctorController extends Controller
                 $validateddata['image'] = 'storage/img/' . $fileName;
                 $imagePath->storeAs('public/img', $fileName);
             }
-            // $validateddata['department_id'] = 
+            
 
             $doctor_store = Doctor::create($validateddata);
 
@@ -172,4 +170,5 @@ class DoctorController extends Controller
         return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }
+    
 }

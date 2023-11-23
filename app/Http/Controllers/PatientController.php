@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\PatientRequest;
+use App\Models\Patient;
+use App\Models\Booking;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -28,9 +32,19 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-        //
-        dd($request->all());
+        
+        return DB::transaction(function () use ($request) {
+        $patientdata = $request->all();
+        $patient = Patient::create($patientdata);
+        $patients_id = $patient->id;
 
+        $patientdata['patients_id'] = $patients_id;       
+        $book = Booking::create($patientdata);
+        
+        $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
+        // Alert::success('Success','Schedule added');
+        return redirect()->back()->withSuccess( 'Booking was successfully added.');
+        });
     }
 
     /**

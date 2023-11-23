@@ -25,7 +25,6 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2 ">
-            {{-- {{ dd(auth()->user()->role) }} --}}
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
@@ -48,15 +47,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('doctor.index')}}" class="nav-link">
-                        <i class="fa fa-user-md" aria-hidden="true"></i>
-                      <p>
-                        {{__('Doctors')}}                        
-                      </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a href="{{route('department.index')}}" class="nav-link">
                         <i class="fa fa-building" aria-hidden="true"></i>
                       <p>
@@ -64,12 +54,11 @@
                       </p>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{route('appointment.index')}}" class="nav-link">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <a href="{{route('doctor.index')}}" class="nav-link">
+                        <i class="fa fa-user-md" aria-hidden="true"></i>
                       <p>
-                        {{__('Appointment')}}                        
+                        {{__('Doctors')}}                        
                       </p>
                     </a>
                 </li>
@@ -82,6 +71,15 @@
                       </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('appointment.index')}}" class="nav-link">
+                       <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                      <p>
+                        {{__('Appointment')}}                        
+                      </p>
+                    </a>
+                </li>
+
                 @else
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link">
@@ -93,9 +91,17 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('schedule.index')}}" class="nav-link">
-                        <i class="fa fa-user-circle " aria-hidden="true"></i>
+                       <i class="fa fa-calendar" aria-hidden="true"></i>
                       <p>
-                          {{__('Appointment')}}                        
+                          {{__('Schedule')}}                        
+                      </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('appointment.index')}}" class="nav-link">
+                       <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                      <p>
+                        {{__('Appointment')}}                        
                       </p>
                     </a>
                 </li>

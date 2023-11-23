@@ -48,31 +48,40 @@ document.addEventListener('DOMContentLoaded', function () {
   }
  
   );
-  let j = 1
+  let j = 3
   var originalelem = document.querySelector('.experience-form');
-  var elem = originalelem.querySelector('.nepali-datepicker');
-  var elem1 = originalelem.querySelector('.nepali-datepicker:last-child');
-  console.log(elem1);
-  elem.id = 'startDate_' + 1;
-  elem1.id = 'endDate_' + 1;
-  document.getElementById('addExperience').addEventListener('click', function () {
-    const newRow = document.querySelector('.experience-form').cloneNode(true);
-    j++;
-      var newId = 'startDate_' + j;
-      var newId1 = 'endDate_' + j;
-      var a = newRow.querySelector('.nepali-datepicker');
-      console.log(a);
-      var b = newRow.querySelector('.nepali-datepicker:last-child');
-      console.log(b)
-      a.id = newId;
-      b.id = newId1;
+  var elem = originalelem.querySelectorAll('.nepali-datepicker');
 
-    document.querySelector('.experience-form').parentNode.appendChild(newRow);
-    initializaNepaliDatePicker(newRow);
-    const inputFields = newRow.querySelectorAll("input");
-    inputFields.forEach(function (input) {
-      input.value = "";
-    });
+  elem.forEach(function (element, index) {
+    var uniqueId = 'custom-input' + (index + 1);
+    element.id = uniqueId;
+});
+count = 1;
+  document.getElementById('addExperience').addEventListener('click', function () {
+    if(count>0){
+      const newRow = document.querySelector('.experience-form').cloneNode(true);
+     
+        
+        var elm = newRow.querySelectorAll('.nepali-datepicker');
+        elm.forEach(function (element, index) {
+          var uniqueId = 'custom-input' + (index + j);
+          element.id = uniqueId;
+      });
+       
+        j++;
+  
+      document.querySelector('.experience-form').parentNode.appendChild(newRow);
+      initializaNepaliDatePicker(newRow);
+      const inputFields = newRow.querySelectorAll("input");
+      inputFields.forEach(function (input) {
+        input.value = "";
+      });
+     
+    }
+
+   
+  
+
   });
   // Remove an input field when the "Remove" button is clicked
   document.addEventListener('click', function (e) {

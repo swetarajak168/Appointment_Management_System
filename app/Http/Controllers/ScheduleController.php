@@ -15,7 +15,6 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
         $schedules = Schedule::get();
         $doctors = Doctor::get();
 
@@ -43,7 +42,7 @@ class ScheduleController extends Controller
      */
     public function store(ScheduleRequest $request)
     {
-        
+        // dd($request->all());
         $data=$request->all();
  
         $user = auth()->user()->id;
@@ -58,7 +57,7 @@ class ScheduleController extends Controller
             $schedule= new Schedule();
             $schedule->nepali_date = $data['nepali_date'];
             $schedule->english_date = $data['english_date'];
-            $schedule->limit = $data['limit'];
+          
             $schedule->start_time = $data['start_time'][$key];
             $schedule->end_time = $data['end_time'][$key];
             $schedule->doctor_id = $doctor_id ;

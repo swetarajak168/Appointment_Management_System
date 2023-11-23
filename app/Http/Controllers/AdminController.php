@@ -7,8 +7,17 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     //
-    public function addeducation(){
-        return view('admin.education');
+    public function index(){
+        $doctor = auth()->user()->doctor()->first();
+       
+        // return view('admin.dashboard',compact('doctor'));
+       
+
+            return view('admin.dashboard',compact('doctor'));
+        
+        
     }
+
+    
 
 }

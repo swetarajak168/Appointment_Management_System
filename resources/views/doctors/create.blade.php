@@ -295,7 +295,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <img src="{{ asset('dist/img/user1-128x128.jpg') }} " alt="Image preview" class=" pl-3" id="preview" />
+                                            <img src="{{ asset('dist/img/user1-128x128.jpg') }} " alt="Image preview " class=" pl-3" id="preview" />
                                             <input type="hidden" name="role" value="2">
                                             <input type="hidden" name="status" value="1">
                                             <input type="hidden" id="englishdate" name='english_dob' />
@@ -447,7 +447,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
-                                                        <input type="text"onchange="expvalidation()" id="startDate"
+                                                        <input type="text"onchange="expvalidation()" 
                                                             class="form-control nepali-datepicker" name="startDate[]" >
                                                     </div>
                                                 </div>
@@ -455,7 +455,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
-                                                        <input type="text" onchange="expvalidation()" id="endDate"
+                                                        <input type="text" onchange="expvalidation()" 
                                                             class="form-control nepali-datepicker" name="endDate[]" >
                                                     </div>
                                                 </div>

@@ -1,12 +1,4 @@
-// window.onload = function() {   
-//     var elm = document.querySelectorAll(".nepali-datepicker");
-//     elm.nepaliDatePicker({
-//         ndpYear: true,
-//         ndpMonth: true,
-//         ndpYearCount: 10,
-//         language: "english"
-//     });
-// };
+
 function initializaNepaliDatePickers() {
     var elm = document.querySelectorAll(".nepali-datepicker");
 

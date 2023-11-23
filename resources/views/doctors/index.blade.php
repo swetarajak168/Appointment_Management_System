@@ -8,7 +8,6 @@
                         <div class="card">
                             <div class="row">
                                 <div class="col-12">
-
                                     <div class="card">
                                         <div class="card-header">
                                             <h1 class="card-title w-30">List of Doctor </h1>
@@ -43,6 +42,8 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($doctors as $doctor)
+                                   
+
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $doctor->license_no }}</td>

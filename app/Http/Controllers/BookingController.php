@@ -43,6 +43,7 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $departments = Department::findOrFail($id);
+        
         // dd($departments->id);
         // $doctors = Doctor::where('department_id',$departments->id)->get();
         $doctors = $departments->doctor()->with('schedule')->get();

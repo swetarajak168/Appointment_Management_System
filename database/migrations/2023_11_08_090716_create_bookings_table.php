@@ -24,6 +24,10 @@ return new class extends Migration
             $table->foreignId('patients_id')
                 ->constrained('patients');
             $table->foreignId('doctor_id')->constrained('doctors');
+            $table->foreignId('schedule_id')->constrained('schedules');
+            $table->softDeletes();
+
+
         });
     }
 

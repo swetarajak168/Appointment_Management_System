@@ -1,15 +1,22 @@
 @extends('frontend.app')
 
 @section('content')
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
     <h4 class="text-center">Click On time to book your appointment</h4>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     @foreach ($doctors as $doctor)
         @if ($doctor->schedule->isNotEmpty())
             <div class="row ">
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card" style="background-color: #d8edf1">
                         <div class="card-header  border-bottom-0">
                             <h2>
-                                {{ $doctor->fname . '' . $doctor->lname }}
+                                {{ $doctor->fname . ' ' . $doctor->lname }}
                             </h2>
                         </div>
                         <div class="card-body pt-0 text-center">
@@ -31,8 +38,9 @@
 
                 <div class="col h-100">
                     <div class="card bg-light ">
+                       
                         <table class="table">
-                            <thead>
+                            <thead style="background-color: #d8edf1">
                                 <tr>
                                     <th>Date</th>
                                     <th>Time</th>
@@ -41,28 +49,34 @@
                             <tbody>
                                 @foreach ($doctor->schedule->groupBy('nepali_date') as $date => $schedulesByDate)
                                     <tr>
+
                                         <td> {{ $date }}</td>
 
                                         <td>
                                             @foreach ($schedulesByDate as $key)
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#modal-lg-{{ $key->id }}">
-                                                    {{ $key->start_time . ' - ' . $key->end_time }}
-                                                </button>
+                                                @if ($key->status != 'approved')
+                                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                                        data-target="#modal-lg{{ $key->id }}">
+                                                        {{ $key->start_time . ' - ' . $key->end_time }}
+                                                    </button>
+                                                @endif
 
-                                                <div class="modal fade" id="modal-lg-{{ $key->id }}">
+
+                                                <div class="modal fade" id="modal-lg{{ $key->id }}">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Book Your appointment</h4>
-
+                                                            <div class="modal-header"
+                                                                style="background-color: #17a2b8;color:white">
+                                                                <h4 class="modal-title text-center">Book Your
+                                                                    appointment</h4>
+                                                                {{-- {{ $key }} --}}
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            {{ $errors }}
-                                                            {{-- {{ dd($key->id) }} --}}
+
+
                                                             <div class="modal-body">
                                                                 <form role="form" method="post"
                                                                     action="{{ route('patient.store') }}" id="patientform">
@@ -134,7 +148,7 @@
                                                                                 <input type="text"
                                                                                     class="form-control nepali-datepicker "
                                                                                     name="date_of_birth"
-                                                                                    id="modal-nepali-datepicker"
+                                                                                    id="modal-nepali-datepicker{{ $key->id }}"
                                                                                     placeholder="Date Of Birth..">
                                                                             </div>
                                                                         </div>
@@ -189,24 +203,33 @@
                                                                                 Remarks<span
                                                                                     class="text-danger"></span></label><br>
                                                                             <div class="col-lg-6">
-                                                                               
+
                                                                                 <textarea rows="4" cols="50" name="remarks" id="patient_remarks">
                                                                                     </textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <input type="hidden" name="doctor_id" value="{{ $key->doctor->id }}">
-                                                                    <input type="hidden" name="schedule_id" value="{{ $key->id }}">
-                                                                    <input type="hidden" name="book_date_bs" value="{{ $key->nepali_date}}">
-                                                                    <input type="hidden" name="book_date_ad" value="{{ $key->english_date}}">
-                                                                    <input type="hidden" name="start_time" value="{{ $key->start_time}}">
-                                                                    <input type="hidden" name="end_time" value="{{ $key->end_time}}">
-                                                                    <input type="hidden" name="status" value="Pending">
+                                                                    <input type="hidden" name="doctor_id"
+                                                                        value="{{ $key->doctor->id }}">
+                                                                    <input type="hidden" name="schedule_id"
+                                                                        value="{{ $key->id }}">
+                                                                    <input type="hidden" name="book_date_bs"
+                                                                        value="{{ $key->nepali_date }}">
+                                                                    <input type="hidden" name="book_date_ad"
+                                                                        value="{{ $key->english_date }}">
+                                                                    <input type="hidden" name="start_time"
+                                                                        value="{{ $key->start_time }}">
+                                                                    <input type="hidden" name="end_time"
+                                                                        value="{{ $key->end_time }}">
+                                                                    <input type="hidden" name="status"
+                                                                        value="approved">
+
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-success">Book
+                                                                <button type="submit"
+                                                                    class="btn btn"style="background-color:#17a2b8;color:white">Book
                                                                     Now</button>
                                                             </div>
                                                             </form>
@@ -215,6 +238,19 @@
                                                     </div>
                                                     <!-- /.modal-dialog -->
                                                 </div>
+
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        //   Initialize Nepali Date Picker
+                                                        var date = {{ $key->id }};
+                                                        //   console.log(date + 'fdf');
+
+                                                        // Initialize Nepali Date Picker for Modal
+                                                        $("#modal-nepali-datepicker" + date).nepaliDatePicker({
+                                                            container: "#modal-lg" + date,
+                                                        });
+                                                    });
+                                                </script>
                                             @endforeach
                                         </td>
 
@@ -225,11 +261,6 @@
                                         {{ $rowspan = count($schedulesByDate) }}
                                     </div>
                                 @endforeach
-
-
-
-
-
                             </tbody>
                         </table>
 

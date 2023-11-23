@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Schedule extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     protected $fillable =[
       'nepali_date',
       'english_date',
@@ -26,4 +26,8 @@ class Schedule extends Model
         return $this->belongsTo(Doctor::class);
     }
 
+    
+    public function booking(){
+        return $this->hasMany(Booking::class,'schedule_id');
+    }
 }

@@ -24,7 +24,7 @@ class ScheduleRequest extends FormRequest
         return [
             'nepali_date'=>'required',
             'english_date'=>'required',
-            'limit'=>'required',
+           
             'start_time'=>'required',
             'end_time'=>'required',            
             'doctor_id' =>'required',

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head></head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AMS</title> <!--
@@ -17,12 +17,22 @@
              <!--Nepali Date Picker CSS-->
     <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css"
     rel="stylesheet" type="text/css" />
+    {{-- slick slider --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<style>
+  html,body{
+    height:100vh;
+  }
+</style>
+
 </head>
 
 <body>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class=" navbar navbar-expand  navbar-light mb-3" style="background-color: #b1dae3">
+      
         <!-- Left navbar links -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav  " style="padding-left: 300px">
           <li class="nav-item">
             <a href="/" class="nav-link">AMS</a>
           </li>
@@ -52,6 +62,7 @@
 
 </body>
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- bs-custom-file-input -->
@@ -60,7 +71,9 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
-
+{{-- slick slider --}}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         bsCustomFileInput.init();
@@ -68,14 +81,19 @@
 </script>
 <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js"
     type="text/javascript"></script>
-<script>
 
-  $(document).ready(function () {   
-  
-    // Initialize Nepali Date Picker for Modal
-    $("#modal-nepali-datepicker").nepaliDatePicker({
-      container: "#modal-lg",
-    });
+   
+<script>
+  $(document).ready(function(){
+      $('.slider').slick({
+          autoplay: true,
+          autoplaySpeed: 2000,
+          dots: true,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 1,
+          slidesToScroll: 1
+      });
   });
 </script>
 </html>

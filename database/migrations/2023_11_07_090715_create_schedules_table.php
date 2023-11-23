@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('english_date');
             $table->string('start_time');
             $table->string('end_time');
-            $table->string('limit')->nullable();
+            $table->enum('status',['pending','approved','canceled']);
+
             $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('user_id')->constrained('users');
+            $table->softDeletes();
           
 
         });

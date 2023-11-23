@@ -79,11 +79,11 @@
                                                                     <td class="d-flex mr-2">
 
 
-                                                                        <a href="{{ route('schedule.edit', ['schedule' => $schedule]) }}"
+                                                                        {{-- <a href="{{ route('schedule.edit', ['schedule' => $schedule]) }}"
                                                                             class="btn btn-primary btn-sm mr-2">
                                                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                                                             Edit
-                                                                        </a>
+                                                                        </a> --}}
 
                                                                         <form method="POST"
                                                                             action="{{ route('schedule.destroy', ['schedule' => $schedule]) }}"
@@ -102,7 +102,8 @@
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
-                                                @endif
+                                                
+                                                @else
                                                 @foreach ($schedule->groupBy('nepali_date') as $date => $schedulesByDate)
                                                     <div hidden>
 
@@ -117,25 +118,19 @@
                                                                     {{ $loop->parent->iteration }}</td>
                                                                 <td rowspan="{{ $rowspan }}">
                                                                     {{ $key->nepali_date }}</td>
-                                                                @if (auth()->user()->role == 1)
-                                                                    <td rowspan="{{ $rowspan }}">
-                                                                        {{ $key->doctor->fname }}</td>
-                                                                @endif
+                                                               
                                                             @endif
                                                             <td>{{ $key->start_time . ' - ' . $key->end_time }}
                                                             </td>
                                                             <td class="d-flex mr-2">
-                                                                <a href="{{ route('schedule.edit', ['schedule' => $key]) }}"
-                                                                    class="btn btn-primary btn-sm mr-2">
-                                                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                                </a>
+                                                               
                                                                 <form method="POST"
                                                                     action="{{ route('schedule.destroy', ['schedule' => $key]) }}"
                                                                     id="delete-form">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button class="btn btn-danger btn-sm mr-2"
-                                                                        onclick="return deleteConfirm('Delete this user')"><i
+                                                                        onclick="return deleteConfirm('Delete this schedule')"><i
                                                                             class="fa fa-trash" aria-hidden="true"></i>
                                                                         Delete
                                                                     </button>
@@ -144,6 +139,7 @@
                                                         </tr>
                                                     @endforeach
                                                 @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -212,18 +208,7 @@
                                         style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="row col-md-6">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                    Limit<span class="text-danger"></span></label><br>
-                                <div class="col-lg-6">
-                                    <input type="number" class="form-control " name="limit" id="limit"
-                                        placeholder=" Maximum Limit" value={{ old('limit') }}>
-                                </div>
-                                @error('limit')
-                                    <span class="text-danger"
-                                        style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
-                                @enderror
-                            </div>
+                          
 
                         </div>
                         <div class="scheduleTime mb-3">
