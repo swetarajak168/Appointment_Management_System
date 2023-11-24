@@ -35,6 +35,7 @@ Route::get('/dashboard',[AdminController::class, 'index'])->middleware(['auth', 
 //Routes for frontend
 Route::get('/',[IndexController::class, 'index']);
 Route::resource('booking',BookingController::class);
+Route::put('appointment/update-status/{id}', [PatientController::class, 'updateStatus'])->name('update.status');
 Route::resource('patient',PatientController::class);
 
 Route::middleware('auth')->group(function () {
@@ -60,7 +61,7 @@ Route::middleware('auth')->group(function () {
     
 
     Route::resource('trash',TrashController::class);
-    Route::post('/trash//{trash}restore', [TrashController::class, 'restore' ])->name('trash.restore');
+    Route::post('/trash/{trash}/restore', [TrashController::class, 'restore' ])->name('trash.restore');
 
     Route::resource('schedule',ScheduleController::class);
 });

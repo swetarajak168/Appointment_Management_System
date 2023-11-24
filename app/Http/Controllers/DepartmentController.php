@@ -12,7 +12,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $department = Department::get();
+        $department = Department::withCount('doctor')->get();
         return view('department.index')->with('department', $department);
         //
     }

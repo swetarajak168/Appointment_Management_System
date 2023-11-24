@@ -4,14 +4,14 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    @if (auth()->user()->role == 1)
+                    @if ($data['auth_user']== 1)
                         <div class="col-lg-3 col-6">
                             <!-- small card -->
                             <div class="small-box bg-info">
                                 <div class="inner">
                                     {{-- {{ $users = DB::table('users')->count() }} --}}
                                     {{-- {{dd($users)  }} --}}
-                                    <h3>{{ $users = DB::table('users')->count() }}</h3>
+                                    <h3>{{ $data['user_count'] }}</h3>
 
                                     <p>Total Users</p>
                                 </div>
@@ -28,7 +28,7 @@
                             <!-- small card -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $doctors = DB::table('doctors')->count() }}</h3>
+                                    <h3>{{ $data['doctor_count'] }}</h3>
 
                                     <p>Doctors</p>
                                 </div>
@@ -46,7 +46,7 @@
                             <!-- small card -->
                             <div class="small-box bg-warning ">
                                 <div class="inner">
-                                    <h3>{{ $users = DB::table('users')->where('role', '=', '1')->count() }}</h3>
+                                    <h3>{{ $data['admin_count'] }}</h3>
 
                                     <p> Admin</p>
                                 </div>
@@ -63,7 +63,7 @@
                             <!-- small card -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $bookings = DB::table('bookings')->count() }}</h3>
+                                    <h3>{{ $data['booking_count'] }}</h3>
                                     <p>Appointments</p>
                                 </div>
                                 <div class="icon">
@@ -78,8 +78,7 @@
                             <!-- small card -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>{{ $departmentss = DB::table('departments')->count() }}</h3>
-
+                                    <h3>{{ $data['department_count']  }}</h3>
                                     <p>Departments</p>
                                 </div>
                                 <div class="icon">
@@ -95,7 +94,7 @@
                           <!-- small card -->
                           <div class="small-box bg-danger">
                               <div class="inner">
-                                  <h3>{{ $bookings = DB::table('schedules')->count() }}</h3>
+                                  <h3>{{ $data['schedule_count']}}</h3>
                                   <p>Schedules</p>
                               </div>
                               <div class="icon">
@@ -107,50 +106,46 @@
                           </div>
                       </div>
                         <!-- ./col -->
-                    @else
-                        @if ($doctor)
+                    @elseif($data['auth_user'] == 2)
+                        @if ($data['doctor'])
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="card-body box-profile">
-                                            <div class="text-center">
-                                               
+                                            <div class="text-center">                                               
                                                     <img class="profile-user-img img-fluid img-circle"
-                                                        src="{{ asset($doctor->image) }}" alt="User profile picture">
+                                                        src="{{ asset($data['doctor'] ->image) }}" alt="User profile picture">
                                             </div>
 
                                             <h3 class="profile-username text-center">
 
-                                                {{ $doctor->fname . ' ' . $doctor->lname }}
+                                                {{ $data['doctor'] ->fname . ' ' . $data['doctor'] ->lname }}
                                             </h3>
 
-                                            <p class="text-muted text-center">{{ $doctor->specialization }}</p>
+                                            <p class="text-muted text-center">{{ $data['doctor'] ->specialization }}</p>
 
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
                                                     <b>Department</b> <a
-                                                        class="float-right">{{ $doctor->department->department_name }}</a>
+                                                        class="float-right">{{ $data['doctor'] ->department->department_name }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Gender</b> <a class="float-right">{{ $doctor->gender }}</a>
+                                                    <b>Gender</b> <a class="float-right">{{ $data['doctor'] ->gender }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Contact</b> <a class="float-right">{{ $doctor->contact }}</a>
+                                                    <b>Contact</b> <a class="float-right">{{ $data['doctor'] ->contact }}</a>
                                                 </li>
                                             </ul>
-
                                         </div>
-
-                                    </div>
-
-                                
-                                  <!-- /.card-body -->
-                                  
+                                    </div>                                
+                                  <!-- /.card-body -->                                  
                               </div>
                               </div>
                             </div>
-
                         @endif
+                        @else{
+                           <p>No user found</p>
+                        }
                     @endif
                 </div>
             </div>

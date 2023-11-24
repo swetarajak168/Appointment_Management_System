@@ -38,38 +38,33 @@
                                                 <tr>
                                                     <th>S.N</th>
                                                     <th>Date</th>
-                                                    @if (auth()->user()->role == 1)
+                                                    @if ($auth_user->role == 1)
                                                         <th>Doctor</th>
                                                     @endif
                                                     <th>Available Time</th>
 
-                                                    {{-- <th>Available Quota</th> --}}
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if (auth()->user()->role == 1)
+                                                @if ($auth_user->role == 1)
                                                 @php
                                                     $count = 1;
                                                 @endphp
                                                     @foreach ($doctors as $item)
-                                                   {{-- {{ dd($item->schedule)}} --}}
                                                         @foreach ($item->schedule->groupBy('nepali_date') as $date => $schedulesByDate)
-                                                        {{-- @foreach ($item->schedule->groupBy('nepali_date') as $date => $schedulesByDate) --}}
                                                             <div hidden>
 
                                                                 {{ $rowspan = count($schedulesByDate) }}
                                                             </div>
-                                                            {{-- {{ dd($schedulesByDate) }} --}}
                                                             @foreach ($schedulesByDate as $index => $schedule)
-                                                                {{-- {{ dd($schedule) }} --}}
                                                                 <tr>
                                                                     @if ($index === 0)
                                                                         <td rowspan="{{ $rowspan }}">
                                                                             {{ $count++}}</td>
                                                                         <td rowspan="{{ $rowspan }}">
                                                                             {{ $schedule->nepali_date }}</td>
-                                                                        @if (auth()->user()->role == 1)
+                                                                        @if ($auth_user->role == 1)
                                                                             <td rowspan="{{ $rowspan }}">
                                                                                 {{ $schedule->doctor->fname }}</td>
                                                                         @endif
@@ -109,9 +104,7 @@
 
                                                         {{ $rowspan = count($schedulesByDate) }}
                                                     </div>
-                                                    {{-- {{ dd($schedules) }} --}}
                                                     @foreach ($schedulesByDate as $index => $key)
-                                                        {{-- {{ dd($key) }} --}}
                                                         <tr>
                                                             @if ($index === 0)
                                                                 <td rowspan="{{ $rowspan }}">
@@ -168,7 +161,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @if (auth()->user()->role == 1)
+                        @if ($auth_user->role == 1)
                             <div class="form-group d-flex">
                                 <div class="row col-md-8 ">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">
@@ -253,9 +246,8 @@
 
                     </div>
                     <input type="hidden" id="englishdate" name='english_date' />
-                    @if (auth()->user()->role == 2)
-                        {{-- {{ dd(auth()->user()->doctor->id) }} --}}
-                        <input type="hidden" name='doctor_id' value={{ auth()->user()->doctor->id }} />
+                    @if ($auth_user->role == 2)
+                        <input type="hidden" name='doctor_id' value={{ $auth_user->doctor->id }} />
                     @endif
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

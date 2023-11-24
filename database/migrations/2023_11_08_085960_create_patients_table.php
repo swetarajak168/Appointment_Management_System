@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('contact');
             $table->enum('gender',['male','female','others']);
             $table->string('date_of_birth');
+            $table->string('date_of_birth_ad');
 
         });
     }

@@ -14,10 +14,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
-        $departments = Department::get();
-        // dd($departments);
-        //
+
+        $departments = Department::withCount('doctor')->get();
+
+
         return view("bookings.index", compact("departments"));
     }
 
@@ -43,12 +43,14 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $departments = Department::findOrFail($id);
-        
-        // dd($departments->id);
-        // $doctors = Doctor::where('department_id',$departments->id)->get();
+
         $doctors = $departments->doctor()->with('schedule')->get();
-        // dd($doctors);
-        return view('bookings.show',compact("doctors"));
+        foreach ($doctors as $doctor) {
+            if ($doctor->schedule->isNotEmpty()) {
+                $scheduled_doctor[] = $doctor;
+            }
+        }
+        return view('bookings.show', compact("scheduled_doctor"));
 
     }
 

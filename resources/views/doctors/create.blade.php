@@ -12,8 +12,7 @@
                         <div class=" card-primary">
                             <!-- /.card-header -->
                             <!-- form start -->   
-                           {{-- {{ dd($departments)       }}                  --}}
-                           {{ $errors }}
+                           
                             <form role="form" method="post" action="{{ route('doctor.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -501,7 +500,6 @@
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
-                                        {{-- {{$errors}} --}}
                                         <div class="card-body">
                                             <div class="form-group ">
                                                 <label for="inputEmail3" onchange="loginvalidation()"

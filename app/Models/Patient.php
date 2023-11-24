@@ -16,7 +16,8 @@ class Patient extends Model
         'email',
         'contact',
         'gender',
-        'date_of_birth'
+        'date_of_birth',
+        'date_of_birth_ad',
     ];
     public function booking(){
         return $this->hasMany(Booking::class);

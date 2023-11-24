@@ -5,12 +5,12 @@
 
     <h4 class="text-center">Click On time to book your appointment</h4>
     @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-    @foreach ($doctors as $doctor)
-        @if ($doctor->schedule->isNotEmpty())
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @foreach ($scheduled_doctor as $doctor)
+        
             <div class="row ">
                 <div class="col-md-4">
                     <div class="card" style="background-color: #d8edf1">
@@ -38,7 +38,7 @@
 
                 <div class="col h-100">
                     <div class="card bg-light ">
-                       
+
                         <table class="table">
                             <thead style="background-color: #d8edf1">
                                 <tr>
@@ -53,7 +53,7 @@
                                         <td> {{ $date }}</td>
 
                                         <td>
-                                            @foreach ($schedulesByDate as $key)
+                                            @forelse ($schedulesByDate as $key)
                                                 @if ($key->status != 'approved')
                                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                                         data-target="#modal-lg{{ $key->id }}">
@@ -69,7 +69,7 @@
                                                                 style="background-color: #17a2b8;color:white">
                                                                 <h4 class="modal-title text-center">Book Your
                                                                     appointment</h4>
-                                                                {{-- {{ $key }} --}}
+
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -154,6 +154,8 @@
                                                                         </div>
 
                                                                     </div>
+                                                                    <input type="hidden" name="date_of_birth_ad"
+                                                                        id="date_of_birth_ad{{ $key->id }}">
                                                                     <div class="form-group d-flex">
                                                                         <div class="row col-md-8">
                                                                             <label for="inputEmail3"
@@ -221,8 +223,7 @@
                                                                         value="{{ $key->start_time }}">
                                                                     <input type="hidden" name="end_time"
                                                                         value="{{ $key->end_time }}">
-                                                                    <input type="hidden" name="status"
-                                                                        value="approved">
+                                                                    <input type="hidden" name="status" value="pending">
 
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
@@ -243,15 +244,27 @@
                                                     $(document).ready(function() {
                                                         //   Initialize Nepali Date Picker
                                                         var date = {{ $key->id }};
-                                                        //   console.log(date + 'fdf');
 
                                                         // Initialize Nepali Date Picker for Modal
                                                         $("#modal-nepali-datepicker" + date).nepaliDatePicker({
                                                             container: "#modal-lg" + date,
-                                                        });
+                                                        }); 
+
+                                                        function datechange() {
+                                                            var bsDate = document.getElementById("modal-nepali-datepicker" + date).value;
+                                                            var englishdate = document.getElementById("date_of_birth_ad" + date);
+                                                            var adDate = NepaliFunctions.BS2AD(bsDate)
+                                                            englishdate.value = adDate
+                                                        }
+                                                        setInterval(() => {
+                                                            datechange();
+
+                                                        }, 30);
                                                     });
                                                 </script>
-                                            @endforeach
+                                            @empty
+                                                <p>No time available</p>
+                                            @endforelse
                                         </td>
 
                                     </tr>
@@ -269,6 +282,5 @@
 
             </div>
             {{-- </div> --}}
-        @endif
     @endforeach
 @endsection

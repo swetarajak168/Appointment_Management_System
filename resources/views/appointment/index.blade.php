@@ -1,5 +1,7 @@
 @extends('layout.app')
 @section('content')
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
     <div class="content-wrapper">
         <section class="content">
             <div class="container-fluid">
@@ -25,7 +27,7 @@
                                     @endif
                                     <div class="card-body table-responsive p-0">
                                         <table class="table table-hover">
-                                            @if (auth()->user()->role == 1)
+                                            @if ($data['auth_role'] == 1)
                                                 <thead>
                                                     <tr>
                                                         <th>S.N</th>
@@ -36,35 +38,56 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($bookings as $booking)
+                                                    @foreach ($data['bookings'] as $booking)
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $booking->patient->name }}</td>
                                                             <td>{{ $booking->book_date_bs }}</td>
                                                             <td>{{ $booking->start_time . '-' . $booking->end_time }}</td>
+                                                            {{-- @if (auth()->user()->role == 1) --}}
+
                                                             <td>{{ $booking->doctor->fname }}</td>
+                                                            {{-- @endif --}}
 
 
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                            @else
+                                             @else
                                                 <thead>
                                                     <tr>
                                                         <th>S.N</th>
                                                         <th>Patient Name</th>
                                                         <th>Book Date </th>
                                                         <th>Time</th>
-
+                                                        <th>Status</th>
                                                     </tr>
                                                 <tbody>
-                                                    @foreach($bookings as $booking)                                                        
-                                                        @if ($booking->doctor_id === auth()->user()->doctor()->first()->id)                                                           
+                                                    @foreach($data['bookings'] as $booking)                                                        
+                                                        @if ($booking->doctor_id === $data['auth_id'])                                                           
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
                                                                 <td>{{ $booking->patient->name }}</td>
                                                                 <td>{{ $booking->book_date_bs }}</td>
-                                                                <td>{{ $booking->start_time . '-' . $booking->end_time }}</td>                                                        
+                                                                <td>{{ $booking->start_time . '-' . $booking->end_time }}</td>   
+                                                                <td>
+
+                                                                <form id="statusForm" method="post" action="{{ route('update.status', ['id' => $booking->id]) }}">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                
+                                                                    <label>
+                                                                        <input type="radio" name="status" value="approved" {{ $booking->status === 'approved' ? 'checked' : '' }}>
+                                                                        Approved
+                                                                    </label>
+                                                                
+                                                                    <label>
+                                                                        <input type="radio" name="status" value="canceled" {{ $booking->status === 'canceled' ? 'checked' : '' }}>
+                                                                        Cancled
+                                                                    </label>
+                                                                </form>
+                                                            </td>
+
                                                             </tr>                                                            
                                                         @endif                                                    
                                                     @endforeach
@@ -82,4 +105,12 @@
             </div>
         </section>
     </div>
+    <script>
+        $(document).ready(function () {
+            // Automatically submit the form when a radio button is clicked
+            $('input[name="status"]').change(function () {
+                $('#statusForm').submit();
+            });
+        });
+      </script>
 @endsection

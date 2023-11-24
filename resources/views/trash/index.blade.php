@@ -27,14 +27,13 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $doctor->fname }}</td>
                                                         <td>{{ $doctor->contact }}</td>
-                                                        <td>{{ $doctor->department }}</td>
+                                                        <td>{{ $doctor->department->department_name }}</td>
                                                         <td class="d-flex mr-2">
                                                             <form action="{{ route('trash.restore', ['trash' => $doctor]) }}" method="post">
                                                                 @csrf                                                                
                                                                 <button type="submit" class="btn btn-success btn-sm mr-2"
                                                                 id="restore-form"
-                                                                onclick="return deleteConfirm('Restore this doctor?')"> <i
-                                                                    class="fa fa-trash" aria-hidden="true"></i> Restore
+                                                                onclick="return deleteConfirm('Restore this doctor?')"> <i class="fa fa-arrow-circle-left"></i> Restore
                                                             </button>
                                                             </form>
                                                             

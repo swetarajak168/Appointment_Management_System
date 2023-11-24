@@ -7,7 +7,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- left column -->
-                    {{ $errors }}
                     <div class="col-lg-12 ">
                         <!-- general form elements -->
                         <div class=" card-primary">

@@ -30,8 +30,7 @@ return new class extends Migration
             $table->enum('gender',['male','female','others']);
             $table->string('dob');
             $table->string('english_dob');
-            $table->string('specialization');
-          
+            $table->string('specialization');          
             $table->softDeletes();
             $table->string('image')->nullable();                      
             $table->unsignedBigInteger('user_id');

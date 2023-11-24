@@ -17,15 +17,15 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::get();
         $doctors = Doctor::get();
+       $auth_user=  auth()->user();
+        if($auth_user->role ==2){
 
-        if(auth()->user()->role ==2){
-
-            $doctor = auth()->user()->doctor()->first();
+            $doctor = $auth_user->doctor()->first();
             $schedule = Schedule::where('doctor_id',$doctor->id)->get();
-            return view('schedule.index',compact('schedule','doctor'));
+            return view('schedule.index',compact('schedule','doctor','auth_user'));
         
         }
-        return view('schedule.index',compact('schedules','doctors'));
+        return view('schedule.index',compact('schedules','doctors','auth_user'));
         
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
 use App\Models\Booking;
@@ -32,19 +33,40 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-        
-        return DB::transaction(function () use ($request) {
-        $patientdata = $request->all();
-        $patient = Patient::create($patientdata);
-        $patients_id = $patient->id;
 
-        $patientdata['patients_id'] = $patients_id;       
-        $book = Booking::create($patientdata);
-        
-        $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
-        // Alert::success('Success','Schedule added');
-        return redirect()->back()->withSuccess( 'Booking was successfully added.');
+        // dd($request); 
+        return DB::transaction(function () use ($request) {
+            $patientdata = $request->all();
+            $patient = Patient::create($patientdata);
+            $patients_id = $patient->id;
+
+            $patientdata['patients_id'] = $patients_id;
+            $book = Booking::create($patientdata);
+
+
+            $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
+
+            return redirect()->back()->withSuccess('Booking was successfully added.');
         });
+    }
+    public function updateStatus(Request $request, $id)
+    {
+
+        $request->validate([
+            'status' => 'required|in:approved,canceled',
+        ]);
+
+        $item = Booking::find($id);
+            
+        if ($item) {
+
+            $item->status = $request->input('status');
+            $item->save();
+            return redirect()->back()->with('success', 'Status updated successfully');
+        }
+            
+        
+
     }
 
     /**

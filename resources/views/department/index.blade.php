@@ -39,12 +39,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- {{ dd($department) }} --}}
                                                 @foreach ($department as $dep)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $dep->department_name }}</td>
-                                                        <td>{{ $dep->doctor->count() }}</td>
+                                                        <td>{{ $dep->doctor_count }}</td>
                                                         <td class="d-flex mr-2">
                                                             <a href="{{ route('department.edit', ['department'=>$dep]) }}"
                                                                 class="btn btn-primary btn-sm mr-2">

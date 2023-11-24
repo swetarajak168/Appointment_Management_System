@@ -3,9 +3,7 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="container-fluid">
-                <h3 class=>Doctor Profile</h3>
-
-             
+                <h3 class=>Doctor Profile</h3>          
 
                 <div class="row">
                     <div class="col-12">

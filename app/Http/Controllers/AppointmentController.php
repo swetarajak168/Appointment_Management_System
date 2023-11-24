@@ -14,7 +14,20 @@ class AppointmentController extends Controller
     public function index()
     {
         $bookings = Booking::get();
+        $auth_user = auth()->user();
         // dd($bookings);
-        return view('appointment.index', compact('bookings'));
+        $auth_role = $auth_user->role;
+        if($auth_user->doctor){
+
+            $auth_id =  $auth_user->doctor()->first()->id;
+        }else{
+            $auth_id =  $auth_user->id;
+        }
+        $data = [
+            'bookings' => $bookings,
+            'auth_role' => $auth_role,
+            'auth_id' => $auth_id
+        ];
+        return view('appointment.index', compact('data'));
     }
 }

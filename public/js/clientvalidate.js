@@ -68,13 +68,13 @@ function expvalidation() {
 
   // console.log(startdate);
   // && startdate.length > 0
-  var enddate = document.getElementById("endDate").value;
+  // var enddate = document.getElementById("endDate").value;
 
   var jobdescription = document.getElementById("jobDescription").value;
  
   var btn = document.getElementById("expNextbtn");
 
-  if (org.length > 0 && position.length > 0  && enddate.length > 0 && jobdescription.length > 0) {
+  if (org.length > 0 && position.length > 0&& jobdescription.length > 0) {
     btn.style.backgroundColor = "#17a2b8"
     btn.removeAttribute("disabled");
   } else {

@@ -23,7 +23,6 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                {{-- {{$errors}} --}}
                                 <div class="card-body">
                                     
                                     <div class="form-group ">

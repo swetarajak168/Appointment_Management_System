@@ -14,9 +14,7 @@
                 <div class="row">
 
                 
-            {{-- {{ dd($departments) }} --}}
             @foreach ($departments as $department)
-                {{-- {{ dump($department->id) }} --}}
 
                 <div class="card  rounded-4 mr-5 text-center" style="background-color: #d8edf1;width:200px;">
                     <div class="card-header rounded-border text-muted border-bottom-0 ">
@@ -32,7 +30,7 @@
                         <br>
                         <div>
                             <h1>
-                                {{ $doctors = DB::table('doctors')->where('department_id', '=', $department->id)->count() }}
+                                {{ $department->doctor_count }}
                             </h1>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
 
         </div>
         <div class="text-center" style="margin: 0px 50px;">
-            <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+            <p class='mb-0'>&copy; 2023 Your Company Name. All rights reserved.</p>
         </div>
     </footer>
 @endsection

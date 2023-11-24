@@ -48,9 +48,14 @@
           <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('booking.index') }}" class="nav-link">Book Appointent</a>
           </li>
+          @auth
           <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ url('/dashboard') }}" class="nav-link">{{ auth()->user()->name }}</a>
+          </li>
+          @else<li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('login') }}" class="nav-link">Log In</a>
           </li>
+          @endauth
         </ul>    
         <!-- SEARCH FORM -->       
     
@@ -96,4 +101,6 @@
       });
   });
 </script>
+{{-- status button --}}
+
 </html>

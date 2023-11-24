@@ -28,6 +28,7 @@ class PatientRequest extends FormRequest
             'email'=>'required',
             'contact'=>'required',
             'date_of_birth'=>'required',
+            'date_of_birth_ad'=>'required',
             'gender'=>'required',
             'remarks'=>'required'
         ];

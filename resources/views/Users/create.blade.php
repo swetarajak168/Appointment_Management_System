@@ -22,7 +22,6 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <!-- form start -->
-                                    {{-- {{$errors}} --}}
                                     <div class="card-body">
                                         <span class="text-danger">*Indicates required field</span></label>
                                         <div class="form-group ">

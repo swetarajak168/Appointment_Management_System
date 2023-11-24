@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('remarks')->nullable(); 
             $table->string('start_time')->nullable(); 
             $table->string('end_time')->nullable(); 
-            $table->enum('status',['approved','pending','canceled']);
+            $table->enum('status',['pending','approved','canceled']);
             // Foreign key constraints
             $table->foreignId('patients_id')
                 ->constrained('patients');

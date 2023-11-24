@@ -10,8 +10,8 @@ class IndexController extends Controller
     //
 
     public function index(){
-        $departments = Department::all();
-        // dd($departments);
+       
+        $departments = Department::withCount('doctor')->get();
         return view('index',compact('departments'));
     }
 }
