@@ -51,13 +51,12 @@ class PatientController extends Controller
     }
     public function updateStatus(Request $request, $id)
     {
-
+        dd($id);
         $request->validate([
             'status' => 'required|in:approved,canceled',
         ]);
 
         $item = Booking::find($id);
-            
         if ($item) {
 
             $item->status = $request->input('status');

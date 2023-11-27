@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Booking;
 
 class AdminController extends Controller
 {
@@ -17,7 +19,9 @@ class AdminController extends Controller
         $booking_count = DB::table('bookings')->count();
         $department_count = DB::table('departments')->count();
         $schedule_count = DB::table('schedules')->count() ;
-        $doctor = auth()->user()->doctor()->first();       
+        $department= Department::pluck('department_name')->unique()->values();
+        $doctor = auth()->user()->doctor()->first();  
+        // dd($doctor->booking);     
         $data = [
             'auth_user' => $auth_user,
             'doctor'=> $doctor,
@@ -27,6 +31,7 @@ class AdminController extends Controller
             'booking_count'=> $booking_count,
             'department_count'=>$department_count,
             'schedule_count'=>$schedule_count,
+            'department_name'=>$department,
         ];
         return view('admin.dashboard',compact('data'));
     }

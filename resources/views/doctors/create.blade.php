@@ -500,7 +500,7 @@
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
-                                        <div class="card-body">
+                                         <div class="card-body">
                                             <div class="form-group ">
                                                 <label for="inputEmail3" onchange="loginvalidation()"
                                                     class="col-sm-3 col-form-label">

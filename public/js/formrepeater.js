@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var originalelem = document.querySelector('.education-form');
   var elem = originalelem.querySelector('.nepali-datepicker');
   elem.id = 'CompletionDate_' + 1;
-  
+
   document.getElementById('addEducation').addEventListener('click', function () {
     if (cloneCount < cloneLimit) {
-      
+
       var newRow = document.querySelector('.education-form').cloneNode(true);
       //setting id for every cloned nodes
       i++;
@@ -26,19 +26,19 @@ document.addEventListener('DOMContentLoaded', function () {
       var a = newRow.querySelector('.nepali-datepicker')
       a.id = newId;
       // console.log(a.id);
-        initializaNepaliDatePicker(newRow);
+      initializaNepaliDatePicker(newRow);
       setInterval(() => {
 
         nepToEng(newRow)
       }, 30);
-    //end
+      //end
       document.querySelector('.education-form').parentNode.appendChild(newRow);
       const inputFields = newRow.querySelectorAll("input");
       inputFields.forEach(function (input) {
         input.value = "";
 
       });
-     
+
       // console.log(newRow);
       cloneCount++;
 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('Education limit is 6'); // Display an alert when the limit is reached
     }
   }
- 
+
   );
   let j = 3
   var originalelem = document.querySelector('.experience-form');
@@ -55,32 +55,32 @@ document.addEventListener('DOMContentLoaded', function () {
   elem.forEach(function (element, index) {
     var uniqueId = 'custom-input' + (index + 1);
     element.id = uniqueId;
-});
-count = 1;
+  });
+  count = 1;
   document.getElementById('addExperience').addEventListener('click', function () {
-    if(count>0){
+    if (count > 0) {
       const newRow = document.querySelector('.experience-form').cloneNode(true);
-     
-        
-        var elm = newRow.querySelectorAll('.nepali-datepicker');
-        elm.forEach(function (element, index) {
-          var uniqueId = 'custom-input' + (index + j);
-          element.id = uniqueId;
+
+
+      var elm = newRow.querySelectorAll('.nepali-datepicker');
+      elm.forEach(function (element, index) {
+        var uniqueId = 'custom-input' + (index + j);
+        element.id = uniqueId;
       });
-       
-        j++;
-  
+
+      j++;
+
       document.querySelector('.experience-form').parentNode.appendChild(newRow);
       initializaNepaliDatePicker(newRow);
       const inputFields = newRow.querySelectorAll("input");
       inputFields.forEach(function (input) {
         input.value = "";
       });
-     
+
     }
 
-   
-  
+
+
 
   });
   // Remove an input field when the "Remove" button is clicked
@@ -111,9 +111,9 @@ count = 1;
     console.log("object")
     var newRow = document.querySelector('.scheduleTime').cloneNode(true);
     document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
-    });
+  });
 });
-function addSchedule(){
+function addSchedule() {
   var newRow = document.querySelector('.scheduleTime').cloneNode(true);
   document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
 }

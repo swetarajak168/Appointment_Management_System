@@ -45,10 +45,7 @@
                                                         <td>{{ $dep->department_name }}</td>
                                                         <td>{{ $dep->doctor_count }}</td>
                                                         <td class="d-flex mr-2">
-                                                            <a href="{{ route('department.edit', ['department'=>$dep]) }}"
-                                                                class="btn btn-primary btn-sm mr-2">
-                                                                <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                            </a>
+                                                          
 
                                                             <form method="POST"
                                                                 action="{{ route('department.destroy', ['department'=>$dep]) }}" id="delete-form">

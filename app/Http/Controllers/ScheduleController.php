@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ScheduleRequest;
 use App\Models\Doctor;
 use App\Models\Schedule;
-use App\Http\Requests\ScheduleRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScheduleController extends Controller
@@ -16,17 +17,18 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::get();
+       
         $doctors = Doctor::get();
-       $auth_user=  auth()->user();
-        if($auth_user->role ==2){
+        $auth_user = auth()->user();
+        if ($auth_user->role == 2) {
 
             $doctor = $auth_user->doctor()->first();
-            $schedule = Schedule::where('doctor_id',$doctor->id)->get();
-            return view('schedule.index',compact('schedule','doctor','auth_user'));
-        
+            $schedule = Schedule::where('doctor_id', $doctor->id)->get();
+            return view('schedule.index', compact('schedule', 'doctor', 'auth_user'));
+
         }
-        return view('schedule.index',compact('schedules','doctors','auth_user'));
-        
+        return view('schedule.index', compact('schedules', 'doctors', 'auth_user'));
+
     }
 
     /**
@@ -34,7 +36,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -43,29 +45,28 @@ class ScheduleController extends Controller
     public function store(ScheduleRequest $request)
     {
         // dd($request->all());
-        $data=$request->all();
- 
+        $data = $request->all();
+
         $user = auth()->user()->id;
-       
-        if(auth()->user()->role ==1){
+
+        if (auth()->user()->role == 1) {
             $doctor_id = $data['doctor_id'];
+        } else {
+            $doctor_id = auth()->user()->doctor->id;
         }
-        else{
-            $doctor_id =  auth()->user()->doctor->id;
-        }
-        foreach($data['start_time']as $key => $item){
-            $schedule= new Schedule();
+        foreach ($data['start_time'] as $key => $item) {
+            $schedule = new Schedule();
             $schedule->nepali_date = $data['nepali_date'];
             $schedule->english_date = $data['english_date'];
-          
+
             $schedule->start_time = $data['start_time'][$key];
             $schedule->end_time = $data['end_time'][$key];
-            $schedule->doctor_id = $doctor_id ;
-            $schedule->user_id = $user ;
+            $schedule->doctor_id = $doctor_id;
+            $schedule->user_id = $user;
             $schedule->save();
 
-        }       
-        Alert::success('Success','Schedule added');
+        }
+        Alert::success('Success', 'Schedule added');
         return redirect()->route('schedule.index');
     }
 
@@ -102,7 +103,7 @@ class ScheduleController extends Controller
         // dd($id);
         $schedule = Schedule::findOrFail($id);
         $schedule->delete();
-        Alert::success('Success','Schedule deleted');
+        Alert::success('Success', 'Schedule deleted');
         return redirect()->route('schedule.index');
     }
 }

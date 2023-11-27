@@ -48,9 +48,10 @@
                                             </thead>
                                             <tbody>
                                                 @if ($auth_user->role == 1)
-                                                @php
-                                                    $count = 1;
-                                                @endphp
+                                                    @php
+                                                        $count = 1;
+                                                    @endphp
+                                                    -
                                                     @foreach ($doctors as $item)
                                                         @foreach ($item->schedule->groupBy('nepali_date') as $date => $schedulesByDate)
                                                             <div hidden>
@@ -61,7 +62,7 @@
                                                                 <tr>
                                                                     @if ($index === 0)
                                                                         <td rowspan="{{ $rowspan }}">
-                                                                            {{ $count++}}</td>
+                                                                            {{ $count++ }}</td>
                                                                         <td rowspan="{{ $rowspan }}">
                                                                             {{ $schedule->nepali_date }}</td>
                                                                         @if ($auth_user->role == 1)
@@ -74,11 +75,6 @@
                                                                     <td class="d-flex mr-2">
 
 
-                                                                        {{-- <a href="{{ route('schedule.edit', ['schedule' => $schedule]) }}"
-                                                                            class="btn btn-primary btn-sm mr-2">
-                                                                            <i class="fa fa-edit" aria-hidden="true"></i>
-                                                                            Edit
-                                                                        </a> --}}
 
                                                                         <form method="POST"
                                                                             action="{{ route('schedule.destroy', ['schedule' => $schedule]) }}"
@@ -97,41 +93,39 @@
                                                             @endforeach
                                                         @endforeach
                                                     @endforeach
-                                                
                                                 @else
-                                                @foreach ($schedule->groupBy('nepali_date') as $date => $schedulesByDate)
-                                                    <div hidden>
+                                                    @foreach ($schedule->groupBy('nepali_date') as $date => $schedulesByDate)
+                                                        <div hidden>
 
-                                                        {{ $rowspan = count($schedulesByDate) }}
-                                                    </div>
-                                                    @foreach ($schedulesByDate as $index => $key)
-                                                        <tr>
-                                                            @if ($index === 0)
-                                                                <td rowspan="{{ $rowspan }}">
-                                                                    {{ $loop->parent->iteration }}</td>
-                                                                <td rowspan="{{ $rowspan }}">
-                                                                    {{ $key->nepali_date }}</td>
-                                                               
-                                                            @endif
-                                                            <td>{{ $key->start_time . ' - ' . $key->end_time }}
-                                                            </td>
-                                                            <td class="d-flex mr-2">
-                                                               
-                                                                <form method="POST"
-                                                                    action="{{ route('schedule.destroy', ['schedule' => $key]) }}"
-                                                                    id="delete-form">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="btn btn-danger btn-sm mr-2"
-                                                                        onclick="return deleteConfirm('Delete this schedule')"><i
-                                                                            class="fa fa-trash" aria-hidden="true"></i>
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
+                                                            {{ $rowspan = count($schedulesByDate) }}
+                                                        </div>
+                                                        @foreach ($schedulesByDate as $index => $key)
+                                                            <tr>
+                                                                @if ($index === 0)
+                                                                    <td rowspan="{{ $rowspan }}">
+                                                                        {{ $loop->parent->iteration }}</td>
+                                                                    <td rowspan="{{ $rowspan }}">
+                                                                        {{ $key->nepali_date }}</td>
+                                                                @endif
+                                                                <td>{{ $key->start_time . ' - ' . $key->end_time }}
+                                                                </td>
+                                                                <td class="d-flex mr-2">
+
+                                                                    <form method="POST"
+                                                                        action="{{ route('schedule.destroy', ['schedule' => $key]) }}"
+                                                                        id="delete-form">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="btn btn-danger btn-sm mr-2"
+                                                                            onclick="return deleteConfirm('Delete this schedule')"><i
+                                                                                class="fa fa-trash" aria-hidden="true"></i>
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
                                                     @endforeach
-                                                @endforeach
                                                 @endif
                                             </tbody>
                                         </table>
@@ -186,25 +180,26 @@
 
                             </div>
                         @endif
-                        <div class="form-group d-flex">
-                            <div class="row col-md-8 ">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                    Date<span class="text-danger"></span></label><br>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control nepali-datepicker" name="nepali_date"
-                                        id="nepali-datepicker" placeholder="Schedule Date">
+                        <div class="scheduleTime mb-3">
+                            <div class="form-group d-flex">
+                                <div class="row col-md-8 ">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">
+                                        Date<span class="text-danger"></span></label><br>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control nepali-datepicker" name="nepali_date"
+                                            id="nepali-datepicker" placeholder="Schedule Date">
+                                    </div>
+
+
+                                    @error('nepali_date')
+                                        <span class="text-danger"
+                                            style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
 
-                                @error('nepali_date')
-                                    <span class="text-danger"
-                                        style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
-                                @enderror
                             </div>
-                          
 
-                        </div>
-                        <div class="scheduleTime mb-3">
                             <div class="form-group d-flex ">
 
                                 <div class="row col-md-8">

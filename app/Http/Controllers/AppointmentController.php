@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Patient;
 
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AppointmentController extends Controller
 {
@@ -29,5 +30,14 @@ class AppointmentController extends Controller
             'auth_id' => $auth_id
         ];
         return view('appointment.index', compact('data'));
+    }
+    public function edit(int $id, Request $request)
+    {
+        $status = $request->input('status');
+        $booking = Booking::find($id);
+        $booking->status = $status;
+        $booking->save();
+        Alert::success('Success!','Status Changed Sucessfully!');
+        return redirect()->back();
     }
 }
