@@ -43,34 +43,24 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        $timeSlots = [];
-      
+
         $departments = Department::findOrFail($id);
 
         $doctors = $departments->doctor()->with('schedule')->get();
         $timeSlots = [];
 
         foreach ($doctors as $doctor) {
-        //     if ($doctor->schedule->isNotEmpty()) {
-        //         foreach ($doctor->schedule as $sch) {
-        //             $timeslotDuration = 30;
-        //             // dd($sch->end_time);
-        //             $start_time = Carbon::parse($sch->start_time);
-        //             $end_time = Carbon::parse($sch->end_time);
-        //             $currentTime = clone $start_time;
-        //             while ($start_time < $end_time) {
-        //                 $endTimeSlot = $start_time->copy()->addMinutes($timeslotDuration);
-        //                 $timeSlots[] = $start_time->format('H:i') . ' - ' . $endTimeSlot->format('H:i');
-        //                 $start_time = $endTimeSlot;
-
-        //             }
-        //         }
-        //         // dd($timeSlots);
-                
+            if ($doctor->schedule) {
                 $scheduled_doctor[] = $doctor;
                 // dump($scheduled_doctor);
-        //     }
+            } else {
+                $scheduled_doctor = [];
+            }
+
         }
+        
+       
+        
         return view('bookings.show', compact("scheduled_doctor"));
 
     }

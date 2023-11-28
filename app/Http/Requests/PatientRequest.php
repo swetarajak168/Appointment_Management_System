@@ -30,7 +30,7 @@ class PatientRequest extends FormRequest
             'date_of_birth'=>'required',
             'date_of_birth_ad'=>'required',
             'gender'=>'required',
-            'remarks'=>'required'
+            'remarks'=>'required',
         ];
     }
 }

@@ -37,7 +37,16 @@
         font-size: 20px;
     }
    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
+    /* Apply the animation to an element */
+    .animated-element {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
 </style>
 
 </head>
@@ -78,6 +87,61 @@
     </nav>
 
     @yield('content')
+    <footer style="background-color: #81c5d2 ;width:100%; ">
+        <div class="container ">
+            <div class="row  ">
+                <div class="col-md-4 mt-4">
+
+                    <h1><i class="fa fa-stethoscope" aria-hidden="true"></i>AMS</h1>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                </div>
+                <div class="col-md-2 mt-4">
+                    <h3>Departments</h3>
+                    <ul class="list-unstyled">
+                        <li>Orthology</li>
+                        <li>Neurology</li>
+                        <li>Dental</li>
+                        <li>Dermalogy</li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 mt-4">
+                    <h3>Specialists</h3>
+                    <ul class="list-unstyled">
+                        <li>Orthologist</li>
+                        <li>Neurologist</li>
+                        <li>Dentists</li>
+                        <li>Dermatologists</li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 mt-4">
+                    <h3>Our Partners</h3>
+                    <ul class="list-unstyled">
+                        <li>Hamro Doctor</li>
+                        <li>Sajilo Sewa</li>
+                        <li>Khalti</li>
+                    </ul>
+                </div>
+                {{-- <div class="col-sm-2">
+                        <h3>Contact</h3>
+                        <ul class="list-unstyled">
+                            <a style="color:black">
+                                <li ><i class="fa fa-facebook" aria-hidden="true"></i>
+                            </li>
+                                </a>
+                            <li><i class="fa fa-linkedin-square" aria-hidden="true"></i></li>
+                            <li>Orthology</li>
+                            <li>Orthology</li>
+                        </ul>
+                    </div> --}}
+            </div>
+
+        </div>
+        <div class="text-center" style="margin: 0px 50px;">
+            <p class='mb-0'>&copy; 2023 AMS All rights reserved.</p>
+        </div>
+    </footer>
    
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -12,7 +12,7 @@ class UserController extends Controller
     use ValidatesRequests;
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::latest()->paginate(6);
        
         return view('users.index')->with('users', $users);
     }

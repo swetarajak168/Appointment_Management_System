@@ -6,6 +6,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Booking;
+use App\Models\Doctor;
 
 class AdminController extends Controller
 {
@@ -19,8 +20,20 @@ class AdminController extends Controller
         $booking_count = DB::table('bookings')->count();
         $department_count = DB::table('departments')->count();
         $schedule_count = DB::table('schedules')->count() ;
-        $department= Department::pluck('department_name')->unique()->values();
         $doctor = auth()->user()->doctor()->first();  
+        $department = Department::all();
+       $doctorschedule = $doctor->schedule->count() ;
+       $doctorappointment = $doctor->booking->count() ;
+        $departmentChartData = [
+            'labels' => $department->pluck('department_name')->toArray(),
+            'values' => [],
+        ];
+        foreach ($department as $dept) {
+            $count = Doctor::where('department_id', $dept->id)->count();
+            $values[] = $count;
+        }
+
+        $departmentChartData['values'] = $values;
         // dd($doctor->booking);     
         $data = [
             'auth_user' => $auth_user,
@@ -31,7 +44,9 @@ class AdminController extends Controller
             'booking_count'=> $booking_count,
             'department_count'=>$department_count,
             'schedule_count'=>$schedule_count,
-            'department_name'=>$department,
+            'department_name' => $departmentChartData,
+            'doctorschedule'=>$doctorschedule,
+            'doctorappointment'=>$doctorappointment
         ];
         return view('admin.dashboard',compact('data'));
     }

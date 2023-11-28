@@ -82,7 +82,7 @@
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button class="btn btn-danger btn-sm mr-2"
-                                                                                onclick="return deleteConfirm('Delete this user')"><i
+                                                                                onclick="return deleteConfirm('delete this schedule')"><i
                                                                                     class="fa fa-trash"
                                                                                     aria-hidden="true"></i>
                                                                                 Delete
@@ -117,7 +117,7 @@
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button class="btn btn-danger btn-sm mr-2"
-                                                                            onclick="return deleteConfirm('Delete this schedule')"><i
+                                                                            onclick="return deleteConfirm('delete this schedule')"><i
                                                                                 class="fa fa-trash" aria-hidden="true"></i>
                                                                             Delete
                                                                         </button>
@@ -131,6 +131,7 @@
                                         </table>
                                     </div>
                                     <!-- /.card-body -->
+
                                 </div>
                                 <!-- /.card -->
                             </div>
@@ -180,26 +181,26 @@
 
                             </div>
                         @endif
-                        <div class="scheduleTime mb-3">
-                            <div class="form-group d-flex">
-                                <div class="row col-md-8 ">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">
-                                        Date<span class="text-danger"></span></label><br>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control nepali-datepicker" name="nepali_date"
-                                            id="nepali-datepicker" placeholder="Schedule Date">
-                                    </div>
 
-
-                                    @error('nepali_date')
-                                        <span class="text-danger"
-                                            style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
-                                    @enderror
+                        <div class="form-group d-flex">
+                            <div class="row col-md-8 ">
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">
+                                    Date<span class="text-danger"></span></label><br>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control nepali-datepicker-schedule" name="nepali_date"
+                                        id="nepali-datepicker" placeholder="Schedule Date">
                                 </div>
 
 
+                                @error('nepali_date')
+                                    <span class="text-danger"
+                                        style="padding-left:100px; margin-left:100px;">{{ $message }}</span>
+                                @enderror
                             </div>
 
+
+                        </div>
+                        <div class="scheduleTime mb-3">
                             <div class="form-group d-flex ">
 
                                 <div class="row col-md-8">
@@ -234,7 +235,8 @@
                             <div class="row  d-flex justify-content-end">
                                 <i class="fa fa-plus-circle  fa-lg" aria-hidden="true" id="addSchedule"
                                     style="color: rgb(10, 65, 25);padding-right:2px " onclick="addSchedule()"></i>
-                                <i class="fa fa-minus-circle  fa-lg " aria-hidden="true" style="color: red; "></i>
+                                <i class="fa fa-minus-circle  fa-lg remove-schedule" aria-hidden="true"
+                                    style="color: red; "></i>
 
                             </div>
                         </div>

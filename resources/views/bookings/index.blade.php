@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <h2 class="mb-4">Book Appointment according to departments</h2>
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap mb-4">
             @foreach ($departments as $department)
                 <div class="card  rounded-4 w-25  mr-5 text-center" style="background-color: #81c5d2;color:#666666; text-decoration:none">
                     <div class="card-header rounded-border text-muted border-bottom-0 ">

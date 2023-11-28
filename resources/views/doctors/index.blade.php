@@ -75,10 +75,16 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                                
                                             </tbody>
                                         </table>
                                     </div>
                                     <!-- /.card-body -->
+                                    <div class= "mt-3">
+
+                                        {{ $doctors->links() }}
+                                    </div>
+
                                 </div>
                                 <!-- /.card -->
                             </div>

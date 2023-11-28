@@ -1,17 +1,31 @@
 
-function initializaNepaliDatePickers() {
+function initializeNepaliDatePickers() {
+    // Initialize regular date pickers
     var elm = document.querySelectorAll(".nepali-datepicker");
+    elm.forEach(function (element) {
+        element.nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 10,
+            language: "english",
+        });
+    });
 
-    // console.log(elm);
-
-    elm.nepaliDatePicker({
-        ndpYear: true,
-        ndpMonth: true,
-        ndpYearCount: 10,
-        language: "english"
+    // Initialize schedule date pickers
+    var calendar = document.querySelectorAll(".nepali-datepicker-schedule");
+    calendar.forEach(function (element) {
+        element.nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 10,
+            language: "english",
+            disableDaysAfter: 3,
+            disableDaysBefore: 0,
+        });
     });
 }
-window.onload = initializaNepaliDatePickers;
+
+window.onload = initializeNepaliDatePickers;
 
 function initializaNepaliDatePicker(newRow) {
 

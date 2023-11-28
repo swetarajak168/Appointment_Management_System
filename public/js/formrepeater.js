@@ -107,13 +107,24 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
-  document.getElementById('addSchedule').addEventListener('click', function () {
-    console.log("object")
-    var newRow = document.querySelector('.scheduleTime').cloneNode(true);
-    document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('remove-schedule')) {
+      console.log('object')
+      const scheduleTime = document.querySelectorAll('.scheduleTime');
+      if (scheduleTime.length > 1) {
+        e.target.closest('.scheduleTime').remove();
+      } else {
+        alert('You cannot delete all date')
+      }
+    }
   });
+
 });
 function addSchedule() {
   var newRow = document.querySelector('.scheduleTime').cloneNode(true);
   document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
+  const inputFields = newRow.querySelectorAll("input");
+  inputFields.forEach(function (input) {
+    input.value = "";
+  });
 }

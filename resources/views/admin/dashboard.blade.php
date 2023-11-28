@@ -103,24 +103,25 @@
                                 <div class="icon">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">
+                                <a href="{{ route('schedule.index') }}" class="small-box-footer">
                                     View All <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
 
-                       
-                            {{-- <div class="card-body">
-                              <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                            </div> --}}
-                            <!-- /.card-body -->
+
+                        <div class="card-body">
+                            <canvas id="donutChart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
                         <!-- ./col -->
                     @elseif($data['auth_user'] == 2)
                         @if ($data['doctor'])
                             <div class="container-fluid">
-                                <div class="row mt-3" >
+                                <div class="row mt-3">
                                     <div class="col-md-3">
-                                        <div class="card  box-profile" style="padding:10px">
+                                        <div class="card  box-profile" style="padding:10px; background-color:rgb(176, 199, 177)">
                                             <div class="text-center">
                                                 <img class="profile-user-img img-fluid img-circle"
                                                     src="{{ asset($data['doctor']->image) }}" alt="User profile picture">
@@ -134,14 +135,14 @@
                                             <p class="text-muted text-center">{{ $data['doctor']->specialization }}</p>
 
                                             <ul class="list-group list-group-unbordered mb-3">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
                                                     <b>Department</b> <a
                                                         class="float-right">{{ $data['doctor']->department->department_name }}</a>
                                                 </li>
-                                                <li class="list-group-item">
+                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
                                                     <b>Gender</b> <a class="float-right">{{ $data['doctor']->gender }}</a>
                                                 </li>
-                                                <li class="list-group-item">
+                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
                                                     <b>Contact</b> <a
                                                         class="float-right">{{ $data['doctor']->contact }}</a>
                                                 </li>
@@ -151,14 +152,51 @@
                                     <!-- /.card-body -->
 
                                     <div class="col-md-8">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Your Upcoming  Appointments</h3>
+                                        <div class="row">
+
+                                        <div class="col-lg-6 col-6">
+                                            <!-- small card -->
+                                            <div class="small-box bg-success">
+                                                <div class="inner">
+                                                    <h3>{{ $data['doctorschedule'] }}</h3>
+                
+                                                    <p>Schedules</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                                </div>
+                                                <a href="{{ route('schedule.index') }}" class="small-box-footer">
+                                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                                </a>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-6">
+                                            <!-- small card -->
+                                            <div class="small-box bg-warning">
+                                                <div class="inner">
+                                                    <h3>{{ $data['doctorappointment'] }}</h3>
+                
+                                                    <p>Appointments</p>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                                </div>
+                                                <a href="{{ route('appointment.index') }}" class="small-box-footer">
+                                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                                </a>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="card" style="background-color:rgb(176, 199, 177)">
+                                            <div class="card-header" >
+                                                <h3 class="card-title"  >Your Upcoming Appointments</h3>
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body">
                                                 <table class="table table-bordered">
-                                                    <thead>
+                                                    <thead >
                                                         <tr>
                                                             <th style="width: 10px">S.N</th>
                                                             <th>Patient Name</th>
@@ -188,20 +226,15 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <!-- /.card-body -->
-                                            {{-- <div class="card-footer clearfix">
-                                                <ul class="pagination pagination-sm m-0 float-right">
-                                                    <li class="page-item"><a class="page-link" href="#">&laquo;</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">&raquo;</a>
-                                                    </li>
-                                                </ul>
-                                            </div> --}}
+                                            
+                                           
                                         </div>
+                                       
                                     </div>
+                                </div>
+
+                                <div class="row">
+                                    
                                 </div>
 
                             </div>
@@ -215,38 +248,30 @@
         </section>
     </div>
     <script>
- var chartData =  Object.values(@json($data['department_name']));    //convert to json string
- console.log(chartData)
-  $(function () {
-    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-    var donutData        = {
-      labels: [
-          'Chrome', 
-          'IE',
-          'FireFox', 
-          'Safari', 
-          'Opera', 
-          'Navigator', 
-      ],
-      datasets: [
-        {
-          data: chartData,
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var donutOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var donutChart = new Chart(donutChartCanvas, {
-      type: 'doughnut',
-      data: donutData,
-      options: donutOptions      
-    })
-});
-</script>
+        var departmentsData = {!! json_encode($data['department_name']) !!}; //convert to json string
+        console.log(departmentsData)
+        $(function() {
+            var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+            var donutData = {
+                labels: departmentsData.labels,
+
+                datasets: [{
+                    data: departmentsData.values,
+                    backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                }]
+            }
+            var donutOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var donutChart = new Chart(donutChartCanvas, {
+                type: 'doughnut',
+                data: donutData,
+                options: donutOptions
+            })
+        });
+    </script>
 
 @endsection

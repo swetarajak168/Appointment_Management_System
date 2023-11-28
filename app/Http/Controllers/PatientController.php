@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientRequest;
-use App\Models\Patient;
 use App\Models\Booking;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Patient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PatientController extends Controller
 {
@@ -42,32 +43,19 @@ class PatientController extends Controller
 
             $patientdata['patients_id'] = $patients_id;
             $book = Booking::create($patientdata);
-
+            Mail::send('emails.patientbook',['book' => $book],
+        
+            function($message){
+                $message->to('swetarajak168@gmail.com','Sweta Rajak')->subject('You have new booking');
+            }
+        );
 
             $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
 
             return redirect()->back()->withSuccess('Booking was successfully added.');
         });
     }
-    public function updateStatus(Request $request, $id)
-    {
-        dd($id);
-        $request->validate([
-            'status' => 'required|in:approved,canceled',
-        ]);
-
-        $item = Booking::find($id);
-        if ($item) {
-
-            $item->status = $request->input('status');
-            $item->save();
-            return redirect()->back()->with('success', 'Status updated successfully');
-        }
-            
-        
-
-    }
-
+   
     /**
      * Display the specified resource.
      */

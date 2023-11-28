@@ -23,7 +23,7 @@ class Booking extends Model
         'status',
         'patients_id',
         'doctor_id',
-        'schedule_id'
+        'schedule_id',
     ];
     public function doctor(){
         return $this->belongsTo(Doctor::class,'doctor_id','id');

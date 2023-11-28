@@ -4,39 +4,66 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <h3 class=>User Profile</h3>
+
                 <div class="row">
-                    <!-- left column -->
-                    <div class="col-md-10 ml-5">
-                        <!-- general form elements -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                User Information
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #2F6B73">
+                                <h3 class="card-title text-white ">User Information</h3>
                             </div>
-                            <div class="card-body">
-                                
-                                <p class="card-text">
-                                    <strong>Name:</strong> {{ $user->name }}<br>
-                                    <strong>Email:</strong> {{ $user->email }}<br>
-                                    <strong>Role:</strong>
-                                    @if ($user->role == 1)
-                                        <td>Admin</td>
-                                    @elseif($user->role == 2)
-                                        <td>Doctor</td>
+                            <!-- /.card-header -->
+
+                            <div class="card-body box-profile">
+                                @if ($user->image)
+                                    <div class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset($user->image) }}"
+                                            alt="profile">
                                     @else
-                                        <td>User</td>
-                                    @endif
-                                    <br/>
-                                    <strong>Status:</strong>
-                                    {{ $user->status == 1 ? 'Active' : 'Inactive' }}
-                                    <br>
-                                    <!-- Add more user attributes as needed -->
-                                </p>
+                                        <img class="profile-user-img img-fluid img-circle"
+                                            src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
+                                @endif
                             </div>
+                            <h3 class="profile-username text-center">
+                                {{ $user->name }}</h3>
+                            <div class="d-flex justify-content-center ">
+                                <ul class="list-group list-group-unbordered mb-3 mr-5 p-2">
+
+                                    <li class="">
+                                        <b>Email:</b> {{ $user->email }}
+                                    </li>
+                                    <li class="">
+                                        <b>Role:</b>
+                                        @if ($user->role == 1)
+                                            Admin
+                                        @else
+                                            Doctor
+                                        @endif
+                                    </li>
+                                    <li class="">
+                                        <b>Status:</b>
+                                        @if ($user->status == 1)
+                                            Active
+                                        @else
+                                            Inactive
+                                        @endif
+                                    </li>
+
+                                </ul>
+
+
+                            </div>
+
                         </div>
+                        <!-- /.card-body -->
+
+
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
+
         </section>
     </div>
-    
 @endsection

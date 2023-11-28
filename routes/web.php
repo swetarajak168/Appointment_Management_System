@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TrashController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppointmentController;
@@ -38,6 +39,7 @@ Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::resource('booking', BookingController::class);
 Route::resource('patient', PatientController::class);
+Route::post('/sendmail',[ContactController::class,'sendmail'])->name('contactmail');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

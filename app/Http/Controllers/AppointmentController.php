@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AppointmentController extends Controller
@@ -14,7 +15,7 @@ class AppointmentController extends Controller
     //
     public function index()
     {
-        $bookings = Booking::get();
+        $bookings = Booking::latest()->get();
         $auth_user = auth()->user();
         // dd($bookings);
         $auth_role = $auth_user->role;
@@ -38,6 +39,12 @@ class AppointmentController extends Controller
         $booking->status = $status;
         $booking->save();
         Alert::success('Success!','Status Changed Sucessfully!');
+        Mail::send('emails.bookstatus',['booking' => $booking],
+        
+            function($message){
+                $message->to('swetarajak168@gmail.com','Sweta Rajak')->subject('Appointment Booking Detail');
+            }
+        );
         return redirect()->back();
     }
 }

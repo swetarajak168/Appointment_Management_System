@@ -294,7 +294,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <img src="{{ asset('dist/img/user1-128x128.jpg') }} " alt="Image preview " class=" pl-3" id="preview" />
+                                            <img src="{{ asset('storage/images/avatar.webp') }}" alt="Image preview " class=" pl-3" id="preview"  style="height:150px;"/>
                                             <input type="hidden" name="role" value="2">
                                             <input type="hidden" name="status" value="1">
                                             <input type="hidden" id="englishdate" name='english_dob' />
