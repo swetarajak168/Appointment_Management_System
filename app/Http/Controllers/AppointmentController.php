@@ -35,9 +35,17 @@ class AppointmentController extends Controller
     public function edit(int $id, Request $request)
     {
         $status = $request->input('status');
-        $booking = Booking::find($id);
+        // dd($status);
+        $booking = Booking::findOrFail($id);
         $booking->status = $status;
+       
         $booking->save();
+        $schedule = $booking->schedule;
+    
+    if ($schedule) {
+        $schedule->status = $status;
+        $schedule->save();
+    }
         Alert::success('Success!','Status Changed Sucessfully!');
         Mail::send('emails.bookstatus',['booking' => $booking],
         

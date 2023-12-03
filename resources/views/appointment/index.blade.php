@@ -26,6 +26,7 @@
                                         </div>
                                     @endif
                                     <div class="card-body table-responsive p-0">
+                                        @if($data['bookings'])
                                         <table class="table table-hover">
                                             @if ($data['auth_role'] == 1)
                                                 <thead>
@@ -101,20 +102,22 @@
                                                                                         class="fa fa-check"
                                                                                         aria-hidden="true"></i></a>
                                                                                 <a class="dropdown-item custom-dropdown-item reject-item"
-                                                                                    onclick="return deleteConfirm('cancel this appointment')"
+                                                                                    onclick="return deleteConfirm('Cancel this appointment')"
                                                                                     href="{{ route('appointment.edit', ['appointment' => $booking->id, 'status' => 'canceled']) }}">Decline<i
                                                                                         class="fa fa-times"
                                                                                         aria-hidden="true"></i></a>
                                                                             </div>
                                                                         </div>
                                                                     @elseif($booking->status == 'approved')
-                                                                        <span style="color: green;">Approved<i
+                                                                        <button type="button"
+                                                                            class="btn btn-success">Approved<i
                                                                                 class="fa fa-check pl-3"
-                                                                                aria-hidden="true"></i></span>
+                                                                                aria-hidden="true"></i></button>
                                                                     @else
-                                                                        <span style="color: red;">Declined<i
+                                                                        <button type="button"
+                                                                            class="btn btn-danger">Canceled<i
                                                                                 class="fa fa-times pl-4"
-                                                                                aria-hidden="true"></i></span>
+                                                                                aria-hidden="true"></i></button>
                                                                     @endif
 
                                                                 </td>
@@ -127,8 +130,9 @@
                                                 </tbody>
                                             @endif
                                         </table>
+                                        @endif
                                     </div>
-                                  
+
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- /.card -->

@@ -1,4 +1,4 @@
-@extends('layout.app');
+@extends('layout.app')
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -12,8 +12,7 @@
                             <!-- small card -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    {{-- {{ $users = DB::table('users')->count() }} --}}
-                                    {{-- {{dd($users)  }} --}}
+
                                     <h3>{{ $data['user_count'] }}</h3>
 
                                     <p>Total Users</p>
@@ -77,6 +76,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-6">
                             <!-- small card -->
                             <div class="small-box bg-warning">
@@ -93,6 +93,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-6">
                             <!-- small card -->
                             <div class="small-box bg-danger">
@@ -121,10 +122,16 @@
                             <div class="container-fluid">
                                 <div class="row mt-3">
                                     <div class="col-md-3">
-                                        <div class="card  box-profile" style="padding:10px; background-color:rgb(176, 199, 177)">
+                                        <div class="card  box-profile" style="padding:10px;">
                                             <div class="text-center">
-                                                <img class="profile-user-img img-fluid img-circle"
-                                                    src="{{ asset($data['doctor']->image) }}" alt="User profile picture">
+                                                @if ($data['doctor']->image)
+                                                    <img class="profile-user-img img-fluid img-circle"
+                                                        src="{{ asset($data['doctor']->image) }}"
+                                                        alt="User profile picture">
+                                                @else
+                                                    <img class="profile-user-img img-fluid img-circle"
+                                                        src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
+                                                @endif
                                             </div>
 
                                             <h3 class="profile-username text-center">
@@ -135,14 +142,14 @@
                                             <p class="text-muted text-center">{{ $data['doctor']->specialization }}</p>
 
                                             <ul class="list-group list-group-unbordered mb-3">
-                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
+                                                <li class="list-group-item">
                                                     <b>Department</b> <a
                                                         class="float-right">{{ $data['doctor']->department->department_name }}</a>
                                                 </li>
-                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
+                                                <li class="list-group-item">
                                                     <b>Gender</b> <a class="float-right">{{ $data['doctor']->gender }}</a>
                                                 </li>
-                                                <li class="list-group-item"  style="background-color:rgb(176, 199, 177)">
+                                                <li class="list-group-item">
                                                     <b>Contact</b> <a
                                                         class="float-right">{{ $data['doctor']->contact }}</a>
                                                 </li>
@@ -151,64 +158,28 @@
                                     </div>
                                     <!-- /.card-body -->
 
-                                    <div class="col-md-8">
-                                        <div class="row">
-
-                                        <div class="col-lg-6 col-6">
-                                            <!-- small card -->
-                                            <div class="small-box bg-success">
-                                                <div class="inner">
-                                                    <h3>{{ $data['doctorschedule'] }}</h3>
-                
-                                                    <p>Schedules</p>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa fa-user-md" aria-hidden="true"></i>
-                                                </div>
-                                                <a href="{{ route('schedule.index') }}" class="small-box-footer">
-                                                    View All <i class="fas fa-arrow-circle-right"></i>
-                                                </a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-6">
-                                            <!-- small card -->
-                                            <div class="small-box bg-warning">
-                                                <div class="inner">
-                                                    <h3>{{ $data['doctorappointment'] }}</h3>
-                
-                                                    <p>Appointments</p>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa fa-user-md" aria-hidden="true"></i>
-                                                </div>
-                                                <a href="{{ route('appointment.index') }}" class="small-box-footer">
-                                                    View All <i class="fas fa-arrow-circle-right"></i>
-                                                </a>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        <div class="card" style="background-color:rgb(176, 199, 177)">
-                                            <div class="card-header" >
-                                                <h3 class="card-title"  >Your Upcoming Appointments</h3>
-                                            </div>
-                                            <!-- /.card-header -->
-                                            <div class="card-body">
-                                                <table class="table table-bordered">
-                                                    <thead >
-                                                        <tr>
-                                                            <th style="width: 10px">S.N</th>
-                                                            <th>Patient Name</th>
-                                                            <th>
-                                                                Date
-                                                            </th>
-                                                            <th>Time</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($data['doctor']->booking as $book)
-                                                            @if ($book->status == 'approved')
+                                    @if ($data['doctor']->booking)
+                                        @foreach ($data['doctor']->booking as $book)
+                                            @if ($book->status == 'approved')
+                                               {{ $data['approvedbooking'] = true}}
+                                                 <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">Your Upcoming Appointments</h3>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="width: 10px">S.N</th>
+                                                                    <th>Patient Name</th>
+                                                                    <th>
+                                                                        Date
+                                                                    </th>
+                                                                    <th>Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
                                                                 <tr>
                                                                     <td>{{ $loop->iteration }}</td>
                                                                     <td>
@@ -221,30 +192,31 @@
                                                                         {{ $book->start_time . '-' . $book->end_time }}
                                                                     </td>
                                                                 </tr>
-                                                            @endif
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            
-                                           
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                               
+                                            @endif
+                                        @endforeach
+                                        @if (!$data['approvedbooking'])
+                                        <div class="card">
+
+                                            <h1>You don't have an appointment right now</h1>
                                         </div>
-                                       
-                                    </div>
-                                </div>
-
-                                <div class="row">
+                                         @endif
                                     
-                                </div>
+                                    @endif
 
+                                  </div>
                             </div>
                         @endif
-                    @else{
-                        <p>No user found</p>
-                        }
-                    @endif
-                </div>
-            </div>
+                     @else{
+                            <p>No user found</p>
+                            }
+                     @endif
+                 </div>
+             </div>   
         </section>
     </div>
     <script>
@@ -273,5 +245,4 @@
             })
         });
     </script>
-
 @endsection

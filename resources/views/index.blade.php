@@ -10,7 +10,7 @@
         </div>
 
         <div class="mb-4">
-            <h1 class="mb-4 text-center"> Clinical Departments</h1>
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Our Specialists</h2>
             <div class="container">
 
                 <div class="animated-element">
@@ -51,7 +51,7 @@
                                 <div class="card" style="background-color: #81c5d2">
                                     <div class="card-header  border-bottom-0">
                                         <h2>
-                                            {{ $doctor->fname . ' ' . $doctor->lname }}
+                                            {{ $doctor->fname }}
                                         </h2>
                                     </div>
                                     <div class="card-body pt-0 text-center">

@@ -36,24 +36,7 @@ class PatientController extends Controller
     {
 
         // dd($request); 
-        return DB::transaction(function () use ($request) {
-            $patientdata = $request->all();
-            $patient = Patient::create($patientdata);
-            $patients_id = $patient->id;
-
-            $patientdata['patients_id'] = $patients_id;
-            $book = Booking::create($patientdata);
-            Mail::send('emails.patientbook',['book' => $book],
-        
-            function($message){
-                $message->to('swetarajak168@gmail.com','Sweta Rajak')->subject('You have new booking');
-            }
-        );
-
-            $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
-
-            return redirect()->back()->withSuccess('Booking was successfully added.');
-        });
+       
     }
    
     /**

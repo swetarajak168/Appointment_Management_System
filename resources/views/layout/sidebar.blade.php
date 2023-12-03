@@ -16,10 +16,10 @@
         <div class="user-panel mt-3  d-flex">
             <div class="image">
                 {{-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> --}}
-                <img src="" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ route('dashboard') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href=" " class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 

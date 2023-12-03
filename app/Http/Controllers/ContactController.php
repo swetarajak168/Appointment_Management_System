@@ -12,7 +12,6 @@ class ContactController extends Controller
     public function sendmail(Request $request)
     {
         $formDetail = $request->all();
-        // dd($formDetail);
         Mail::send(
             'emails.contactmail',
             ['formDetail' => $formDetail],

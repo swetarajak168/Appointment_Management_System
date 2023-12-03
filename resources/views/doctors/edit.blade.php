@@ -33,7 +33,7 @@
                                                 <div class="col-md-4">
                                                     <input type="number" style="width:150%" onchange='formvalidation()'
                                                         class="form-control" name="license_no" id="license_no" 
-                                                        placeholder="License No." value={{ $doctor->license_no}}>
+                                                        placeholder="License No." value= {{ old('license_no') }}>
                                                     @error('license_no')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -188,7 +188,7 @@
                                                             <input type="text" style="width:300%"
                                                                 onchange='formvalidation()' id="nepali-datepicker"
                                                                 class="form-control" placeholder="Select Birth Date"
-                                                                name='dob' value="{{ $doctor->dob }}"/>
+                                                                name='dob' value="{{ old('dob',$doctor->dob) }}"/>
                                                             @error('dob')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -259,7 +259,6 @@
                                                             @enderror
                                                         </div>
 
-                                                        {{-- {{ dd($doctor->department) }} --}}
                                                     </div>
                                                     <div class="col-md-6">
                                                         
@@ -267,7 +266,6 @@
                                                             Department</label>
                                                         <div class="col-sm-8">
                                                             <select name="department_id" id="department" class="form-control" >
-                                                                {{-- edit  --}}
                                                                
                                                                 @foreach($departments as $dept)
                                                                 
@@ -312,7 +310,8 @@
                                 </div>
                                 <!-- End Of Basic Detail Form -->
 
-                                <!--EDUCATION FORM-->
+                          
+
                                 <div id='educationform' style="display:none;">
                                     <div class="card card-info">
                                         <div class="card-header">
@@ -320,9 +319,9 @@
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
-                                       @foreach($doctor->education as $education)
-                                        <div class="card-body">
-                                            <div class="row education-form">
+                                        <div class="card-body" id ="form-container">
+                                        @foreach($doctor->education as $education)
+                                            <div class="row education-form ">
                                                 <div class="col form-group ">
                                                     <div class="form-group">
                                                         <label for="inputEmail3">
@@ -346,10 +345,9 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="institution">Institution</label>
-                                                      
                                                         <input type="text" class="form-control" id="Institution"
                                                             onchange='eduvalidation()' name="institution[]"
-                                                            placeholder=" institution Name" value={{$education->institution}}>
+                                                            placeholder=" Institution" value={{$education->institution}}>
                                                         @error('institution')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
@@ -357,10 +355,10 @@
                                                 </div>
                                                 <div class="col group-form">
                                                     <div class="form-group">
-                                                        <label for="board">Board/University</label>
+                                                        <label for="board">Board</label>
                                                         <input type="text" class="form-control" id="Board"
                                                             onchange='eduvalidation()' name="board[]"
-                                                            placeholder=" Board/University" value={{  $education->board }}>
+                                                            placeholder=" Board" value={{  $education->board }}>
                                                         @error('board')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
@@ -381,7 +379,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="completion_date">Completion Date</label>
-                                                        <input type="text" class="form-control nepali-datepicker" 
+                                                        <input type="text" class="form-control education-nepali-datepicker" 
                                                             onchange='eduvalidation()' name="completionDate[]"
                                                             placeholder="Completion date" value={{ $education->completionDate }}>
                                                         @error('completionDate')
@@ -390,14 +388,15 @@
                                                     </div>
                                                     
                                                 </div>
-                                              
-                                                <i class="fa fa-minus-circle fa-lg remove-education" aria-hidden="true" style="color: red"></i>
+                                                <input type="hidden" class="englishDate" name='CompletionDateAD[]' value={{ $education->CompletionDateAD }} />
+                                                <i class="fa fa-minus-circle fa-lg remove-education"  aria-hidden="true" style="color: red"></i>
+
                                             </div>
-                                          
+
+                                            @endforeach
                                         </div>
-                                        @endforeach
                                         <div>
-                                            <a href="#" class="bg-success rounded-sm float-right p-2 m-3"
+                                            <a href="#" class=" addEducation bg-success rounded-sm float-right p-2 m-3"
                                                 id="addEducation">Add More<i class="fa fa-plus pl-1"
                                                     aria-hidden="true"></i></a>
                                         </div>
@@ -407,7 +406,7 @@
                                                 class="btn btn-default float-left">Previous</button>
                                             <button type="submit" 
                                                 onclick="display('experienceform',event,'educationform')" id="edunextbtn"
-                                                style="background-color:#17a2b8; color:white"
+                                                style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-right">Next</button>
                                         </div>
                                         <!-- /.card -->
@@ -416,15 +415,14 @@
                                 </div>
                                 <!--END OF EDUCATION FORM-->
 
-                                <!--Experience Form-->
                                 <div id="experienceform" style="display:none;">
                                     <div class="card card-info">
                                         <div class="card-header">
                                             <h3 class="card-title">Add Experience Form</h3>
                                         </div>
-                                        @foreach($doctor->experience as $experience)
+                                        
                                         <div class="card-body">
-                                           
+                                            @foreach($doctor->experience as $experience)
                                             <div class="row experience-form">
                                                
                                                 <div class="col group-form">
@@ -450,16 +448,16 @@
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
-                                                        <input type="text"onchange="expvalidation()" id="startDate"
-                                                            class="form-control nepali-datepicker" name="startDate[]"  value={{ $experience->startDate }}  >
+                                                        <input type="text"onchange="expvalidation()" 
+                                                            class="form-control start-nepali-datepicker" name="startDate[]" value={{ $experience->startDate }} >
                                                     </div>
                                                 </div>
 
                                                 <div class="col group-form">
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
-                                                        <input type="text" onchange="expvalidation()" id="endDate"
-                                                            class="form-control nepali-datepicker" name="endDate[]" value={{ $experience->endDate }}  >
+                                                        <input type="text" onchange="expvalidation()" 
+                                                            class="form-control end-nepali-datepicker" name="endDate[]" value={{ $experience->endDate }} >
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
@@ -467,16 +465,19 @@
                                                 <div class="form-group ">
                                                     <label for="inputEmail3" class="col-sm-6 col-form-label">Job
                                                         Description</label>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-8">
                                                         <textarea onchange="expvalidation()" rows="4" cols="100" class="form-control" name="jobDescription[]"
                                                             id="jobDescription" placeholder="Job Description" value={{ $experience->jobDescription }}>
                                                     </textarea>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" class="startenglishDate" name='startEnglishDate[]'/>
+                                                <input type="hidden" class="endenglishDate" name='endEnglishDate[]'/>
+
                                             </div>
+                                            @endforeach
                                         
                                         </div>
-                                        @endforeach
                                         <div>
                                             <a href="#" class="bg-success rounded-sm float-right p-2 m-3"
                                                 id="addExperience">Add More<i class="fa fa-plus pl-1"
@@ -487,13 +488,12 @@
                                                 onclick="display('educationform',event,'experienceform')"
                                                 style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-left">Previous </button>
-                                            <button type="submit" disabled id ="expNextbtn"
+                                            <button type="submit"  id ="expNextbtn"
                                                 onclick="display('credentialsform',event,'experienceform')"
-                                                style="background-color: #696969; color:white"
+                                                style="background-color: #17a2b8; color:white"
                                                 class="btn btn-default float-right">Next </button>
                                         </div>
                                         <!-- /.card -->
-                                       
                                     </div>
                                     <!--Experience Form-->
                                 </div>

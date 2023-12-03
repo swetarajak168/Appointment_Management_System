@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -17,8 +21,6 @@ class BookingController extends Controller
     {
 
         $departments = Department::withCount('doctor')->get();
-
-
         return view("bookings.index", compact("departments"));
     }
 
@@ -36,6 +38,25 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         //
+        return DB::transaction(function () use ($request) {
+            $patientdata = $request->all();
+            $patient = Patient::create($patientdata);
+            $patients_id = $patient->id;
+
+            $patientdata['patients_id'] = $patients_id;
+            $book = Booking::create($patientdata);
+            Mail::send('emails.patientbook',['book' => $book],
+        
+            function($message){
+                $message->to('swetarajak168@gmail.com','Sweta Rajak')->subject('You have new booking');
+            }
+        );
+
+            $book->schedule()->update(['status' => 'approved']);   //to update status for hiding button
+
+            return redirect()->back()->withSuccess('Booking was successfully added.');
+        });
+
     }
 
     /**
@@ -43,26 +64,19 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-
         $departments = Department::findOrFail($id);
+        
 
-        $doctors = $departments->doctor()->with('schedule')->get();
-        $timeSlots = [];
-
+        $scheduled_doctor = [];
+        $doctors = $departments->doctor()->get();
         foreach ($doctors as $doctor) {
-            if ($doctor->schedule) {
+            if ($doctor->schedule->isNotEmpty()) {
                 $scheduled_doctor[] = $doctor;
-                // dump($scheduled_doctor);
-            } else {
-                $scheduled_doctor = [];
-            }
-
-        }
-        
-       
-        
+            } 
+            
+        }      
         return view('bookings.show', compact("scheduled_doctor"));
-
+        // dd($scheduled_doctor)       ;
     }
 
     /**

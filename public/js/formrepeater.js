@@ -7,14 +7,19 @@ function display(sectionid, e, formid) {
 }
 
 
-
+//adding doctor 
 document.addEventListener('DOMContentLoaded', function () {
   let cloneCount = 0; // Initialize the clone count
   const cloneLimit = 5; // Set your desired clone limit
+
   let i = 1
+
   var originalelem = document.querySelector('.education-form');
-  var elem = originalelem.querySelector('.nepali-datepicker');
+  var elem = originalelem.querySelector('.education-nepali-datepicker');
   elem.id = 'CompletionDate_' + 1;
+ 
+
+
 
   document.getElementById('addEducation').addEventListener('click', function () {
     if (cloneCount < cloneLimit) {
@@ -23,16 +28,17 @@ document.addEventListener('DOMContentLoaded', function () {
       //setting id for every cloned nodes
       i++;
       var newId = 'CompletionDate_' + i;
-      var a = newRow.querySelector('.nepali-datepicker')
+      var a = newRow.querySelector('.education-nepali-datepicker')
       a.id = newId;
       // console.log(a.id);
+      
       initializaNepaliDatePicker(newRow);
-      setInterval(() => {
 
-        nepToEng(newRow)
+      setInterval(() => {
+        englishDate(newRow);
       }, 30);
       //end
-      document.querySelector('.education-form').parentNode.appendChild(newRow);
+      document.querySelector('.education-form:last-child').parentNode.appendChild(newRow);
       const inputFields = newRow.querySelectorAll("input");
       inputFields.forEach(function (input) {
         input.value = "";
@@ -48,45 +54,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   );
-  let j = 3
-  var originalelem = document.querySelector('.experience-form');
-  var elem = originalelem.querySelectorAll('.nepali-datepicker');
-
-  elem.forEach(function (element, index) {
-    var uniqueId = 'custom-input' + (index + 1);
-    element.id = uniqueId;
-  });
-  count = 1;
-  document.getElementById('addExperience').addEventListener('click', function () {
-    if (count > 0) {
-      const newRow = document.querySelector('.experience-form').cloneNode(true);
-
-
-      var elm = newRow.querySelectorAll('.nepali-datepicker');
-      elm.forEach(function (element, index) {
-        var uniqueId = 'custom-input' + (index + j);
-        element.id = uniqueId;
-      });
-
-      j++;
-
-      document.querySelector('.experience-form').parentNode.appendChild(newRow);
-      initializaNepaliDatePicker(newRow);
-      const inputFields = newRow.querySelectorAll("input");
-      inputFields.forEach(function (input) {
-        input.value = "";
-      });
-
-    }
-
-
-
-
-  });
+ 
+  
   // Remove an input field when the "Remove" button is clicked
   document.addEventListener('click', function (e) {
-
-    if (e.target && e.target.classList.contains('remove-education')) {
+    if (e.target && e.target.classList.contains('remove-education')&& e.target.closest('.education-form')) {
+      // console.log('object')
       const educationForms = document.querySelectorAll('.education-form');
       if (educationForms.length > 1) {
         e.target.closest('.education-form').remove();
@@ -94,8 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('You cannot delete all data')
       }
     }
-
-
   });
   document.addEventListener('click', function (e) {
     if (e.target && e.target.classList.contains('remove-experience')) {
@@ -107,24 +78,65 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
-  document.addEventListener('click', function (e) {
-    if (e.target && e.target.classList.contains('remove-schedule')) {
-      console.log('object')
-      const scheduleTime = document.querySelectorAll('.scheduleTime');
-      if (scheduleTime.length > 1) {
-        e.target.closest('.scheduleTime').remove();
-      } else {
-        alert('You cannot delete all date')
-      }
-    }
-  });
+ 
 
 });
+const originalScheduleTime = document.querySelector('.scheduleTime');
+
+
 function addSchedule() {
-  var newRow = document.querySelector('.scheduleTime').cloneNode(true);
+  var newRow = originalScheduleTime.cloneNode(true);
   document.querySelector('.scheduleTime').parentNode.appendChild(newRow);
   const inputFields = newRow.querySelectorAll("input");
   inputFields.forEach(function (input) {
     input.value = "";
   });
+
 }
+document.addEventListener('click', function (e) {
+  if (e.target && e.target.classList.contains('remove-schedule')) {
+    const scheduleTimes = document.querySelectorAll('.scheduleTime');
+    console.log(scheduleTimes.length);
+
+    if (scheduleTimes.length > 1) {
+      e.target.closest('.scheduleTime').remove();
+    } else {
+      if (e.target.closest('.scheduleTime') === originalScheduleTime) {
+        alert('You cannot delete the original data');
+      }
+    }
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('addExperience').addEventListener('click', function () {
+    let j = 1
+    var originalelem = document.querySelector('.experience-form');
+    var elem = originalelem.querySelector('.start-nepali-datepicker');
+    var elem1 = originalelem.querySelector('.end-nepali-datepicker');
+    elem.id = "Start_date"+1;
+    elem1.id = "End_Date"+1;
+    
+    count = 1;
+    if (count > 0) {
+      const newRow = document.querySelector('.experience-form').cloneNode(true);
+      var startDate  = newRow.querySelector('.start-nepali-datepicker');
+      var endDate  = newRow.querySelector('.end-nepali-datepicker');
+      j++;
+      startDate.id = "Start_date"+j;
+      endDate.id = "End_Date"+j;  
+      document.querySelector('.experience-form').parentNode.appendChild(newRow);
+      initNepaliDatePicker(newRow);
+      setInterval(() => {
+
+        expEnglishDate(newRow);
+      }, 30);
+      const inputFields = newRow.querySelectorAll("input");
+      inputFields.forEach(function (input) {
+        input.value = " ";
+      });
+    }
+  });
+
+});

@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorRequest;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Doctor;
-use App\Models\Experience;
 use App\Models\Department;
-use App\Models\User;
+use App\Models\Doctor;
 use App\Models\Education;
+use App\Models\Experience;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DoctorController extends Controller
 {
     //
     public function index()
     {
-        $doctors = Doctor::latest()->paginate(3);
+        $doctors = Doctor::latest()->paginate(6);
 
         return view('doctors.index')->with('doctors', $doctors);
     }
@@ -57,6 +58,7 @@ class DoctorController extends Controller
                     'board' => $validateddata['board'][$key],
                     'level' => $validateddata['level'][$key],
                     'completionDate' => $validateddata['completionDate'][$key],
+                    'CompletionDateAD'=>$validateddata['CompletionDateAD'][$key],
                     'marks' => $validateddata['marks'][$key],
                 ];
                 Education::create($educationData);
@@ -70,12 +72,15 @@ class DoctorController extends Controller
                     'organization_name' => $validateddata['organization_name'][$key],
                     'position' => $validateddata['position'][$key],
                     'startDate' => $validateddata['startDate'][$key],
+                    'startEnglishDate' => $validateddata['startEnglishDate'][$key],
                     'endDate' => $validateddata['endDate'][$key],
+                    'endEnglishDate' => $validateddata['endEnglishDate'][$key],
                     'jobDescription' => $validateddata['jobDescription'][$key],
 
                 ];
                 Experience::create($experiencedata);
             }
+            Alert::success('Success', 'Doctor Added successfully');
 
             return redirect()->route('doctor.index');
         });
@@ -84,7 +89,6 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $departments = Department::all();
-        // dd($department);
        
         $doctor = Doctor::findOrFail($id);
         return view('doctors.edit', compact('departments','doctor')
@@ -92,15 +96,17 @@ class DoctorController extends Controller
     }
     public function show($id)
     {
+
         $doctor = Doctor::findOrFail($id);
+
         return view('doctors.show', ['doctor' => $doctor]);
     }
 
     public function update(DoctorRequest $request, Doctor $doctor)
     {
-
         return DB::transaction(function () use ($request, $doctor) {
             $doctorvalidated = $request->validated();
+
 
             $doctorvalidated['name'] = $doctorvalidated['fname'] . ' ' . $doctorvalidated['lname'];
             if ($request->hasFile('image')) {
@@ -123,7 +129,6 @@ class DoctorController extends Controller
                  Education::where('doctor_id', $doctor->id)->delete();              
                          
             }
-        //   dd($doctorvalidated['institution']);
                      
             foreach ($doctorvalidated['institution'] as $key => $item) {
                 $education = new Education();
@@ -132,7 +137,9 @@ class DoctorController extends Controller
                 $education->institution = $doctorvalidated['institution'][$key];
                 $education->board = $doctorvalidated['board'][$key];
                 $education->completionDate = $doctorvalidated['completionDate'][$key];
+                $education->completionDateAD = $doctorvalidated['CompletionDateAD'][$key];
                 $education->marks = $doctorvalidated['marks'][$key];
+
                 $education->save();
             }
             if ($del_education) {
@@ -145,25 +152,22 @@ class DoctorController extends Controller
                 $experience->organization_name = $doctorvalidated['organization_name'][$key];
                 $experience->position = $doctorvalidated['position'][$key];
                 $experience->startDate = $doctorvalidated['startDate'][$key];
+                $experience->startEnglishDate = $doctorvalidated['startDate'][$key];
                 $experience->endDate = $doctorvalidated['endDate'][$key];
+                $experience->endEnglishDate = $doctorvalidated['endDate'][$key];
                 $experience->jobDescription = $doctorvalidated['jobDescription'][$key];
                 $experience->save();
                     
             }
-            return redirect()->route('doctor.index')->withSuccess('Doctor was successfully updated.');
+            Alert::success('Success', 'Doctor Updated successfully');
+
+            return redirect()->route('doctor.index');
         });
     }
 
     public function destroy(Doctor $doctor)
     {
-        return DB::transaction(function () use ($doctor) {
-
-        // $education = Education::where('doctor_id', $doctor->id);
-        // $education->delete();
-
-        // $experience = Experience::where('doctor_id', $doctor->id);
-        // $experience->delete();
-
+        return DB::transaction(function () use ($doctor) {  
         $doctor->delete();
        
        

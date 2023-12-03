@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('position');
             $table->string('startDate');
             $table->string('endDate')->nullable();
+            $table->string('startEnglishDate');
+            $table->string('endEnglishDate')->nullable();
             $table->longText('jobDescription');
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')

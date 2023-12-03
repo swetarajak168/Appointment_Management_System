@@ -12,7 +12,9 @@ class Experience extends Model
         'organization_name',
         'position',
         'startDate',
+        'startEnglishDate',
         'endDate',
+        'endEnglishDate',
         'jobDescription',
         'doctor_id'
     ];

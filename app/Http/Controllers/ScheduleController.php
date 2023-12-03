@@ -17,8 +17,10 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::get();
-       
+
         $doctors = Doctor::get();
+        
+
         $auth_user = auth()->user();
         if ($auth_user->role == 2) {
 
@@ -44,7 +46,6 @@ class ScheduleController extends Controller
      */
     public function store(ScheduleRequest $request)
     {
-        // dd($request->all());
         $data = $request->all();
 
         $user = auth()->user()->id;
@@ -55,15 +56,31 @@ class ScheduleController extends Controller
             $doctor_id = auth()->user()->doctor->id;
         }
         foreach ($data['start_time'] as $key => $item) {
-            $schedule = new Schedule();
-            $schedule->nepali_date = $data['nepali_date'];
-            $schedule->english_date = $data['english_date'];
+            $startTime = Carbon::parse($data['start_time'][$key]);
+            $endTime = Carbon::parse($data['end_time'][$key]);
+            $timeSlots = [];
+            
+            $currentTime = clone $startTime;
 
-            $schedule->start_time = $data['start_time'][$key];
-            $schedule->end_time = $data['end_time'][$key];
-            $schedule->doctor_id = $doctor_id;
-            $schedule->user_id = $user;
-            $schedule->save();
+            while ($currentTime < $endTime) {
+                $timeSlots[] = $currentTime->format('H:i');
+                $currentTime->addMinutes(30); // Add 30 minutes for the next time slot
+            }
+            foreach ($timeSlots as $key => $timeSlot) {
+                $schedule = new Schedule();
+                $schedule->nepali_date = $data['nepali_date'];
+                $schedule->english_date = $data['english_date'];
+    
+                $schedule->start_time = $timeSlot;
+                
+                // Assuming a fixed duration of 30 minutes for each time slot
+                $schedule->end_time = Carbon::parse($timeSlot)->addMinutes(30)->format('H:i');
+    
+                $schedule->doctor_id = $doctor_id;
+                $schedule->user_id = $user;
+                $schedule->save();
+            }
+           
 
         }
         Alert::success('Success', 'Schedule added');

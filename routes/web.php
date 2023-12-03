@@ -3,10 +3,11 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PasswordChangeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TrashController;
@@ -38,17 +39,19 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::resource('booking', BookingController::class);
-Route::resource('patient', PatientController::class);
 Route::post('/sendmail',[ContactController::class,'sendmail'])->name('contactmail');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    //custom password Change
+    Route::get('/change-password', [PasswordChangeController::class, 'edit'])->name('change.password');
+    Route::put('/update-password', [PasswordChangeController::class, 'update'])->name('update.password');
 
 
     Route::resource('user', UserController::class);
-
     Route::resource('department', DepartmentController::class);
 
 
@@ -59,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctor/{doctor}/edit', [DoctorController::class, 'edit'])->name('doctor.edit');
     Route::put('/doctor/{doctor}/update', [DoctorController::class, 'update'])->name('doctor.update');
     Route::delete('/doctor/{doctor}/delete', [DoctorController::class, 'destroy'])->name('doctor.delete');
+
+    Route::post('/doctor/{doctor}/reset-password', [ResetPasswordController::class, 'reset_password'])->name('doctor.resetpassword');
 
     Route::resource('appointment', AppointmentController::class);
 

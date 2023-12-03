@@ -1,18 +1,11 @@
 @extends('layout.app')
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <!-- left column -->
                     <div class="col-lg-12 ">
-                        <!-- general form elements -->
                         <div class=" card-primary">
-                            <!-- /.card-header -->
-                            <!-- form start -->   
-                           
                             <form role="form" method="post" action="{{ route('doctor.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -22,8 +15,6 @@
                                         <div class="card-header">
                                             <h3 class="card-title">Add Doctor Form</h3>
                                         </div>
-                                        <!-- /.card-header -->
-                                        <!-- form start -->
                                         <div class="card-body">
                                             <div class="form-group  ml-2">
                                                 <label for="inputEmail3" class="col-sm-2 col-form-label">
@@ -378,7 +369,7 @@
                                                 <div class="col group-form">
                                                     <div class="form-group">
                                                         <label for="completion_date">Completion Date</label>
-                                                        <input type="text" class="form-control nepali-datepicker" 
+                                                        <input type="text" class="form-control education-nepali-datepicker" 
                                                             onchange='eduvalidation()' name="completionDate[]"
                                                             placeholder="Completion date">
                                                         @error('completionDate')
@@ -387,13 +378,13 @@
                                                     </div>
                                                     
                                                 </div>
-                                                {{-- <input type="hidden" id="englishdate_" name='english_dob'/> --}}
+                                                <input type="hidden" class="englishDate" name='CompletionDateAD[]'/>
                                                 <i class="fa fa-minus-circle fa-lg remove-education"  aria-hidden="true" style="color: red"></i>
                                             </div>
 
                                         </div>
                                         <div>
-                                            <a href="#" class="bg-success rounded-sm float-right p-2 m-3"
+                                            <a href="#" class=" addEducation bg-success rounded-sm float-right p-2 m-3"
                                                 id="addEducation">Add More<i class="fa fa-plus pl-1"
                                                     aria-hidden="true"></i></a>
                                         </div>
@@ -447,7 +438,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">Start Date</label>
                                                         <input type="text"onchange="expvalidation()" 
-                                                            class="form-control nepali-datepicker" name="startDate[]" >
+                                                            class="form-control start-nepali-datepicker" name="startDate[]" >
                                                     </div>
                                                 </div>
 
@@ -455,7 +446,7 @@
                                                     <div class="form-group ">
                                                         <label for="inputEmail3">End Date</label>
                                                         <input type="text" onchange="expvalidation()" 
-                                                            class="form-control nepali-datepicker" name="endDate[]" >
+                                                            class="form-control end-nepali-datepicker" name="endDate[]" >
                                                     </div>
                                                 </div>
                                                 <i class="fa fa-minus-circle fa-lg  remove-experience" aria-hidden="true" style="color: red"></i>
@@ -469,6 +460,9 @@
                                                     </textarea>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" class="startenglishDate" name='startEnglishDate[]'/>
+                                                <input type="hidden" class="endenglishDate" name='endEnglishDate[]'/>
+
                                             </div>
                                         
                                         </div>

@@ -12,11 +12,12 @@ class Education extends Model
         'level',
         'institution',
         'completionDate',
+        'CompletionDateAD',
         'board',
         'marks',
         'doctor_id'
     ];
     public function doctor(){
-        return $this->belongsTo(Doctor::class, 'doctors->id');
+        return $this->belongsTo(Doctor::class,'doctor_id');
     }
 }

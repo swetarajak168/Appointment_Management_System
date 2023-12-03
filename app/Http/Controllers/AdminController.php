@@ -6,24 +6,23 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Booking;
+use App\Models\Schedule;
 use App\Models\Doctor;
+use App\Models\User;
 
 class AdminController extends Controller
 {
     //
     public function index(){
         $auth_user = auth()->user()->role;                     //checking role for different dashboard view of admin and doctor
-
-        $admin_count =  DB::table('users')->where('role', '=', '1')->count();
-        $user_count =  DB::table('users')->count();
-        $doctor_count = DB::table('doctors')->count();
-        $booking_count = DB::table('bookings')->count();
-        $department_count = DB::table('departments')->count();
-        $schedule_count = DB::table('schedules')->count() ;
+        $admin_count =  User::where('role', '=', '1')->count();
+        $user_count =  User::count();
+        $doctor_count = Doctor::count();
+        $booking_count = Booking::count();
+        $department_count =Department::count();
+        $schedule_count = Schedule::whereNull('deleted_at')->count() ;
         $doctor = auth()->user()->doctor()->first();  
         $department = Department::all();
-       $doctorschedule = $doctor->schedule->count() ;
-       $doctorappointment = $doctor->booking->count() ;
         $departmentChartData = [
             'labels' => $department->pluck('department_name')->toArray(),
             'values' => [],
@@ -34,7 +33,7 @@ class AdminController extends Controller
         }
 
         $departmentChartData['values'] = $values;
-        // dd($doctor->booking);     
+        $approvedbooking = false;
         $data = [
             'auth_user' => $auth_user,
             'doctor'=> $doctor,
@@ -45,10 +44,12 @@ class AdminController extends Controller
             'department_count'=>$department_count,
             'schedule_count'=>$schedule_count,
             'department_name' => $departmentChartData,
-            'doctorschedule'=>$doctorschedule,
-            'doctorappointment'=>$doctorappointment
+            'approvedbooking'=> $approvedbooking
+            
         ];
         return view('admin.dashboard',compact('data'));
+        
+        
     }
 
     

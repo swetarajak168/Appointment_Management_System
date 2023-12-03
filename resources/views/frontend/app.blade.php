@@ -9,8 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Font Awesome -->
 <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}"> <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+{{-- template --}}
+
 <!-- Theme style -->
+
+<link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
 <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
 <!-- Google Font: Source Sans Pro -->
 
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -36,47 +43,45 @@
     .nav-item {
         font-size: 20px;
     }
-   
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Apply the animation to an element */
-    .animated-element {
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-    }
+    
 </style>
-
 </head>
-
 <body>
+
     <nav class=" navbar navbar-expand  navbar-light mb-3" style="background-color: #81c5d2">
 
         <!-- Left navbar links -->
-        <ul class="navbar-nav  " style="padding-left: 300px">
-            <li class="nav-item">
+        <ul class="navbar-nav" style="padding-left: 200px;">
+            <li class="nav-item " style="padding-right: 100px">
                 <a href="/" class="nav-link"><i class="fa fa-stethoscope" aria-hidden="true"></i> AMS</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="/" class="nav-link">Home</a>
             </li>
+
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ url('/contact') }}" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ url('/about') }}" class="nav-link">About</a>
+                <a href="{{ route('about') }}" class="nav-link">About</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('booking.index') }}" class="nav-link">Book Appointent</a>
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('contact') }}" class="nav-link">Contact</a>
+            </li>
+            
+        </ul>
+        <ul  class="navbar-nav " style="padding-left: 200px">
             @auth
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/dashboard') }}" class="nav-link">{{ auth()->user()->name }}</a>
+                    <a href="{{ route('dashboard') }}" class="nav-link">{{ auth()->user()->name }}</a>
                 </li>
-            @else<li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('login') }}" class="nav-link">Log In</a>
+            @else
+                <li class="nav-item d-none d-sm-inline-block" >
+                    <a href="{{ route('login') }}" class="nav-link" >
+                    <button type="button" class="btn btn-info">
+                        Login
+                    </button>
+                    </a>
                 </li>
             @endauth
         </ul>
@@ -85,6 +90,7 @@
         <!-- Right navbar links -->
 
     </nav>
+
 
     @yield('content')
     <footer style="background-color: #81c5d2 ;width:100%; ">
@@ -142,17 +148,33 @@
             <p class='mb-0'>&copy; 2023 AMS All rights reserved.</p>
         </div>
     </footer>
-   
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
                 duration: 900,
             });
         });
     </script>
-    
+
 </body>
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery.min.js') }}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js') }}"></script>
+
+<!-- all plugins and JavaScript -->
+
+
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
 
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -175,7 +197,6 @@
 
 
 <script>
-
     $(document).ready(function() {
         $('.slider').slick({
             autoplay: true,
