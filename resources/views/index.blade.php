@@ -1,6 +1,10 @@
 @extends('frontend.app')
 @section('content')
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
+
     <div style="margin: 0px 50px;">
+      
         <div class="slider-container">
             <div class="slider ">
                 <img src="{{ asset('image/sth.jpg') }}" class="w-full" style="height:500px;">
@@ -172,7 +176,8 @@
 
                     <!--Grid column-->
                     <div class="col-md-9 mb-md-0 mb-5">
-                        <form role="form" id="contact-form" name="contact-form" action="{{ route('contactmail') }}" method="POST">
+                        <form role="form" id="contact-form" name="contact-form" action="{{ route('contactmail') }}"
+                            method="POST">
                             @csrf
                             <!--Grid row-->
                             <div class="row">
@@ -225,14 +230,17 @@
                                 </div>
                             </div>
                             <!--Grid row-->
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                            @endif
 
+
+                            <div class="text-center text-md-left " style=" text-align: center;">
+                                <button class="btn btn btn-lg btn-submit"
+                                    style=" background-color: #81c5d2 ;margin-left:350px">Submit</button>
+                            </div>
+                            <div class="status"></div>
                         </form>
-
-                        <div class="text-center text-md-left " style=" text-align: center;">
-                            <a class="btn btn-lg" style=" background-color: #81c5d2 ;margin-left:350px"
-                                onclick="document.getElementById('contact-form').submit();">Send</a>
-                        </div>
-                        <div class="status"></div>
                     </div>
 
                 </div>
@@ -243,4 +251,22 @@
 
 
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+        $('#contact-form').submit(function(event) {
+            console.log('object')
+            event.preventDefault();
+
+            grecaptcha.ready(function() {
+                grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {
+                    action: 'submit'
+                }).then(function(token) {
+                    $('#contact-form').prepend(
+                        '<input type="hidden" name="g-recaptcha-response" value="' + token +
+                        '">');
+                    $('#contact-form').unbind('submit').submit();
+                });;
+            });
+        });
+    </script>
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Doctor;
 use App\Models\Patient;
 
+use App\Notifications\EmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,6 +54,13 @@ class AppointmentController extends Controller
                 $message->to('swetarajak168@gmail.com','Sweta Rajak')->subject('Appointment Booking Detail');
             }
         );
+      
+
         return redirect()->back();
+    }
+
+    public function notify(){
+       
+
     }
 }

@@ -165,6 +165,9 @@ class DoctorController extends Controller
         });
     }
 
+ 
+
+
     public function destroy(Doctor $doctor)
     {
         return DB::transaction(function () use ($doctor) {  

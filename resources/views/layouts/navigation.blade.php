@@ -17,9 +17,39 @@
                     </x-nav-link>
                 </div>
             </div>
-
+            
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span
+                            class="badge badge-warning navbar-badge">15</span> 
+                            
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        @if ($data['notification_count'] > 0)
+                        <span class="dropdown-item dropdown-header">{{ __('Notifications' )}}
+                            @if ($data['notification_message'])
+                            <li class="d-flex justify-content-end mx-1 my-2">
+                                <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm">Mark All as Read</a>
+                            </li>
+                            @endif
+                        </span>
+                      
+                        @foreach ($data['notification_message'] as $notification)
+                        <div class="dropdown-divider"></div>
+                       
+                            <a href="#" class="dropdown-item">
+                              <i class="fas fa-envelope mr-2"></i> {{ $notification }}
+                            </a>
+                           
+                            @endforeach
+                          @else
+                             <li class="p-1 text-secondary">{{ __('No notifications' )}}</li>
+                         @endif
+                    </div> 
+                </li>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -32,7 +62,7 @@
                             </div>
                         </button>
                     </x-slot>
-
+                  
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}

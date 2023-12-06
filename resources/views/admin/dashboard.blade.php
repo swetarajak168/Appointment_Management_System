@@ -15,13 +15,13 @@
 
                                     <h3>{{ $data['user_count'] }}</h3>
 
-                                    <p>Total Users</p>
+                                    <p>{{ __('Total Users') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
                                 <a href="{{ route('user.index') }}" class="small-box-footer">
-                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __(' View All') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -32,13 +32,13 @@
                                 <div class="inner">
                                     <h3>{{ $data['doctor_count'] }}</h3>
 
-                                    <p>Doctors</p>
+                                    <p>{{ __('Doctors') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-user-md" aria-hidden="true"></i>
                                 </div>
                                 <a href="{{ route('doctor.index') }}" class="small-box-footer">
-                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __('View All') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                                 </a>
                             </div>
@@ -50,13 +50,13 @@
                                 <div class="inner">
                                     <h3>{{ $data['admin_count'] }}</h3>
 
-                                    <p> Admin</p>
+                                    <p>{{ __(' Admin') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-user-plus"></i>
                                 </div>
                                 <a href="#" class="small-box-footer">
-                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __(' More info') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -66,13 +66,13 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>{{ $data['booking_count'] }}</h3>
-                                    <p>Appointments</p>
+                                    <p>{{ __('Appointments') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-stethoscope" aria-hidden="true"></i>
                                 </div>
                                 <a href="#" class="small-box-footer">
-                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __(' View All') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -82,13 +82,13 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>{{ $data['department_count'] }}</h3>
-                                    <p>Departments</p>
+                                    <p>{{ __('Departments') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-building" aria-hidden="true"></i>
                                 </div>
                                 <a href="{{ route('department.index') }}" class="small-box-footer">
-                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __('View All') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                                 </a>
                             </div>
@@ -99,13 +99,13 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>{{ $data['schedule_count'] }}</h3>
-                                    <p>Schedules</p>
+                                    <p>{{ __('Schedules') }}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                 </div>
                                 <a href="{{ route('schedule.index') }}" class="small-box-footer">
-                                    View All <i class="fas fa-arrow-circle-right"></i>
+                                    {{ __('View All') }} <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -143,40 +143,47 @@
 
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>Department</b> <a
+                                                    <b>{{ __('Department') }}</b> <a
                                                         class="float-right">{{ $data['doctor']->department->department_name }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Gender</b> <a class="float-right">{{ $data['doctor']->gender }}</a>
+                                                    <b>{{ __('Gender') }}</b> <a
+                                                        class="float-right">{{ $data['doctor']->gender }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Contact</b> <a
+                                                    <b>{{ __('Contact') }}</b> <a
                                                         class="float-right">{{ $data['doctor']->contact }}</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
+                                    {{-- @foreach ($data['notifications'] as $notification)
+                                                <a href="#" class="text-success">
+                                                    <li class="p-1 text-success">{{$notification->data['data']}}</li>
+                                                </a>
+                                            @endforeach --}}
+
 
                                     @if ($data['doctor']->booking)
                                         @foreach ($data['doctor']->booking as $book)
                                             @if ($book->status == 'approved')
-                                               {{ $data['approvedbooking'] = true}}
-                                                 <div class="card">
+                                                {{ $data['approvedbooking'] = true }}
+                                                <div class="card">
                                                     <div class="card-header">
-                                                        <h3 class="card-title">Your Upcoming Appointments</h3>
+                                                        <h3 class="card-title">{{ __('Your Upcoming Appointments') }}</h3>
                                                     </div>
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th style="width: 10px">S.N</th>
-                                                                    <th>Patient Name</th>
+                                                                    <th style="width: 10px">{{ __('S.N') }}</th>
+                                                                    <th>{{ __('Patient Name') }}</th>
                                                                     <th>
-                                                                        Date
+                                                                        {{ __('Date') }}
                                                                     </th>
-                                                                    <th>Time</th>
+                                                                    <th>{{ __('Time') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -196,28 +203,69 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                               
                                             @endif
                                         @endforeach
                                         @if (!$data['approvedbooking'])
-                                        <div class="card">
+                                            <div class="card">
 
-                                            <h1>You don't have an appointment right now</h1>
-                                        </div>
-                                         @endif
-                                    
+                                                <h1>{{ __('You dont have an appointment right now') }}</h1>
+                                            </div>
+                                        @endif
                                     @endif
+                                    
 
-                                  </div>
-                            </div>
-                        @endif
-                     @else{
-                            <p>No user found</p>
-                            }
-                     @endif
-                 </div>
-             </div>   
-        </section>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" data-toggle="dropdown" href="#">
+                                            <i class="far fa-bell"></i>
+                                            @if ($data['notification_count'] > 0)
+                                                <span
+                                                    class="badge badge-warning navbar-badge">{{ $data['notification_count'] }}</span>
+                                            @endif
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="max-width: 500px">
+                                            {{-- @if ($data['notification_count'] > 0) --}}
+                                                @if ($data['notification_message'])
+                                                    <span class="dropdown-item dropdown-header">
+                                                        <a href="{{ route('mark-as-read') }}"
+                                                            class="btn btn-success btn-sm">Mark All as
+                                                            Read</a>
+                                                    </span>
+                                                @endif
+
+
+                                                @foreach ($data['notification_message'] as $notification)
+                                                    <div class="dropdown-divider"></div>
+
+                                                    <a href="#" class="dropdown-item " >
+                                                        <i class="fas fa-envelope mr-2"></i> {{ $notification }}
+                                                    </a>
+                                                @endforeach
+                                                @foreach ($data['readnotification'] as $read_notification)
+                                                <div class="dropdown-divider"></div>
+
+                                                <a href="#" class="dropdown-item" style="background-color:	#D3D3D3">
+                                                    <i class="fas fa-envelope mr-2"></i> {{ $read_notification }}
+                                                </a>
+                                            @endforeach
+
+
+                                            {{-- @else
+                                                <a href="#" class="dropdown-item">
+                                                    <i class="fas fa-envelope mr-2"></i> {{__('No Notification')}}
+                                                </a>
+                                            @endif --}}
+                                        </div>
+                                    </li>
+            </div>
+    </div>
+    @endif
+@else{
+    <p>No user found</p>
+    }
+    @endif
+    </div>
+    </div>
+    </section>
     </div>
     <script>
         var departmentsData = {!! json_encode($data['department_name']) !!}; //convert to json string

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -11,7 +11,14 @@ class ContactController extends Controller
     //
     public function sendmail(Request $request)
     {
-        $formDetail = $request->all();
+        $formDetail =$request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+            'g-recaptcha-response' => ['required', new ReCaptcha]
+        ]);
+  
         Mail::send(
             'emails.contactmail',
             ['formDetail' => $formDetail],

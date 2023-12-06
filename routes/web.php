@@ -39,6 +39,9 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::resource('booking', BookingController::class);
+Route::get('/doctors/live-search',[BookingController::class, 'liveSearch'])->name('liveSearch.doctors'); //seaching
+Route::post('/doctors/search', [BookingController::class, 'search'])->name('searchdoctor');
+
 Route::post('/sendmail',[ContactController::class,'sendmail'])->name('contactmail');
 
 Route::middleware('auth')->group(function () {
@@ -66,12 +69,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/doctor/{doctor}/reset-password', [ResetPasswordController::class, 'reset_password'])->name('doctor.resetpassword');
 
     Route::resource('appointment', AppointmentController::class);
-
+    Route::get('user-notify', [AppointmentController::class, 'notify']);
 
     Route::resource('trash', TrashController::class);
     Route::post('/trash/{trash}/restore', [TrashController::class, 'restore'])->name('trash.restore');
 
     Route::resource('schedule', ScheduleController::class);
+
+    Route::get('/mark-as-read', [AdminController::class,'markAsRead'])->name('mark-as-read');
 });
 
 

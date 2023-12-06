@@ -8,12 +8,13 @@ use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Booking extends Model
 {
     use HasFactory;   
     use SoftDeletes;
-
+    use Notifiable;
     protected $fillable = [
         'book_date_bs',
         'book_date_ad',
