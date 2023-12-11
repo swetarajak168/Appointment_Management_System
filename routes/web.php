@@ -3,6 +3,8 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordChangeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -35,10 +37,13 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 //Routes for frontend
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
-Route::resource('booking', BookingController::class);
+Route::resource('booking', BookingController::class)->names([    
+    'departmentshow' => 'booking.index',
+    
+]);;
 Route::get('/doctors/live-search',[BookingController::class, 'liveSearch'])->name('liveSearch.doctors'); //seaching
 Route::post('/doctors/search', [BookingController::class, 'search'])->name('searchdoctor');
 
@@ -76,7 +81,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('schedule', ScheduleController::class);
 
+    Route::get('/page/changelanguage',[PageController::class, 'change_language'])->name('changelanguage');
+    Route::resource('page', PageController::class);
+
     Route::get('/mark-as-read', [AdminController::class,'markAsRead'])->name('mark-as-read');
+
+    Route::resource('menu', MenuController::class);
 });
 
 

@@ -18,9 +18,9 @@
                 </div>
             </div>
             
-            <!-- Settings Dropdown -->
+           <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
                         <span
@@ -49,7 +49,7 @@
                              <li class="p-1 text-secondary">{{ __('No notifications' )}}</li>
                          @endif
                     </div> 
-                </li>
+                </li> --}}
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -83,7 +83,7 @@
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
-            </div>
+            </div> 
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">

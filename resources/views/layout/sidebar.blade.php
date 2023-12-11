@@ -82,6 +82,22 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('page.index') }}" class="nav-link">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                            <p> 
+                                {{ __('Pages') }}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('menu.index') }}" class="nav-link">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            <p>
+                                {{ __('Dynamic Menu') }}
+                            </p>
+                        </a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" class="nav-link">

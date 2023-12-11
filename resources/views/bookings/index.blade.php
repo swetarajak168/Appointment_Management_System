@@ -1,17 +1,18 @@
 @extends('frontend.app')
 @section('content')
     <div class="container">
-        <div class="col-sm-6 mb-4">
+        <div class="col-sm-8 mb-4">
             <form action="{{ route('searchdoctor') }}" method="POST" role="search">
                 @csrf
-                <div class="input-group">
-                    <select name="department_id">
+                <div class="input-group p-2">
+                    <h3 class=" ">Search doctor:</h3>
+                    <select name="department_id" class="p-2 mx-2">
                         <option value="">Select Department</option>
                         @foreach($departments as $department)
                             <option value="{{ $department->id }}">{{ $department->department_name }}</option>
                         @endforeach
                     </select>
-                    <input type="text" class="form-control" name="search" placeholder="Search Doctor"> <span
+                    <input type="text" class="form-control " name="search" placeholder="Search Doctor"> <span
                         class="input-group-btn">
                         <button type="submit" class="btn btn-default">
                             <i class="fa fa-search" aria-hidden="true"></i>

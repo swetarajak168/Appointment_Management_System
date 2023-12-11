@@ -1,4 +1,5 @@
 @extends('layout.app')
+@inject('doctor_helper', 'App\Helpers\DoctorHelper' )
 @section('content')
     <div class="content-wrapper">
         <section class="content">
@@ -135,6 +136,10 @@
                                 </button>
                             </div>
                         </div>
+                        {{-- {!! Form::select('doctor_id', $doctor_helper->doctorlist(), null, [
+                                            'class' => 'form-select',
+                                            'placeholder' => 'select doctor',
+                                        ]) !!} --}}
                         <span class="text-danger pl-4">*Indicates required field</span>
 
                         <div class="modal-body">
