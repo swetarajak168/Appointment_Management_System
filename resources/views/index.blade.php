@@ -1,10 +1,12 @@
 @extends('frontend.app')
+@inject('testimonial_helper', 'App\Helpers\TestimonialsHelper')
+@inject('faq_helper', 'App\Helpers\FaqHelper')
 @section('content')
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js?render={{ env('GOOGLE_RECAPTCHA_KEY') }}"></script>
 
     <div style="margin: 0px 50px;">
-      
+
         <div class="slider-container">
             <div class="slider ">
                 <img src="{{ asset('image/sth.jpg') }}" class="w-full" style="height:500px;">
@@ -83,83 +85,43 @@
             </section>
             <section class="testimonials">
                 <h2 class="h1-responsive font-weight-bold text-center my-4"> Client's Testimonials</h2>
+                <br>
+                <div class="d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-info m-3" data-toggle="modal" data-target="#modal-lg">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add your review
+                    </button>
+                </div>
+
                 <div class="animated-element">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="card" style="background-color: #81c5d2">
-                                    <div class="card-header  border-bottom-0">
-                                        <h2>
-                                            John Doe
-                                        </h2>
-                                    </div>
-                                    <div class="card-body pt-0 text-center">
-
-                                        <img class="profile-user-img img-fluid img-circle"
-                                            src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
-
-                                        <br>
-                                        <div class="text-center">
-                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor "</p>
+                            @foreach ($testimonial_helper->List() as $testimonial)
+                                <div class="col-md-4">
+                                    <div class="card" style="background-color: #81c5d2">
+                                        <div class="card-header  border-bottom-0">
+                                            <h2>
+                                                {{ $testimonial->name }}
+                                            </h2>
                                         </div>
-                                        <br>
+                                        <div class="card-body pt-0 text-center">
+
+                                            <img class="profile-user-img img-fluid img-circle"
+                                                src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
+
+                                            <br>
+                                            <div class="text-center">
+                                                <p>{{ $testimonial->message }}</p>
+                                            </div>
+                                            <br>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
 
-                            <div class="col-md-4">
 
-                                <div class="card" style="background-color: #81c5d2">
-                                    <div class="card-header  border-bottom-0">
-                                        <h2>
-                                            John Doe
-                                        </h2>
-                                    </div>
-                                    <div class="card-body pt-0 text-center">
-
-                                        <img class="profile-user-img img-fluid img-circle"
-                                            src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
-
-                                        <br>
-                                        <div class="text-center">
-                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor "</p>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-
-                                <div class="card" style="background-color: #81c5d2">
-                                    <div class="card-header  border-bottom-0">
-                                        <h2>
-                                            John Doe
-                                        </h2>
-                                    </div>
-                                    <div class="card-body pt-0 text-center">
-
-                                        <img class="profile-user-img img-fluid img-circle"
-                                            src="{{ asset('storage/images/avatar.webp') }}" alt="profile">
-
-                                        <br>
-                                        <div class="text-center">
-                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor "</p>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -246,9 +208,97 @@
                 </div>
                 <section>
 
+                    <section class="faq d-flex align-items-center justify-content-center m-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card bg-transparent" >
+                                    <div class="card-header" style=" background-color: #81c5d2" >
+                                        <h3 class="card-title"  >
+
+                                            <h2 class="text-center" ><i class="fas fa-text-width"></i>Frequently Asked Questions</h2>
+                                        </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="d-flex " >
+                                        <dl class="ml-5" >
+
+                                            @foreach ($faq_helper->List() as $faq)
+                                                <dt class="h5 font-weight-bold">{{ $faq->question }}</dt>
+                                                <dd  >{{ $faq->answer }}</dd>
+                                            @endforeach
+                                        </dl>
+                                        <dl class="ml-5" >
+
+                                            @foreach ($faq_helper->faqlist() as $faq)
+                                                <dt class="h5 font-weight-bold ">{{ $faq->question }}</dt>
+                                                <dd >{{ $faq->answer }}</dd>
+                                            @endforeach
+                                        </dl>
+                                    </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- ./col -->
+
+                            <!-- ./col -->
+                        </div>
+                    </section>
+
 
         </div>
+        <div class="modal fade" id="modal-lg">
 
+            <div class="modal-dialog modal-lg">
+                <form role="form" method="post" action="{{ route('clienttestimonial.store') }} " id="userform">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Testimonial</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+
+                            <div class="form-group">
+                                <div class="row col-md-7 ">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">
+                                        Name<span class="text-danger">*</span></label><br>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control " name="name" id="name"
+                                            placeholder="Your Name..">
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="row col-md-7 mt-3 ">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">
+                                        Review<span class="text-danger">*</span></label><br>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control nepali-datepicker-schedule" name="message" id="message"
+                                            placeholder="Your Message..">
+                                        </textarea>
+                                    </div>
+                                    <br>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            <button type="submit" style="background-color: #17a2b8; color:white"
+                                class="btn btn-default float-right">Create </button>
+                        </div>
+                    </div>
+            </div>
+            </form>
+
+        </div>
 
     </div>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

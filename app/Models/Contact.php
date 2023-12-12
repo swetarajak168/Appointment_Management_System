@@ -5,16 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Module extends Model
+class Contact extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name',
-        'link'
+        'name','email','subject','message'
     ];
-
-    public function menu(){
-        return $this->hasMany(Menu::class);
-
-    }
 }

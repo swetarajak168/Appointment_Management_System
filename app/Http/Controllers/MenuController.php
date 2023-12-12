@@ -34,7 +34,6 @@ class MenuController extends Controller
     public function store(MenuRequest $request)
     {
         //
-        // dd($request);
         $validatedMenu = $request->validated();
        Menu::create($validatedMenu );
        Alert::success('success','Menu Added Successfully');

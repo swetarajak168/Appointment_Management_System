@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,37 +23,11 @@ class AdminController extends Controller
         $doctor_count = Doctor::count();
         $booking_count = Booking::count();
         $department_count = Department::count();
+        $patient_count = Patient::count();
         $schedule_count = Schedule::whereNull('deleted_at')->count();
         $doctor = auth()->user()->doctor()->first();
 
-        if($auth_user == 2){
-            if($doctor->readNotifications->isNotEmpty()){
-                $read_notifications = $doctor->readNotifications;
-                foreach($read_notifications as $read_notification){
-                    $readnotification[] = $read_notification->data['data'];
-                }
-            }
-            else{
-                $readnotification = [];
-            }
-            if ($doctor->unreadNotifications->isNotEmpty()){
-    
-                $unread_notifications = $doctor->unreadNotifications;
-                $notification_count = $unread_notifications->count();
-                
-                foreach($unread_notifications as $notification){
-                    $notification_data[] = $notification->data['data'];
-                }
-            }else{
-                $notification_count = 0;
-                $notification_data = [];
-            }
-        }else{
-            $notification_count = 0;
-                $notification_data = [];
-                $readnotification = [];
-
-        }
+       
         $department = Department::all();
         $departmentChartData = [
             'labels' => $department->pluck('department_name')->toArray(),
@@ -76,9 +51,7 @@ class AdminController extends Controller
             'schedule_count' => $schedule_count,
             'department_name' => $departmentChartData,
             'approvedbooking' => $approvedbooking,
-            'notification_count'=>  $notification_count,
-            'notification_message'=>$notification_data ,
-            'readnotification'=>$readnotification
+            'patientcount' => $patient_count
 
         ];
         return view('admin.dashboard', compact('data'));
@@ -88,7 +61,7 @@ class AdminController extends Controller
     public function markAsRead()
     {
         // dd(Auth::user());
-        // Auth::user()->doctor->unreadNotifications->markAsRead();
+        Auth::user()->doctor->unreadNotifications->markAsRead();
         return redirect()->back();
     }
 

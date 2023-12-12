@@ -2,7 +2,7 @@
 
 
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 ">
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -98,6 +98,36 @@
                             </p>
                         </a>
                     </li>
+                    
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                          <p>
+                           {{__('Client') }}
+                            <i class="right fas fa-angle-left"></i>
+                          </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                            <a href="{{ route('contactDetail.index') }}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Contact Details</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('testimonial.index') }}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Testimonials Detail</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('faq.index') }}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>FAQ</p>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
                 @else
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" class="nav-link">

@@ -109,7 +109,22 @@
                                 </a>
                             </div>
                         </div>
-
+                        
+                        <div class="col-lg-3 col-6">
+                            <!-- small card -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $data['patientcount'] }}</h3>
+                                    <p>{{ __('Patients') }}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </div>
+                                <a href="{{ route('patient.index') }}" class="small-box-footer">
+                                    {{ __('View All') }} <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
 
                         <div class="card-body">
                             <canvas id="donutChart"
@@ -123,6 +138,10 @@
                                 <div class="row mt-3">
                                     <div class="col-md-3">
                                         <div class="card  box-profile" style="padding:10px;">
+                                            <div class="card-header" style="background-color: #343a40">
+                                                <h3 class="card-title" style="color:#e5e7eb">{{ __('Profile') }}</h3>
+                                            </div>
+                                            <div class="card-body">
                                             <div class="text-center">
                                                 @if ($data['doctor']->image)
                                                     <img class="profile-user-img img-fluid img-circle"
@@ -156,120 +175,64 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                    {{-- @foreach ($data['notifications'] as $notification)
-                                                <a href="#" class="text-success">
-                                                    <li class="p-1 text-success">{{$notification->data['data']}}</li>
-                                                </a>
-                                            @endforeach --}}
-
-
-                                    @if ($data['doctor']->booking)
-                                        @foreach ($data['doctor']->booking as $book)
-                                            @if ($book->status == 'approved')
-                                                {{ $data['approvedbooking'] = true }}
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">{{ __('Your Upcoming Appointments') }}</h3>
-                                                    </div>
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="width: 10px">{{ __('S.N') }}</th>
-                                                                    <th>{{ __('Patient Name') }}</th>
-                                                                    <th>
-                                                                        {{ __('Date') }}
-                                                                    </th>
-                                                                    <th>{{ __('Time') }}</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>{{ $loop->iteration }}</td>
-                                                                    <td>
-                                                                        {{ $book->patient->name }}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ $book->book_date_bs }}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ $book->start_time . '-' . $book->end_time }}
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                        @if (!$data['approvedbooking'])
-                                            <div class="card">
-
-                                                <h1>{{ __('You dont have an appointment right now') }}</h1>
-                                            </div>
-                                        @endif
-                                    @endif
-                                    
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link" data-toggle="dropdown" href="#">
-                                            <i class="far fa-bell"></i>
-                                            @if ($data['notification_count'] > 0)
-                                                <span
-                                                    class="badge badge-warning navbar-badge">{{ $data['notification_count'] }}</span>
-                                            @endif
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="max-width: 500px">
-                                            {{-- @if ($data['notification_count'] > 0) --}}
-                                                @if ($data['notification_message'])
-                                                    <span class="dropdown-item dropdown-header">
-                                                        <a href="{{ route('mark-as-read') }}"
-                                                            class="btn btn-success btn-sm">Mark All as
-                                                            Read</a>
-                                                    </span>
-                                                @endif
-
-
-                                                @foreach ($data['notification_message'] as $notification)
-                                                    <div class="dropdown-divider"></div>
-
-                                                    <a href="#" class="dropdown-item " >
-                                                        <i class="fas fa-envelope mr-2"></i> {{ $notification }}
-                                                    </a>
-                                                @endforeach
-                                                @foreach ($data['readnotification'] as $read_notification)
-                                                <div class="dropdown-divider"></div>
-
-                                                <a href="#" class="dropdown-item" style="background-color:	#D3D3D3">
-                                                    <i class="fas fa-envelope mr-2"></i> {{ $read_notification }}
-                                                </a>
-                                            @endforeach
-
-
-                                            {{-- @else
-                                                <a href="#" class="dropdown-item">
-                                                    <i class="fas fa-envelope mr-2"></i> {{__('No Notification')}}
-                                                </a>
-                                            @endif --}}
                                         </div>
-                                    </li>
+                                    </div>
+                                    <!-- /.card-body -->                        
+
+                                    @if ($data['doctor']->booking)                                       
+                                        <div class="card">
+                                            <div class="card-header" style="background-color: #343a40">
+                                                <h3 class="card-title" style="color:#e5e7eb">{{ __('Your Upcoming Appointments') }}</h3>
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10px">{{ __('S.N') }}</th>
+                                                            <th>{{ __('Patient Name') }}</th>
+                                                            <th>
+                                                                {{ __('Date') }}
+                                                            </th>
+                                                            <th>{{ __('Time') }}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($data['doctor']->booking as $book)
+                                                        @if ($book->status == 'approved')
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>
+                                                                {{ $book->patient->name }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $book->book_date_bs }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $book->start_time . '-' . $book->end_time }}
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>                                        
+                                    @endif                                             
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                    {
+                        <p>No user found</p>
+                    }
+                    @endif
+                </div>
             </div>
-    </div>
-    @endif
-@else{
-    <p>No user found</p>
-    }
-    @endif
-    </div>
-    </div>
-    </section>
+        </section>
     </div>
     <script>
         var departmentsData = {!! json_encode($data['department_name']) !!}; //convert to json string
-        console.log(departmentsData)
         $(function() {
             var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
             var donutData = {

@@ -1,6 +1,7 @@
 @extends('layout.app')
 @inject('page_helper', 'App\Helpers\PageHelper')
 @inject('module_helper', 'App\Helpers\ModuleHelper')
+@inject('menu_helper', 'App\Helpers\ParentMenuHelper')
 
 @section('content')
     <div class="content-wrapper">
@@ -12,7 +13,6 @@
                     <div class="col-md-10 ml-5">
                         <!-- general form elements -->
                         <div class="card card-primary">
-                            {{ $errors }}
                             <!-- /.card-header -->
                             <!-- form start -->
                             {!! Form::open(['route' => 'menu.store']) !!}
@@ -45,15 +45,15 @@
                                             'id' => 'typeDropdown',
                                         ]) !!}
                                     </div>
-                                        <div id="pageColumn" style="display:none" class="form-group col-md-6">
-                                            {!! Form::label('page', 'Select page ', ['class' => 'col-sm-8 col-form-label']) !!}
+                                    <div id="pageColumn" style="display:none" class="form-group col-md-6">
+                                        {!! Form::label('page', 'Select page ', ['class' => 'col-sm-8 col-form-label']) !!}
 
-                                            {!! Form::select('page_id', $page_helper->pageList(), null, [
-                                                'class' => 'form-control  col-sm-8',
-                                                'placeholder' => 'Select Page',
-                                            ]) !!}
-                                        </div>
-                                    <div id="moduleColumn"  style="display:none" class="form-group col-md-6">
+                                        {!! Form::select('page_id', $page_helper->pageList(), null, [
+                                            'class' => 'form-control  col-sm-8',
+                                            'placeholder' => 'Select Page',
+                                        ]) !!}
+                                    </div>
+                                    <div id="moduleColumn" style="display:none" class="form-group col-md-6">
                                         {!! Form::label('module', 'Select Module ', ['class' => 'col-sm-8 col-form-label']) !!}
 
                                         {!! Form::select('module_id', $module_helper->moduleList(), null, [
@@ -61,27 +61,30 @@
                                             'placeholder' => 'Select Module',
                                         ]) !!}
                                     </div>
-                                    <div id="externalLinkColumn"  style="display:none" class="form-group col-md-6"> 
+                                    <div id="externalLinkColumn" style="display:none" class="form-group col-md-6">
                                         {!! Form::label('link', 'Enter a link', ['class' => 'col-sm-8 col-form-label']) !!}
-                                        {!! Form::text('external_link', null, ['class' => 'form-control col-sm-8', 'placeholder' => 'Enter External Link']) !!}
+                                        {!! Form::text('external_link', null, [
+                                            'class' => 'form-control col-sm-8',
+                                            'placeholder' => 'Enter External Link',
+                                        ]) !!}
                                     </div>
                                     <div class="row">
                                         {!! Form::label('children', 'Is it a child menu?', ['class' => 'col-sm-4 col-form-label']) !!}
-                                        <div class="form-check">
-                                            {!! Form::radio('parent_id', '1', false, ['class' => 'form-check-input mr-2', 'id' => 'has_parent']) !!}
-                                            {!! Form::label('type_1', 'Yes', ['class' => 'form-check-label']) !!}
+                                        {!! Form::radio('choice', 'yes', false, ['id' => 'yes']) !!} Yes
+                                        {!! Form::radio('choice', 'no', false, ['id' => 'no']) !!} No
+
+                                        <div id="select-box-container" style="display: none;">
+                                            {!! Form::label('select_box', 'Select Box') !!}
+                                            {!! Form::select('parent_id', $menu_helper->List(), null, ['id' => 'select-box']) !!}
                                         </div>
-                                        <div class="form-check">
-                                            {!! Form::radio('radio', null, false, ['class' => 'form-check-input', 'id' => 'no_parent']) !!}
-                                            {!! Form::label('type_2', 'No', ['class' => 'form-check-label']) !!}
-                                        </div>
+
                                     </div>
 
                                 </div>
                                 {!! Form::hidden('status', '1') !!}
                                 <div class="card-footer">
                                     {!! Form::submit('Create', ['class' => 'btn btn-info float-right']) !!}
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -121,6 +124,21 @@
 
             // Trigger the change event to set the initial visibility based on the default selected option
             typeDropdown.dispatchEvent(new Event('change'));
+
+            var choiceYes = document.getElementById('yes');
+            var selectBoxContainer = document.getElementById('select-box-container');
+            var selectBox = document.getElementById('select-box');
+
+            choiceYes.addEventListener('change', function() {
+                if (choiceYes.checked) {
+                    selectBoxContainer.style.display = 'block';
+                } else {
+                    selectBoxContainer.style.display = 'none';
+                }
+            });
+
+            // Trigger the change event initially to set the initial visibility
+            choiceYes.dispatchEvent(new Event('change'));
         });
     </script>
 @endsection

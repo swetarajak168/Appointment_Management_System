@@ -19,11 +19,11 @@ class Menu extends Model
         'status'
     ];
     public function module(){
-        return $this->hasMany(Module::class);
+        return $this->belongsTo(Module::class);
     }
 
     public function page(){
-        return $this->hasMany(Page::class);
+        return $this->belongsTo(Page::class);
     }
     public function parent()
     {

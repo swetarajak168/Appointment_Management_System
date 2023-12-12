@@ -1,3 +1,4 @@
+@inject('notification_helper','App\Helpers\NotificationHelper')
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,39 +18,46 @@
                     </x-nav-link>
                 </div>
             </div>
-            
            <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                {{-- <li class="nav-item dropdown">
+                @if(auth()->user()->role  == 2)
+                <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
-                        <span
-                            class="badge badge-warning navbar-badge">15</span> 
-                            
+                        <span 
+                             class="badge badge-warning navbar-badge">{{ $notification_helper->getNotifications()['unreadcount'] }} 
+                        </span>                             
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        @if ($data['notification_count'] > 0)
-                        <span class="dropdown-item dropdown-header">{{ __('Notifications' )}}
-                            @if ($data['notification_message'])
-                            <li class="d-flex justify-content-end mx-1 my-2">
-                                <a href="{{route('mark-as-read')}}" class="btn btn-success btn-sm">Mark All as Read</a>
-                            </li>
-                            @endif
-                        </span>
-                      
-                        @foreach ($data['notification_message'] as $notification)
-                        <div class="dropdown-divider"></div>
-                       
-                            <a href="#" class="dropdown-item">
-                              <i class="fas fa-envelope mr-2"></i> {{ $notification }}
-                            </a>
-                           
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="max-width: 500px">
+                        @if ($notification_helper->getNotifications()['count'] > 0)                         
+                            @if ($notification_helper->getNotifications()['unreadNotifications'])
+                                <span class="dropdown-item dropdown-header">
+                                    <a href="{{ route('mark-as-read') }}"
+                                        class="btn btn-success btn-sm">Mark All as
+                                        Read</a>
+                                </span>
+                            @endif                        
+                         
+                            @foreach ($notification_helper->getNotifications()['unreadNotifications'] as $notification )
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-envelope mr-2"></i> {{ $notification->data['data']}}
+                                </a>                                    
                             @endforeach
-                          @else
+
+                            @foreach ($notification_helper->getNotifications()['readNotification'] as $notification )
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-envelope mr-2"></i> {{ $notification->data['data']}}
+                                </a>                                    
+                            @endforeach
+
+                        @else
                              <li class="p-1 text-secondary">{{ __('No notifications' )}}</li>
-                         @endif
+                         @endif 
                     </div> 
-                </li> --}}
+                </li>
+                @endif
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">

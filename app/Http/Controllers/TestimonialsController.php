@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PatientRequest;
-use App\Models\Booking;
-use App\Models\Patient;
+use App\Models\Testimonials;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PatientController extends Controller
+class TestimonialsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +14,8 @@ class PatientController extends Controller
     public function index()
     {
         //
-        $patients = Patient::latest()->paginate(4);
-        return view('patient.index', compact('patients'));
+        $testimonials = Testimonials::all();
+        return view('testimonial.index', compact('testimonials'));
     }
 
     /**
@@ -34,29 +29,23 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PatientRequest $request)
+    public function store(Request $request)
     {
-
-        // dd($request); 
-       
+        //
     }
-   
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    
+    public function show(Testimonials $testimonials)
     {
         //
-
-        $patient = Patient::findOrFail($id);
-        return view('patient.show',compact('patient'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Testimonials $testimonials)
     {
         //
     }
@@ -64,7 +53,7 @@ class PatientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Testimonials $testimonials)
     {
         //
     }
@@ -72,9 +61,12 @@ class PatientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $testimonials)
     {
         //
-       
+        $testimonial = Testimonials::findOrFail($testimonials);
+        $testimonial->delete();
+        Alert::success('Success','Testimonial deleted successfully');
+        return redirect()->back();
     }
 }

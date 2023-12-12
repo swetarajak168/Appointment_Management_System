@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Contact;
 use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -18,6 +19,8 @@ class ContactController extends Controller
             'message' => 'required',
             'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
+
+        $contact = Contact::create($formDetail);
   
         Mail::send(
             'emails.contactmail',
@@ -31,4 +34,5 @@ class ContactController extends Controller
         return redirect()->back();
 
     }
+
 }

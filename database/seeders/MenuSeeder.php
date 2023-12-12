@@ -17,12 +17,13 @@ class MenuSeeder extends Seeder
         $modules = [
             'Home',
             'Department',
-            'Log In'
+            'Log In',
+            'Contact'
            
         ];
         $links = [
             'home',
-            'departmentshow',
+            'booking',
             'login',
         ];
 
