@@ -52,15 +52,6 @@
                                                           View
                                                         </a>                                                     
 
-                                                        <form method="POST"
-                                                            action="{{ route('patient.destroy', ['patient'=>$patient]) }}" id="delete-form">
-                                                            @csrf
-                                                            @method('DELETE')                                                                
-                                                            <button                                                                     
-                                                                class="btn btn-danger btn-sm mr-2" onclick="return deleteConfirm('Delete this patient')"><i
-                                                                    class="fa fa-trash" aria-hidden="true"></i> Delete
-                                                            </button>
-                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach

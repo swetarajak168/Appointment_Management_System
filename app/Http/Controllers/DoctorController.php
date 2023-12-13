@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorRequest;
 use App\Models\Department;
+use App\Models\District;
 use App\Models\Doctor;
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\Province;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,16 +27,16 @@ class DoctorController extends Controller
     public function create()
     {
         $departments = Department::all();
-       
-        return view('doctors.create',compact('departments'));
+
+        return view('doctors.create', compact('departments'));
     }
 
 
     public function store(DoctorRequest $request)
     {
-        
+
         return DB::transaction(function () use ($request) {
-            $validateddata = $request->validated();           
+            $validateddata = $request->validated();
             $validateddata['name'] = $validateddata['fname'] . ' ' . $validateddata['lname'];
             $validateddata['password'] = Hash::make($validateddata['password']);
             $user_store = User::create($validateddata);
@@ -45,7 +48,11 @@ class DoctorController extends Controller
                 $validateddata['image'] = 'storage/img/' . $fileName;
                 $imagePath->storeAs('public/img', $fileName);
             }
-            
+            $province = Province::where('id', $request->province)->value('province_name');
+            $district = District::where('id', $request->district)->value('name');
+
+            $validateddata['province']=$province;
+            $validateddata['district']=$district;
 
             $doctor_store = Doctor::create($validateddata);
 
@@ -58,7 +65,7 @@ class DoctorController extends Controller
                     'board' => $validateddata['board'][$key],
                     'level' => $validateddata['level'][$key],
                     'completionDate' => $validateddata['completionDate'][$key],
-                    'CompletionDateAD'=>$validateddata['CompletionDateAD'][$key],
+                    'CompletionDateAD' => $validateddata['CompletionDateAD'][$key],
                     'marks' => $validateddata['marks'][$key],
                 ];
                 Education::create($educationData);
@@ -89,9 +96,9 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $departments = Department::all();
-       
+
         $doctor = Doctor::findOrFail($id);
-        return view('doctors.edit', compact('departments','doctor')
+        return view('doctors.edit', compact('departments', 'doctor')
         );
     }
     public function show($id)
@@ -123,13 +130,13 @@ class DoctorController extends Controller
                 'status' => $doctorvalidated['status'],
             ]);
             $doctor->update($doctorvalidated);
-            
-            $del_education = Doctor::find($doctor->id);  
+
+            $del_education = Doctor::find($doctor->id);
             if ($del_education) {
-                 Education::where('doctor_id', $doctor->id)->delete();              
-                         
+                Education::where('doctor_id', $doctor->id)->delete();
+
             }
-                     
+
             foreach ($doctorvalidated['institution'] as $key => $item) {
                 $education = new Education();
                 $education->doctor_id = $doctor->id;
@@ -144,8 +151,8 @@ class DoctorController extends Controller
             }
             if ($del_education) {
                 Experience::where('doctor_id', $doctor->id)->delete();
-            } 
-            
+            }
+
             foreach ($doctorvalidated['organization_name'] as $key => $item) {
                 $experience = new Experience();
                 $experience->doctor_id = $doctor->id;
@@ -157,7 +164,7 @@ class DoctorController extends Controller
                 $experience->endEnglishDate = $doctorvalidated['endDate'][$key];
                 $experience->jobDescription = $doctorvalidated['jobDescription'][$key];
                 $experience->save();
-                    
+
             }
             Alert::success('Success', 'Doctor Updated successfully');
 
@@ -165,17 +172,25 @@ class DoctorController extends Controller
         });
     }
 
- 
+
 
 
     public function destroy(Doctor $doctor)
     {
-        return DB::transaction(function () use ($doctor) {  
-        $doctor->delete();
-       
-       
-        return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
+        return DB::transaction(function () use ($doctor) {
+            $doctor->delete();
+
+
+            return redirect()->route('doctor.index')->withSuccess('Doctor was successfully deleted.');
         });
     }
-    
+
+    public function getDistrict(Request $request)
+    {
+        $province = $request->input('province');
+        // Query the database to get districts based on the selected province
+        $districts = District::where('province_id', $province)->pluck('name', 'id');
+        return response()->json($districts);
+    }
+
 }

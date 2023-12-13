@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/doctor/{doctor}/delete', [DoctorController::class, 'destroy'])->name('doctor.delete');
 
     Route::post('/doctor/{doctor}/reset-password', [ResetPasswordController::class, 'reset_password'])->name('doctor.resetpassword');
+    Route::get('/doctor/get-districts', [DoctorController::class, 'getDistrict'])->name('get-districts');
 
     Route::resource('appointment', AppointmentController::class);
     Route::get('user-notify', [AppointmentController::class, 'notify']);

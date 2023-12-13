@@ -10,11 +10,7 @@
     </div>
     <div class="text-center">
         <h1 style="color:#20475b">
-            @if (session()->get('locale') == 'en')
                 {{ $page->title['en'] }}
-            @else
-                {{ $page->title['np'] }}
-            @endif
 
 
         </h1>
@@ -26,12 +22,8 @@
                 <!-- Your text goes here -->
              
                 <h5 class="pt-4">
-                    @if (session()->get('locale') == 'en')
                     {{ $page->content['en'] }}
-                    @else
-                    {{ $page->content['np'] }}
 
-                    @endif
                 </h5>
             </div>
             <div class="col-md-6">

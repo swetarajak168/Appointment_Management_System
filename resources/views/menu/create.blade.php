@@ -19,7 +19,7 @@
                             {!! csrf_field() !!}
                             <div class=" card-info">
                                 <div class="card-header">
-                                    <h3 class="card-title">Add Page</h3>
+                                    <h3 class="card-title">Add Menu</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
