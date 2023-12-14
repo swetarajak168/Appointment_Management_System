@@ -96,7 +96,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-
                                                         <div class="form-group col-md-12">
                                                             {!! Form::label('district', 'Select district', ['class' => 'col-sm-8 col-form-label']) !!}
                                                             {!! Form::select('district', [], old('district'), [
@@ -104,37 +103,9 @@
                                                                 'placeholder' => 'Select District',
                                                                 'id' => 'district', // Add an id to select element
                                                             ]) !!}
-                                                        </div>
-                                                        {{-- <label for="inputEmail3"
-                                                            class="col-sm-4 col-form-label">Province</label> --}}
-                                                        {{-- <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="province" id="province"
-                                                                placeholder=" Enter  province name"
-                                                                value={{ old('province') }}>
-                                                            @error('province')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div> --}}
-
+                                                        </div>                                                      
                                                     </div>
-                                                    {{-- <div class="col-md-6">
-
-                                                        <label for="inputEmail3"
-                                                            class="col-sm-4 col-form-label">District</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="district" id="district"
-                                                                placeholder=" Enter your district "
-                                                                value={{ old('district') }}>
-                                                            @error('district')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-
-                                                    </div> --}}
+                                                   
                                                 </div>
                                             </div>
 
@@ -142,18 +113,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
 
-                                                        <label for="inputEmail3"
-                                                            class="col-sm-4 col-form-label">Municipality</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control "
-                                                                name="municipality" id="municipality"
-                                                                placeholder=" Enter your municipality "
-                                                                value={{ old('municipality') }}>
-                                                            @error('municipality')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            {!! Form::label('municipality', 'Select municipality', ['class' => 'col-sm-8 col-form-label']) !!}
+                                                            {!! Form::select('municipality', [], old('municipality'), [
+                                                                'class' => 'form-control col-sm-12',
+                                                                'placeholder' => 'Select Municipality',
+                                                                'id' => 'municipality', // Add an id to select element
+                                                            ]) !!}
+                                                        </div>    
 
                                                     </div>
                                                     <div class="col-md-6">
@@ -597,6 +564,34 @@
                             // Add new options based on the response
                             $.each(response, function(id, name) {
                                 $('#district').append('<option value="' + id + '">' + name +
+                                    '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+
+                $('#district').change(function() {
+                    var selectedDistrict = $(this).val();
+                    console.log(selectedDistrict);
+                    // Make an AJAX request to get districts for the selected province
+                    $.ajax({
+                        url: '{{ route('get-municipality') }}',
+                        method: 'GET',
+                        data: {
+                            district: selectedDistrict
+                        },
+                        success: function(response) {
+                            // Clear existing options
+                            $('#municipality').empty();
+
+                            $('#municipality').append('<option value="">Select Municipality</option>');
+
+                            // Add new options based on the response
+                            $.each(response, function(id, name) {
+                                $('#municipality').append('<option value="' + id + '">' + name +
                                     '</option>');
                             });
                         },

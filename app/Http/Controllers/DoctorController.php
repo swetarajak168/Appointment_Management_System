@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\Doctor;
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\Municipality;
 use App\Models\Province;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,9 +51,11 @@ class DoctorController extends Controller
             }
             $province = Province::where('id', $request->province)->value('province_name');
             $district = District::where('id', $request->district)->value('name');
+            $municipality = Municipality::where('id', $request->municipality)->value('name');
 
             $validateddata['province']=$province;
             $validateddata['district']=$district;
+            $validateddata['municipality']=$municipality;
 
             $doctor_store = Doctor::create($validateddata);
 
@@ -192,5 +195,10 @@ class DoctorController extends Controller
         $districts = District::where('province_id', $province)->pluck('name', 'id');
         return response()->json($districts);
     }
-
+   public function getMunicipality(Request $request){
+    $district_id = $request->input("district");
+    $district = District::findOrFail($district_id);
+    $municipality = Municipality::where('district_name', $district->name)->pluck('name', 'id');
+    return response()->json($municipality);
+   }
 }

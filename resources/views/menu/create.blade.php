@@ -73,6 +73,7 @@
                                         {!! Form::radio('choice', 'yes', false, ['id' => 'yes']) !!} Yes
                                         {!! Form::radio('choice', 'no', false, ['id' => 'no']) !!} No
 
+                                        {{-- {{ dd($menu_helper->List()) }} --}}
                                         <div id="select-box-container" style="display: none;">
                                             {!! Form::label('select_box', 'Select Box') !!}
                                             {!! Form::select('parent_id', $menu_helper->List(), null, ['id' => 'select-box']) !!}

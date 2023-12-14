@@ -1,4 +1,7 @@
 @extends('layout.app')
+@inject('province_helper', 'App\Helpers\ProvinceHelper')
+@inject('department_helper', 'App\Helpers\DepartmentHelper')
+
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -94,37 +97,26 @@
                                             <div class="container mt-3">
                                                 <div class="row">
                                                     <div class="col-md-6">
-
-                                                        <label for="inputEmail3"
-                                                            class="col-sm-4 col-form-label">Province</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="province" id="province"
-                                                                placeholder=" Enter  province name"
-                                                                value={{ old('province',$doctor->province) }}>
-                                                            @error('province')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
+                                                        <div class="form-group col-md-12">
+                                                            {!! Form::label('province', 'Province ', ['class' => 'col-sm-8 col-form-label']) !!}
+                                                            {!! Form::select('province', $province_helper->ProvinceList(),  old('province', $doctor->province), [
+                                                                'class' => 'form-control  col-md-12',
+                                                                'placeholder' => 'Select Province',
+                                                                'id' => 'province',
+                                                            ]) !!}
                                                         </div>
-
                                                     </div>
                                                     <div class="col-md-6">
-
-                                                        <label for="inputEmail3"
-                                                            class="col-sm-4 col-form-label">District</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" style="width:150%"
-                                                                onchange='formvalidation()' class="form-control"
-                                                                name="district" id="district"
-                                                                placeholder=" Enter your district "
-                                                                value={{ old('district', $doctor->district) }}>
-                                                            @error('district')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-
+                                                        <div class="form-group col-md-12">
+                                                            {!! Form::label('district', 'Select district', ['class' => 'col-sm-8 col-form-label']) !!}
+                                                            {!! Form::select('district', [], old('district'), [
+                                                                'class' => 'form-control col-sm-12',
+                                                                'placeholder' => 'Select District',
+                                                                'id' => 'district', // Add an id to select element
+                                                            ]) !!}
+                                                        </div>                                                      
                                                     </div>
+                                                   
                                                 </div>
                                             </div>
 
@@ -245,7 +237,6 @@
                                             <div class="container mb-3">
                                                 <div class="row">
                                                     <div class="col-md-6">
-
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Specialization</label>
                                                         <div class="col-sm-8">
@@ -260,7 +251,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    {{-- <div class="col-md-6">
                                                         
                                                         <label for="inputEmail3" class="col-sm-4 col-form-label">
                                                             Department</label>
@@ -278,7 +269,17 @@
                                                             @enderror
                                                         </div>
 
+                                                    </div> --}}
+                                                    <div class="col-md-6">
+                                                        {!! Form::label('department_id', 'Department', ['class' => 'col-sm-4 col-form-label']) !!}
+                                                        <div class="col-sm-8">
+                                                            {!! Form::select('department_id', $department_helper->departmentList(), $doctor->department->id, ['class' => 'form-control', 'id' => 'department']) !!}
+                                                            @error('department_id')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
 

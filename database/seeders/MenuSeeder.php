@@ -23,8 +23,9 @@ class MenuSeeder extends Seeder
         ];
         $links = [
             'home',
-            'booking',
+            'booking.index',
             'login',
+            'contact'
         ];
 
         foreach ($modules as $key => $module) {

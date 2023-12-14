@@ -1,13 +1,12 @@
 @inject('dynamic_menu', 'App\Helpers\DynamicMenuHelper')
 <nav class=" navbar navbar-expand  navbar-light mb-3" style="background-color: #81c5d2">
-    {{-- {{ dd($menus) }} --}}
     <!-- Left navbar links -->
     <ul class="navbar-nav" style="padding-left: 200px;">
         <li class="nav-item " style="padding-right: 100px">
             <a href="/" class="nav-link"><i class="fa fa-stethoscope" aria-hidden="true"></i> {{ __('AMS') }}</a>
         </li>
-        {{-- {{ dd($dynamic_menu->menuList()) }} --}}
         @foreach ($dynamic_menu->menuList() as $menu)
+     
             @if ($menu->parent_id == null)
                 @if ($menu->children->isNotEmpty())
                     <div class="nav-item dropdown">

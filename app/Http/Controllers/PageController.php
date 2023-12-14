@@ -24,7 +24,6 @@ class PageController extends Controller
         //
         $pages = Page::get();
         // $page = $this->page->all();
-        // dd($page);
         return view('pages.index',compact('pages'));
     }
 

@@ -86,18 +86,8 @@
                         <li>Khalti</li>
                     </ul>
                 </div>
-                {{-- <div class="col-sm-2">
-                        <h3>Contact</h3>
-                        <ul class="list-unstyled">
-                            <a style="color:black">
-                                <li ><i class="fa fa-facebook" aria-hidden="true"></i>
-                            </li>
-                                </a>
-                            <li><i class="fa fa-linkedin-square" aria-hidden="true"></i></li>
-                            <li>Orthology</li>
-                            <li>Orthology</li>
-                        </ul>
-                    </div> --}}
+              
+                
             </div>
 
         </div>

@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Menu;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class IndexController extends Controller
 {
@@ -35,9 +36,14 @@ class IndexController extends Controller
         // Fetch the page based on the provided slug
         $page = Page::where('slug', $slug)->first();
         // Check if the page exists
-
+        
         // Pass the page data to the view
         return view('frontend.show', compact('page'));
+    }
+    public function change_language(Request $request){
+        App::setLocale($request->lang);
+        session()->put('lang', $request->lang);
+        return redirect()->back();
     }
 }
 

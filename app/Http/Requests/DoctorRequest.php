@@ -72,7 +72,7 @@ class DoctorRequest extends FormRequest
             'contact' => 'required|string|max:255',
             'province' => 'required|max:255',
             'district' => 'required|max:255',
-            'municipality' => 'required|string|max:255',
+            'municipality' => 'required|max:255',
             'ward' => 'required|Integer|max:255',
             'tole' => 'required|string|max:255',
             'gender' => 'required',

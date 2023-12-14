@@ -21,8 +21,8 @@
                                                         Page</a>
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
 
                                         </div>
                                     </div>
@@ -35,8 +35,8 @@
                                     @endif
                                     {{-- {{ dd($pages)}} --}}
                                     <div class="card-body table-responsive p-0">
-                                        <div class="row p-3" >
-                                        <h5 class="">Select Language: </h5>
+                                        <div class="row p-3">
+                                            <h5 class="">Select Language: </h5>
 
                                             <div class="col-md-4">
                                                 <select class="form-control languagechange"
@@ -64,84 +64,89 @@
 
                                             <tbody>
                                                 @foreach ($pages as $page)
-                                                    @if (session()->get('locale') == 'en')
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
+                                                    @if ($page)
+                                                        @if (session()->get('locale') == 'en')
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
 
-                                                            <td>
-                                                                {{ $page->title['en'] }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $page->content['en'] }}
-                                                            </td>
-                                                            <td>{{ $page->slug }}</td>
+                                                                <td>
+                                                                    {{ $page->title['en'] }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $page->content['en'] }}
+                                                                </td>
+                                                                <td>{{ $page->slug }}</td>
 
-                                                            <td>{{ $page->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                                            <td class="d-flex mr-2">
-                                                                <a href="{{ route('page.show', ['page' => $page]) }}"
-                                                                    class = "btn btn-success btn-sm mr-2">
-                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                                    View
-                                                                </a>
+                                                                <td>{{ $page->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                                                <td class="d-flex mr-2">
+                                                                    <a href="{{ route('page.show', ['page' => $page]) }}"
+                                                                        class = "btn btn-success btn-sm mr-2">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                        View
+                                                                    </a>
 
-                                                                <a href="{{ route('page.edit', ['page' => $page]) }}"
-                                                                    class="btn btn-primary btn-sm mr-2">
-                                                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                                </a>
+                                                                    <a href="{{ route('page.edit', ['page' => $page]) }}"
+                                                                        class="btn btn-primary btn-sm mr-2">
+                                                                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                                                                    </a>
 
-                                                                <form method="POST"
-                                                                    action="{{ route('page.destroy', ['page' => $page]) }}"
-                                                                    id="delete-form">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="btn btn-danger btn-sm mr-2"
-                                                                        onclick="return deleteConfirm('Delete this page')"><i
-                                                                            class="fa fa-trash" aria-hidden="true"></i>
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </td>
+                                                                    <form method="POST"
+                                                                        action="{{ route('page.destroy', ['page' => $page]) }}"
+                                                                        id="delete-form">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="btn btn-danger btn-sm mr-2"
+                                                                            onclick="return deleteConfirm('Delete this page')"><i
+                                                                                class="fa fa-trash" aria-hidden="true"></i>
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
 
-                                                        </tr>
+                                                            </tr>
+                                                        @else
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+
+                                                                <td>
+                                                                    {{ $page->title['np'] }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $page->content['np'] }}
+                                                                </td>
+                                                                <td>{{ $page->slug }}</td>
+
+                                                                <td>{{ $page->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                                                <td class="d-flex mr-2">
+                                                                    <a href="{{ route('page.show', ['page' => $page]) }}"
+                                                                        class = "btn btn-success btn-sm mr-2">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                        View
+                                                                    </a>
+
+                                                                    <a href="{{ route('page.edit', ['page' => $page]) }}"
+                                                                        class="btn btn-primary btn-sm mr-2">
+                                                                        <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                                                                    </a>
+
+                                                                    <form method="POST"
+                                                                        action="{{ route('page.destroy', ['page' => $page]) }}"
+                                                                        id="delete-form">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="btn btn-danger btn-sm mr-2"
+                                                                            onclick="return deleteConfirm('Delete this page')"><i
+                                                                                class="fa fa-trash" aria-hidden="true"></i>
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+
+                                                            </tr>
+                                                        @endif
                                                     @else
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-
-                                                            <td>
-                                                                {{ $page->title['np'] }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $page->content['np'] }}
-                                                            </td>
-                                                            <td>{{ $page->slug }}</td>
-
-                                                            <td>{{ $page->status == 1 ? 'Active' : 'Inactive' }}</td>
-                                                            <td class="d-flex mr-2">
-                                                                <a href="{{ route('page.show', ['page' => $page]) }}"
-                                                                    class = "btn btn-success btn-sm mr-2">
-                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                                    View
-                                                                </a>
-
-                                                                <a href="{{ route('page.edit', ['page' => $page]) }}"
-                                                                    class="btn btn-primary btn-sm mr-2">
-                                                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit
-                                                                </a>
-
-                                                                <form method="POST"
-                                                                    action="{{ route('page.destroy', ['page' => $page]) }}"
-                                                                    id="delete-form">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="btn btn-danger btn-sm mr-2"
-                                                                        onclick="return deleteConfirm('Delete this page')"><i
-                                                                            class="fa fa-trash" aria-hidden="true"></i>
-                                                                        Delete
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-
-                                                        </tr>
+                                                        {{-- Handle the case when $page is null --}}
+                                                        Page not found
                                                     @endif
                                                 @endforeach
                                             </tbody>

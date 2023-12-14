@@ -56,6 +56,8 @@ class MenuController extends Controller
     public function edit(string $id)
     {
         //
+        $menu = Menu::findOrFail($id);
+        return  view('menu.edit',compact('menu'));
     }
 
     /**
@@ -72,5 +74,9 @@ class MenuController extends Controller
     public function destroy(string $id)
     {
         //
+        $menu = Menu::findOrFail($id);
+        $menu->delete();
+        Alert::success('Sucess','Menu deleted');
+        return redirect()->back();
     }
 }

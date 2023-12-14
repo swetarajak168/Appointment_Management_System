@@ -46,8 +46,10 @@ Route::get('/login', function () {
 Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 //Routes for frontend
 Route::get('/', [IndexController::class, 'index'])->name('home');
-// Route::get('/about', [IndexController::class, 'about'])->name('about-us');
-Route::get('/page/{slug}', [IndexController::class, 'show'])->name('dynamicpage');
+
+Route::get('/dynamicpage/{slug}', [IndexController::class, 'show'])->name('dynamicpage');
+Route::get('/menu/changelanguage',[IndexController::class, 'change_language'])->name('language');
+
 Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::resource('booking', BookingController::class);
 Route::resource('clienttestimonial', TestimonialStoreController::class);
@@ -80,6 +82,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/doctor/{doctor}/reset-password', [ResetPasswordController::class, 'reset_password'])->name('doctor.resetpassword');
     Route::get('/doctor/get-districts', [DoctorController::class, 'getDistrict'])->name('get-districts');
+    Route::get('/doctor/get-municipality', [DoctorController::class, 'getMunicipality'])->name('get-municipality');
 
     Route::resource('appointment', AppointmentController::class);
     Route::get('user-notify', [AppointmentController::class, 'notify']);

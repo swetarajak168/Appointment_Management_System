@@ -11,7 +11,7 @@ class ParentMenuHelper
 
     public function List()
     {
-        $modules = Menu::orderBy('Order')->pluck('Name');
+        $modules = Menu::orderBy('Order')->pluck('Name','id');
         return $modules;
     }
    
